@@ -1,0 +1,85 @@
+# doc: https://pylxd.readthedocs.io/en/latest/containers.html
+from time import sleep
+
+from pylxd.exceptions import LXDAPIException
+
+from utils2devops.lxd import BaseLXD
+
+
+class Container(BaseLXD):
+    """ missing feature for command line """
+
+    @staticmethod
+    def base_line(container):
+        to_print = ''
+        if 'user.juju-is-controller' in container.config:
+            to_print += 'Controller, '
+        if 'user.juju-machine-id' in container.config:
+            to_print += '{}, '.format(
+                container.config['user.juju-machine-id']
+            )
+        if 'user.juju-units-deployed' in container.config:
+            to_print += '{}, '.format(
+                container.config['user.juju-units-deployed']
+            )
+        return to_print
+
+    def delete_all(self, controller_uuid, model_uuid):
+        for container in self.client.containers.all():
+            if container.config['user.juju-controller-uuid'] == controller_uuid\
+                    or container.config['user.juju-model-uuid'] == model_uuid:
+                to_print = Container.base_line(container)
+                if container.status == 'Running':
+                    print('Stopping container: ', to_print, container.name)
+                    container.stop()
+                else:
+                    print('Container {} already Stopped', container.name)
+                sleep(1)
+                print('Freezing container: ', to_print, container.name)
+                container.freeze()
+                sleep(1)
+                print('Deleting container: ', to_print, container.name)
+                container.delete()
+        print('''
+        Due to the amount of work to do the real effect could take some minutes
+        it better to check time to time with the command:
+        lxc list
+        ''')
+
+    def status_all(self):
+        for container in self.client.containers.all():
+            try:
+                to_print = self.base_line(container)
+                if self.DEBUG:
+                    to_print += 'controller-uuid: {}, model-uuid: {}, '.format(
+                        container.config['user.juju-controller-uuid'],
+                        container.config['user.juju-model-uuid']
+                    )
+                to_print += 'name: {0: <10}, status: {1:15}'.format(
+                    container.name, container.status)
+                print(to_print)
+
+            except AttributeError or LXDAPIException:
+                print('{0: <25}:{1:25}'.format("container", 'Starting'))
+
+    def start_all(self, controller_uuid, model_uuid):
+        for container in self.client.containers.all():
+            if container.config['user.juju-controller-uuid'] == controller_uuid\
+                    or container.config['user.juju-model-uuid'] == model_uuid:
+                if container.status != 'Running':
+                    to_print = Container.base_line(container)
+                    print('Starting container: ', to_print, container.name)
+                    container.start()
+                else:
+                    print('"Container {} already Running', container.name)
+
+    def stop_all(self, controller_uuid, model_uuid):
+        for container in self.client.containers.all():
+            if container.config['user.juju-controller-uuid'] == controller_uuid\
+                    or container.config['user.juju-model-uuid'] == model_uuid:
+                if container.status == 'Running':
+                    to_print = Container.base_line(container)
+                    print('Stopping container: ', to_print, container.name)
+                    container.stop()
+                else:
+                    print('Container {} already Stopped', container.name)
