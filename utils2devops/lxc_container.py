@@ -27,7 +27,7 @@ group3 = parser.add_argument_group()
 group3.add_argument('-controller_uuid', default='', required=False, help='''
     All container of that controller UUID, get it with -d -statusAll''')
 group3.add_argument('-model_uuid', default='', required=False, help='''
-    All container of that modele UUID, get it with -d -statusAll''')
+    All container of that model UUID, get it with -d -statusAll''')
 
 
 if __name__ == '__main__':
