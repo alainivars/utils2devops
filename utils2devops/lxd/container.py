@@ -31,7 +31,7 @@ class Container(BaseLXD):
             )
         return to_print
 
-    def delete_all(self, controller_uuid, model_uuid):
+    def delete_all(self, controller_uuid: str, model_uuid: str):
         for container in self.client.containers.all():
             if (container.config['user.juju-controller-uuid'] == controller_uuid
                     or container.config['user.juju-model-uuid'] == model_uuid) \
@@ -58,9 +58,12 @@ class Container(BaseLXD):
         for container in self.client.containers.all():
             try:
                 to_print = self.base_line(container)
-                if self.DEBUG:
-                    to_print += 'controller-uuid: {}, model-uuid: {}, '.format(
+                if self.VERBOSE == 1:
+                    to_print += 'controller-uuid: {}, '.format(
                         container.config['user.juju-controller-uuid'],
+                    )
+                if self.VERBOSE == 2:
+                    to_print += 'model-uuid: {}, '.format(
                         container.config['user.juju-model-uuid']
                     )
                 to_print += 'name: {0: <10}, status: {1:15}'.format(
@@ -70,7 +73,7 @@ class Container(BaseLXD):
             except AttributeError or LXDAPIException:
                 print('{0: <25}:{1:25}'.format("container", 'Starting'))
 
-    def start_all(self, controller_uuid, model_uuid):
+    def start_all(self, controller_uuid: str, model_uuid: str):
         for container in self.client.containers.all():
             if (container.config['user.juju-controller-uuid'] == controller_uuid
                     or container.config['user.juju-model-uuid'] == model_uuid) \
@@ -82,7 +85,7 @@ class Container(BaseLXD):
                 else:
                     print('"Container {} already Running', container.name)
 
-    def stop_all(self, controller_uuid, model_uuid):
+    def stop_all(self, controller_uuid: str, model_uuid: str):
         for container in self.client.containers.all():
             if (container.config['user.juju-controller-uuid'] == controller_uuid
                     or container.config['user.juju-model-uuid'] == model_uuid) \
@@ -94,7 +97,7 @@ class Container(BaseLXD):
                 else:
                     print('Container {} already Stopped', container.name)
 
-    def delete_controller(self, controller_uuid):
+    def delete_controller(self, controller_uuid: str):
         raise NotImplemented
         # for container in self.client.containers.all():
         #     if container.config['user.juju-controller-uuid'] == controller_uuid\
@@ -121,14 +124,14 @@ class Container(BaseLXD):
         for container in self.client.containers.all():
             if Container.is_controller(container):
                 to_print = self.base_line(container)
-                if self.DEBUG:
+                if self.VERBOSE:
                     to_print += 'controller-uuid: {}, '.format(
                         container.config['user.juju-controller-uuid'])
                 to_print += 'Controller name: {0: <10}, status: {1:15}'.format(
                     container.name, container.status)
                 print(to_print)
 
-    def start_controller(self, controller_uuid):
+    def start_controller(self, controller_uuid: str):
         for container in self.client.containers.all():
             if container.config['user.juju-controller-uuid'] == controller_uuid\
                     and Container.is_controller(container):
@@ -139,7 +142,7 @@ class Container(BaseLXD):
                 else:
                     print('"Controller {} already Running', container.name)
 
-    def stop_controller(self, controller_uuid):
+    def stop_controller(self, controller_uuid: str):
         for container in self.client.containers.all():
             if container.config['user.juju-controller-uuid'] == controller_uuid\
                     and Container.is_controller(container):
