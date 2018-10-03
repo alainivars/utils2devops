@@ -33,8 +33,8 @@ class Container(BaseLXD):
 
     def delete_all(self, controller_uuid, model_uuid):
         for container in self.client.containers.all():
-            if container.config['user.juju-controller-uuid'] == controller_uuid\
-                    or container.config['user.juju-model-uuid'] == model_uuid \
+            if (container.config['user.juju-controller-uuid'] == controller_uuid
+                    or container.config['user.juju-model-uuid'] == model_uuid) \
                     and not Container.is_controller(container):
                 to_print = Container.base_line(container)
                 if container.status == 'Running':
@@ -72,8 +72,8 @@ class Container(BaseLXD):
 
     def start_all(self, controller_uuid, model_uuid):
         for container in self.client.containers.all():
-            if container.config['user.juju-controller-uuid'] == controller_uuid\
-                    or container.config['user.juju-model-uuid'] == model_uuid \
+            if (container.config['user.juju-controller-uuid'] == controller_uuid
+                    or container.config['user.juju-model-uuid'] == model_uuid) \
                     and not Container.is_controller(container):
                 if container.status != 'Running':
                     to_print = Container.base_line(container)
@@ -84,8 +84,8 @@ class Container(BaseLXD):
 
     def stop_all(self, controller_uuid, model_uuid):
         for container in self.client.containers.all():
-            if container.config['user.juju-controller-uuid'] == controller_uuid\
-                    or container.config['user.juju-model-uuid'] == model_uuid \
+            if (container.config['user.juju-controller-uuid'] == controller_uuid
+                    or container.config['user.juju-model-uuid'] == model_uuid) \
                     and not Container.is_controller(container):
                 if container.status == 'Running':
                     to_print = Container.base_line(container)
