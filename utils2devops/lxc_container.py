@@ -5,10 +5,10 @@ from utils2devops.lxd import __version__
 from utils2devops.lxd.container import Container
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-v', '--version', action='version', version=__version__)
+parser.add_argument('-V', '--version', action='version', version=__version__)
 group1 = parser.add_argument_group()
-group1.add_argument('-d', '--debug', action='store_true', default=False,
-                    help='disply debug infos')
+group1.add_argument('-v', '--verbose', type=int, default=0,
+                    help='verbose infos: 0=none, 1=Little, 2=more, 3=full')
 group1.add_argument('-e', '--endpoint', help='the endpoint if not local')
 group1.add_argument('-c', '--cert', help='''
 tuple of (cert, key) like ('/path/to/client.crt', '/path/to/client.key')''')
@@ -33,9 +33,9 @@ group3.add_argument('-model_uuid', default='', required=False, help='''
 if __name__ == '__main__':
     args = parser.parse_args()
     if args.endpoint:
-        object = Container(args.debug, args.endpoint, args.cert)
+        object = Container(args.verbose, args.endpoint, args.cert)
     else:
-        object = Container(args.debug)
+        object = Container(args.verbose)
     if args.statusAll:
         object.status_all()
     elif args.startAll:
