@@ -22,6 +22,17 @@ I will use this function / class and say a big thank you to this person.
 sudo apt-get install python-pylxd lxd
 ```
 
+
+# to use terraform_import and aws
+## require
+```shell
+sudo pip3 install --upgrade awscli
+export PATH=/home/ec2-user/.local/bin:$PATH
+```
+Create an AWS account
+Install Terraform
+https://learn.hashicorp.com/terraform/getting-started/install.html
+
 # Thanks to
     - All contributors of all open sources projects
     
