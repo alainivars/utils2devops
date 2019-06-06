@@ -14,4 +14,7 @@ terraform import aws_s3_bucket.bucket my-bucket-test-1
 
 terraform import aws_network_acl.main acl-f1780b98
 
-Them a terraform.tfstate will be generated with your config.
+terraform import aws_lambda_layer_version.test_layer arn:aws:lambda:us-east-2:397270606208:layer:aws_lambda_read_s3:1
+
+
+Them a terraform.tfstate will be generated or updated with your config.

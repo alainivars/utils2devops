@@ -14,3 +14,7 @@ resource "aws_s3_bucket" "bucket" {
 resource "aws_network_acl" "main" {
   # (resource arguments)
 }
+
+resource "aws_lambda_layer_version" "test_layer" {
+  # (resource arguments)
+}
