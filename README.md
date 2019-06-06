@@ -18,6 +18,9 @@ We will use :
 - Terraform
 - ...
 
+To develop or improve this library you can run it with the env DEBUG_OR_IMPROVE
+
+
 [Github-flavored Markdown](https://guides.github.com/features/mastering-markdown/)
 
 # to use lxd_module
