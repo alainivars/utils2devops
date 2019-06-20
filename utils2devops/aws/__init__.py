@@ -2,15 +2,21 @@
 
 class BlockTypeBase:
     """
-    Describe at: https://www.terraform.io/docs/configuration/index.html
+    Described at: https://www.terraform.io/docs/configuration/index.html \n
     Generate the base block type with the format:
 
     <BLOCK TYPE> "<BLOCK LABEL>" "<BLOCK NAME>" {
       # Block body
       <IDENTIFIER> = <EXPRESSION> # Argument
     }
+
     """
     def __init__(self, btype, label, name=''):
+        """
+        Create new object, called automatically
+
+        :param name:
+        """
         self.type = btype
         self.label = label
         self.name = name
@@ -26,9 +32,14 @@ Virtual Private Cloud
 
 class Vpc(BlockTypeBase):
     """
-
+    Virtual Private Cloud
     """
-    def __init__(self, name='') :
+    def __init__(self, name=''):
+        """
+        Create new object, called automatically
+
+        :param name:
+        """
         super(Vpc, self).__init__(
             btype='resource', label='aws_vpc', name=name)
         self.cidr_block = ''
@@ -54,9 +65,14 @@ class Vpc(BlockTypeBase):
 
 class Subnet(BlockTypeBase):
     """
-
+    Subnet
     """
-    def __init__(self, name='') :
+    def __init__(self, name=''):
+        """
+        Create new object, called automatically
+
+        :param name:
+        """
         super(Subnet, self).__init__(
             btype='resource', label='aws_subnet', name=name)
         self.vpc_id = ''
@@ -86,9 +102,14 @@ class Subnet(BlockTypeBase):
 
 class InternetGateway(BlockTypeBase):
     """
-
+    Internet Gateway
     """
-    def __init__(self, name='') :
+    def __init__(self, name=''):
+        """
+        Create new object, called automatically
+
+        :param name:
+        """
         super(InternetGateway, self).__init__(
             btype='resource', label='aws_internet_gateway', name=name)
         self.vpc_id = ''
@@ -106,13 +127,18 @@ class InternetGateway(BlockTypeBase):
 
 class RouteTable(BlockTypeBase):
     """
-
+    Route Table
     """
-    def __init__(self, name='') :
+    def __init__(self, name=''):
+        """
+        Create new object, called automatically
+
+        :param name:
+        """
         super(RouteTable, self).__init__(
             btype='resource', label='aws_route_table', name=name)
         self.vpc_id = ''
-        self.route =  {
+        self.route = {
             'cidr_block': '',
             'gateway_id': '',
         }
@@ -132,16 +158,20 @@ class RouteTable(BlockTypeBase):
 
 
 """
-Security 
+Security
 """
 
 
 class Gress:
-
     """
-
+    Gress part
     """
-    def __init__(self, name='') :
+    def __init__(self, _=''):
+        """
+        Create new object, called automatically
+
+        :param _:
+        """
         self.rule_no = 100
         self.action = 'deny'
         self.cidr_block = "0.0.0.0/0"
@@ -167,9 +197,14 @@ class Gress:
 
 class NetworkAcl(BlockTypeBase):
     """
-
+    Network Acl
     """
-    def __init__(self, name='') :
+    def __init__(self, name=''):
+        """
+        Create new object, called automatically
+
+        :param name:
+        """
         super(NetworkAcl, self).__init__(
             btype='resource', label='aws_network_acl', name=name)
         self.vpc_id = ''
@@ -181,7 +216,7 @@ class NetworkAcl(BlockTypeBase):
     def __str__(self):
         if any('Name' in d['Key'] for d in self.tags):
             for tag in self.tags:
-                if tag['Key'] == 'Name':
+                if tag['Key'] == 'Name' and tag['Value'] not in self.name:
                     self.name = self.name + '-' + tag['Value']
                     break
         the_str = super(NetworkAcl, self).__str__()
@@ -207,9 +242,14 @@ class NetworkAcl(BlockTypeBase):
 
 class SecurityGroup(BlockTypeBase):
     """
-
+    Security Group
     """
-    def __init__(self, name='') :
+    def __init__(self, name=''):
+        """
+        Create new object, called automatically
+
+        :param name:
+        """
         super(SecurityGroup, self).__init__(
             btype='resource', label='aws_security_group', name=name)
         self.name = ''
@@ -236,15 +276,21 @@ class SecurityGroup(BlockTypeBase):
 
 
 """
-Lambda 
+Lambda
 """
 
 
 class Lambda(BlockTypeBase):
     """
+    Lambda
     https://www.terraform.io/docs/providers/aws/r/lambda_function.html
     """
-    def __init__(self, name='') :
+    def __init__(self, name=''):
+        """
+        Create new object, called automatically
+
+        :param name:
+        """
         super(Lambda, self).__init__(
             btype='resource', label='aws_lambda_function', name=name)
         self.ofilename = None
@@ -331,17 +377,23 @@ class Lambda(BlockTypeBase):
 
 
 """
-S3 
+S3
 """
 
 
 class S3Bucket(BlockTypeBase):
     """
+    S3 Bucket
     https://www.terraform.io/docs/providers/aws/r/s3_bucket.html
     """
-    def __init__(self, name='') :
+    def __init__(self, name=''):
+        """
+        Create new object, called automatically
+
+        :param name:
+        """
         super(S3Bucket, self).__init__(
-            btype='resource', label='aws_lambda_function', name=name)
+            btype='resource', label='aws_s3_bucket', name=name)
         self.bucket = None
         self.acl = None
         self.versioning = None
@@ -358,4 +410,35 @@ class S3Bucket(BlockTypeBase):
         return the_str
 
 
+"""
+ApiGatewayV2
+"""
 
+
+class ApiGatewayV2(BlockTypeBase):
+    """
+    Api Gateway V2
+    todo
+    """
+    def __init__(self, name=''):
+        """
+        Create new object, called automatically
+
+        :param name:
+        """
+        super(ApiGatewayV2, self).__init__(
+            btype='resource', label='aws_api_gateway_v2', name=name)
+        self.bucket = None
+        self.acl = None
+        self.versioning = None
+
+    def __str__(self):
+        the_str = super(ApiGatewayV2, self).__str__()
+        the_str += '\tbucket = "' + self.bucket + '"\n'
+        if self.acl:
+            the_str += '\tacl = "' + self.acl + '"\n'
+        if self.versioning:
+            the_str += '\tversioning {\n\t\tenabled = ' + self.versioning + '\n\t}\n'
+        the_str += 'TODO\n'
+        the_str += '}\n'
+        return the_str
