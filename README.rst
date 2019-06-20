@@ -1,6 +1,45 @@
 
 Welcome to Utils2devops documentation!
 =====================================
+.. image:: https://api.travis-ci.org/alainivars/utils2devops.svg?branch=master
+    :target: http://travis-ci.org/alainivars/utils2devops
+    :alt: Build status
+
+.. image:: https://coveralls.io/repos/github/alainivars/utils2devops/badge.svg?branch=master
+    :target: https://coveralls.io/github/alainivars/utils2devops?branch=master
+    :alt: Test coverage status
+
+.. image:: https://requires.io/github/alainivars/utils2devops/requirements.svg?branch=master
+    :target: https://requires.io/github/alainivars/utils2devops/requirements/?branch=master
+    :alt: Requirements Status
+
+.. image:: https://img.shields.io/pypi/dm/utils2devops.svg
+   :target: https://pypi.python.org/pypi/utils2devops/
+   :alt: pypi download
+
+.. image:: https://img.shields.io/pypi/pyversions/utils2devops.svg
+   :target: https://pypi.python.org/pypi/utils2devops/
+   :alt: python supported
+
+.. image:: https://img.shields.io/pypi/l/utils2devops.svg
+   :target: https://pypi.python.org/pypi/utils2devops/
+   :alt: licence
+
+.. image:: https://img.shields.io/pypi/v/utils2devops.svg
+   :target: https://pypi.python.org/pypi/utils2devops
+   :alt: PyPi version
+
+.. image:: https://api.codeclimate.com/v1/badges/1ba86a1707cdb492ddf6/maintainability
+   :target: https://codeclimate.com/github/alainivars/utils2devops/maintainability
+   :alt: Maintainability
+
+.. image:: https://readthedocs.org/projects/utils2devops/badge/?version=latest
+   :target: https://readthedocs.org/projects/utils2devops/?badge=latest
+   :alt: Documentation status
+
+.. image:: https://pypip.in/wheel/utils2devops/badge.svg
+   :target: https://pypi.python.org/pypi/utils2devops/
+   :alt: PyPi wheel
 
 Infrastructure As Code
 ======================

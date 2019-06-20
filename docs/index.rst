@@ -91,10 +91,6 @@ We will use :
 
 To develop or improve this library you can run it with the env DEBUG_OR_IMPROVE
 
-Thanks to::
-
-    - All contributors of all open sources projects
-
 Something disturb you in the code? Don't hesitate to open a an issue and contribute.
 
 Online documentation is here on `Readthedoc`_
