@@ -1,0 +1,67 @@
+# Core
+
+# Storages
+
+# LXC, LXD
+#pycparser              # cffi dependency
+#cffi                   # cryptography dependency
+#appdirs                # pyppeteer dependency
+#asn1crypto             # cryptography dependency
+#cryptography           # pylxd dependency
+#pbr                    # pylxd dependency
+#requests-unixsocket    # pylxd dependency
+#requests-toolbelt      # pylxd dependency
+#ws4py                  # pylxd dependency
+pylxd==2.2.10
+
+# AWS
+#jmespath               # boto3 botocore dependency
+boto3==1.9.171
+#docutils               # botocore dependency
+botocore==1.12.171
+s3transfer==0.2.1
+
+# JUJU
+#PyNaCl                 # macaroonbakery dependency
+#protobuf               # macaroonbakery dependency
+#pymacaroons            # macaroonbakery dependency
+#macaroonbakery         # juju dependency
+#pyasn1                 # juju dependency
+#pytz                   # pyRFC3339 dependency
+#pyRFC3339              # juju dependency
+#bcrypt                 # paramiko dependency
+#paramiko               # juju dependency
+#theblues               # juju dependency
+#websockets             # juju dependency
+juju==0.11.6
+#PyYAML                 # jujubundlelib dependency
+jujubundlelib==0.5.6
+
+# TEST
+pygments>=2.4.2
+#atomicwrites           # pytest dependency
+#attrs                  # pytest dependency
+#more-itertools         # pytest dependency
+#pluggy                 # pytest dependency
+#py                     # pytest dependency
+pytest                  # alway the latest
+tox                     # alway the latest
+
+# Code quality
+pycodestyle
+pytest-pep8>=1.0.6
+pytest-cov
+coverage>=4.5.3
+
+# Static Documentation
+pygments-pytest==1.2.0
+recommonmark==0.5.0     # sphinx dependency to parse .md files
+#MarkupSafe             # Jinja2 dependency
+#Jinja2                 # sphinx dependency
+Sphinx==2.0.0
+readthedocs-sphinx-ext
+#certifi                # requests dependency
+#chardet                # requests dependency
+#idna                   # requests dependency
+#urllib3                # request dependency
+requests>=2.22.0
