@@ -10,6 +10,10 @@ class Network(BaseLXD):
     """ missing feature for command line """
 
     def delete_all(self):
+        """
+        Delete all network
+        :return:
+        """
         for obj in self.client.networks.all():
             if obj.used_by:
                 print("Network not deleted, it's used by ", obj.used_by)

@@ -1,11 +1,12 @@
 from pylxd import Client
 
-__version__='0.1.0'
+__version__ = '0.1.0'
 
 
 class BaseLXD:
     """ missing feature for command line """
-    def __init__(self, verbose: int=0, endpoint: str=None, cert: tuple=None):
+    def __init__(self, verbose: int = 0, endpoint: str = None,
+                 cert: tuple = None):
         """
         :param verbose: int 0=none, 1=Little, 2=more, 3=full
         :param endpoint: str like "https://192.83.9.23:8367"
@@ -14,4 +15,3 @@ class BaseLXD:
         """
         self.VERBOSE = verbose
         self.client = Client(endpoint=endpoint, cert=cert)
-
