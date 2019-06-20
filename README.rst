@@ -57,9 +57,12 @@ I will use this function / class and say a big thank you to this person in all r
 This library is in development and the folder structure will change certainly
 
 We will use :
-- AWS CLI
-- CGP tools
-- Terraform
+- AWS CLI: https://aws.amazon.com/tools/
+- GPC tools: https://cloud.google.com/sdk/docs/
+- Docker: https://docs.docker.com/get-started/
+- Portainer: https://www.portainer.io/installation/
+- Traefik: https://traefik.io/
+- Terraform: https://www.terraform.io/downloads.html
 - ...
 
 To develop or improve this library you can run it with the env DEBUG_OR_IMPROVE

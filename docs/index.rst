@@ -1,7 +1,3 @@
-.. Utils2devops documentation master file, created by
-   sphinx-quickstart on Sun Jun 16 17:55:07 2019.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
 .. include:: links.inc
 
@@ -84,14 +80,18 @@ I will use this function / class and say a big thank you to this person in all r
 This library is in development and the folder structure will change certainly
 
 We will use :
-- AWS CLI
-- CGP tools
-- Terraform
+- `AWS CLI`_
+- `GPC tools`_
+- `Docker`_
+- `Traefik`_
+- `Portainer`_
+- `Terraform`_
 - ...
 
 To develop or improve this library you can run it with the env DEBUG_OR_IMPROVE
 
 Something disturb you in the code? Don't hesitate to open a an issue and contribute.
 
+WORK IN PROGESS...
 Online documentation is here on `Readthedoc`_
 Online source code available on `Github`_
