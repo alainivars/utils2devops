@@ -56,14 +56,15 @@ already created a function, a class and sharing it, and if I like its implementa
 I will use this function / class and say a big thank you to this person in all respect of the Copyright and the Licence.
 This library is in development and the folder structure will change certainly
 
-We will use :
-- AWS CLI: https://aws.amazon.com/tools/
-- GPC tools: https://cloud.google.com/sdk/docs/
-- Docker: https://docs.docker.com/get-started/
-- Portainer: https://www.portainer.io/installation/
-- Traefik: https://traefik.io/
-- Terraform: https://www.terraform.io/downloads.html
-- ...
+We will use ::
+
+    - AWS CLI: https://aws.amazon.com/tools/
+    - GPC tools: https://cloud.google.com/sdk/docs/
+    - Docker: https://docs.docker.com/get-started/
+    - Portainer: https://www.portainer.io/installation/
+    - Traefik: https://traefik.io/
+    - Terraform: https://www.terraform.io/downloads.html
+    - ...
 
 To develop or improve this library you can run it with the env DEBUG_OR_IMPROVE
 

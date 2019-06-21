@@ -15,7 +15,7 @@ long_description = get_long_description_from_file(path, 'README.rst')
 
 setup(
     name='utils2devops',
-    version=get_version('.'),
+    version=get_version('docs'),
     author='Alain IVARS',
     url='http://github.com/alainivars/utils2devops',
     author_email='alainivars@gmail.com',
