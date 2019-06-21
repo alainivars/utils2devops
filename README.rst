@@ -1,4 +1,3 @@
-
 Welcome to Utils2DevOps documentation!
 ======================================
 .. image:: https://api.travis-ci.org/alainivars/utils2devops.svg?branch=master
