@@ -1,5 +1,5 @@
 
-Welcome to Utils2devops documentation!
+Welcome to Utils2DevOps documentation!
 =====================================
 .. image:: https://api.travis-ci.org/alainivars/utils2devops.svg?branch=master
     :target: http://travis-ci.org/alainivars/utils2devops
