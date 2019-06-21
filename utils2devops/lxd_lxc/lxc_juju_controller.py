@@ -1,21 +1,9 @@
 #!/home/alain/venv/utils2devops/bin/python
-import argparse
-
-from utils2devops.lxd import __version__
-from utils2devops.lxd.container import Container
+from utils2devops.lxd_lxc.base import parser
+from utils2devops.lxd_lxc.container import Container
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-v', '--version', action='version', version=__version__)
-    group1 = parser.add_argument_group()
-    group1.add_argument('-v', '--verbose', default=0,
-                        help='verbose infos: 0=none, 1=Little, 2=more, 3=full')
-    group1.add_argument('-e', '--endpoint', help='the endpoint if not local')
-    group1.add_argument('-c', '--cert', help='''
-        tuple of (cert, key) like ('/path/to/client.crt', '/path/to/client.key')''')
-    group1.add_argument('-sure', default='NO_I_AM_NOT_SURE', help='''
-        Required for deleteAll with value YES_I_AM_SURE''')
     group2 = parser.add_mutually_exclusive_group(required=True)
     group2.add_argument('-status_controller', action='store_true', default=False,
                         help='give the status of all juju lxc controller')

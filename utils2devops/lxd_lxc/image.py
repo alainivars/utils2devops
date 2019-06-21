@@ -1,7 +1,7 @@
 # doc: https://pylxd.readthedocs.io/en/latest/images.html
 from time import sleep
 
-from utils2devops.lxd import BaseLXD
+from utils2devops.lxd_lxc import BaseLXD
 
 
 class Image(BaseLXD):

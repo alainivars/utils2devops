@@ -3,7 +3,7 @@ from time import sleep
 
 from pylxd.exceptions import NotFound
 
-from utils2devops.lxd import BaseLXD
+from utils2devops.lxd_lxc import BaseLXD
 
 
 class Storage(BaseLXD):
