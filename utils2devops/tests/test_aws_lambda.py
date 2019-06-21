@@ -1,6 +1,6 @@
 from unittest import TestCase, mock
 
-from _pytest import unittest
+import unittest
 
 from utils2devops.aws.aws_lambda import list_lambda_function
 from utils2devops.tests.aws_base import SingletonSession

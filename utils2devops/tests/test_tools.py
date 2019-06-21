@@ -1,6 +1,5 @@
+import unittest
 from unittest import TestCase
-
-from _pytest import unittest
 
 from utils2devops.tools.description import get_long_description_from_file
 from utils2devops.tools.single_sourcing_package_version import get_version

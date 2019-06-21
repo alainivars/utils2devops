@@ -1,8 +1,7 @@
 import datetime
-from unittest import TestCase, mock
-
-from _pytest import unittest
 from dateutil.tz import tzutc
+import unittest
+from unittest import TestCase, mock
 
 from utils2devops.aws.s3_bucket import list_s3_bucket
 from utils2devops.tests.aws_base import SingletonSession, SingletonResource
