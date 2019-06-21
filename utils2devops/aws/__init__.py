@@ -1,3 +1,48 @@
+def begin_block():
+    # todo to read from config file
+    return '{\n'
+
+
+def end_block():
+    # todo to read from config file
+    return '}\n\n'
+
+
+def format_item(name, value, indent: int = 1):
+    """
+    Format the data
+    :param name:
+    :param value:
+    :param indent:
+    :return:
+    """
+    return '\t' * indent + name + ' = "' + value + '"\n'
+
+
+def format_item_bool(name, value, indent: int = 1):
+    """
+    Format the data in boolean
+    :param name:
+    :param value:
+    :param indent:
+    :return:
+    """
+    return '\t' * indent + name + ' = ' + 'true\n' \
+        if value else 'false\n'
+
+
+def format_item_cond(name, value, indent: int = 1):
+    """
+    Format the data if the data not None
+    :param name:
+    :param value:
+    :param indent:
+    :return:
+    """
+    if value is not None:
+        return '\t' * indent + name + ' = "' + value + '"\n'
+    else:
+        return ''
 
 
 class BlockTypeBase:
@@ -22,7 +67,7 @@ class BlockTypeBase:
         self.name = name
 
     def __str__(self):
-        return self.type + ' "' + self.label + '" "' + self.name + '" {\n'
+        return self.type + ' "' + self.label + '" "' + self.name + '" ' + begin_block()
 
 
 class BlockTypeWithTagsBase(BlockTypeBase):
@@ -46,8 +91,8 @@ class BlockTypeWithTagsBase(BlockTypeBase):
             btype='resource', label=label, name=name)
         self.tags = []
 
-    def add_str_tags(self, the_str):
-        the_str += '\ttags {\n'
+    def add_str_tags(self):
+        the_str = '\ttags {\n'
         tags = self.tags
         if type(tags) == list:
             for tag in self.tags:
@@ -91,14 +136,12 @@ class Vpc(BlockTypeWithTagsBase):
 
     def __str__(self):
         the_str = super(Vpc, self).__str__()
-        the_str += '\tcidr_block = "' + self.cidr_block + '"\n'
-        the_str += '\tenable_dns_hostnames = '
-        the_str += 'true\n' if self.enable_dns_hostnames else 'false\n'
-        the_str += '\tenable_dns_support = '
-        the_str += 'true\n' if self.enable_dns_support else 'false\n'
-        the_str += '\tinstance_tenancy = "' + self.instance_tenancy + '"\n'
-        the_str = self.add_str_tags(the_str)
-        the_str += '}\n\n'
+        the_str += format_item('tcidr_block', self.cidr_block)
+        the_str += format_item_bool('enable_dns_hostnames', self.enable_dns_hostnames)
+        the_str += format_item_bool('enable_dns_support', self.enable_dns_support)
+        the_str += format_item('instance_tenancy', self.instance_tenancy)
+        the_str += self.add_str_tags()
+        the_str += end_block()
         return the_str
 
 
@@ -126,13 +169,12 @@ class Subnet(BlockTypeWithTagsBase):
                     self.name = self.name + '-' + tag['Value']
                     break
         the_str = super(Subnet, self).__str__()
-        the_str += '\tvpc_id = "' + self.vpc_id + '"\n'
-        the_str += '\tcidr_block = "' + self.cidr_block + '"\n'
-        the_str += '\tavailability_zone = "' + self.availability_zone + '"\n'
-        the_str += '\tmap_public_ip_on_launch = '
-        the_str += 'true\n' if self.map_public_ip_on_launch else 'false\n'
-        the_str = self.add_str_tags(the_str)
-        the_str += '}\n\n'
+        the_str += format_item('vpc_id', self.vpc_id)
+        the_str += format_item('cidr_block', self.cidr_block)
+        the_str += format_item('availability_zone', self.availability_zone)
+        the_str += format_item_bool('map_public_ip_on_launch', self.map_public_ip_on_launch)
+        the_str += self.add_str_tags()
+        the_str += end_block()
         return the_str
 
 
@@ -152,9 +194,9 @@ class InternetGateway(BlockTypeWithTagsBase):
 
     def __str__(self):
         the_str = super(InternetGateway, self).__str__()
-        the_str += '\tvpc_id = "' + self.vpc_id + '"\n'
-        the_str = self.add_str_tags(the_str)
-        the_str += '}\n\n'
+        the_str += format_item('vpc_id', self.vpc_id)
+        the_str += self.add_str_tags()
+        the_str += end_block()
         return the_str
 
 
@@ -178,12 +220,13 @@ class RouteTable(BlockTypeWithTagsBase):
 
     def __str__(self):
         the_str = super(RouteTable, self).__str__()
-        the_str += '\tvpc_id = "' + self.vpc_id + '"\n'
+        the_str += format_item('vpc_id', self.vpc_id)
         the_str += '\n\troute {\n'
-        the_str += '\t\tcidr_block = "' + self.route['cidr_block'] + '"\n'
-        the_str += '\t\tgateway_id = "' + self.route['gateway_id'] + '"\n\t}\n'
-        the_str = self.add_str_tags(the_str)
-        the_str += '}\n\n'
+        the_str += format_item('cidr_block', self.route['cidr_block'], 2)
+        the_str += format_item('gateway_id', self.route['gateway_id'], 2)
+        the_str += '\t}\n'
+        the_str += self.add_str_tags()
+        the_str += end_block()
         return the_str
 
 
@@ -224,6 +267,22 @@ class Gress:
         the_str += '\t\ticmp_type = ' + str(self.icmp_type) + '\n'
         return the_str
 
+    @staticmethod
+    def format_items(name, values, indent: int = 1):
+        """
+        Format the data
+        :param name:
+        :param value:
+        :param indent:
+        :return:
+        """
+        the_str = ''
+        for i in values:
+            the_str += '\t' * indent + name + ' ' + begin_block()
+            the_str += str(i)
+            the_str += '\t' * indent + end_block()
+        return the_str
+
 
 class NetworkAcl(BlockTypeWithTagsBase):
     """
@@ -249,21 +308,15 @@ class NetworkAcl(BlockTypeWithTagsBase):
                     self.name = self.name + '-' + tag['Value']
                     break
         the_str = super(NetworkAcl, self).__str__()
-        the_str += '\tvpc_id = "' + self.vpc_id + '"\n'
+        the_str += format_item('vpc_id', self.vpc_id)
         the_str += '\tsubnet_ids = ['
-        for tag in self.subnet_ids:
-            the_str += '"' + tag + '",'
+        for sid in self.subnet_ids:
+            the_str += '"' + sid + '",'
         the_str += ']\n\n'
-        for i in self.ingress:
-            the_str += '\tingress {\n'
-            the_str += str(i)
-            the_str += '\t}\n\n'
-        for e in self.egress:
-            the_str += '\tegress {\n'
-            the_str += str(e)
-            the_str += '\t}\n\n'
-        the_str = self.add_str_tags(the_str)
-        the_str += '}\n\n'
+        the_str += Gress.format_items('ingress', self.ingress)
+        the_str += Gress.format_items('egress', self.egress)
+        the_str += self.add_str_tags()
+        the_str += end_block()
         return the_str
 
 
@@ -287,9 +340,9 @@ class SecurityGroup(BlockTypeBase):
 
     def __str__(self):
         the_str = super(SecurityGroup, self).__str__()
-        the_str += '\tname = "' + self.name + '"\n'
-        the_str += '\tdescription = "' + self.description + '"\n'
-        the_str += '\tvpc_id = "' + self.vpc_id + '"\n'
+        the_str += format_item('name', self.name)
+        the_str += format_item('description', self.description)
+        the_str += format_item('vpc_id', self.vpc_id)
         for i in self.ingress:
             the_str += '\n\tingress {\n'
             the_str += str(i)
@@ -345,56 +398,39 @@ class Lambda(BlockTypeWithTagsBase):
 
     def __str__(self):
         the_str = super(Lambda, self).__str__()
-        if self.ofilename:
-            the_str += '\tfilename = "' + self.ofilename + '"\n'
-        if self.os3_bucket:
-            the_str += '\ts3_bucket = "' + self.os3_bucket + '"\n'
-        if self.os3_key:
-            the_str += '\ts3_key = "' + self.os3_key + '"\n'
-        if self.os3_object_version:
-            the_str += '\ts3_object_version = "' + self.os3_object_version + '"\n'
-        the_str += '\tfunction_name = "' + self.function_name + '"\n'
-        if self.odead_letter_config:
-            the_str += '\tdead_letter_config = "' + self.odead_letter_config + '"\n'
-        the_str += '\thandler = "' + self.handler + '"\n'
-        the_str += '\trole = "' + self.role + '"\n'
-        if self.odescription:
-            the_str += '\tdescription = "' + self.odescription + '"\n'
+        the_str += format_item_cond('filename', self.ofilename)
+        the_str += format_item_cond('s3_bucket', self.os3_bucket)
+        the_str += format_item_cond('s3_key', self.os3_key)
+        the_str += format_item_cond('s3_object_version', self.os3_object_version)
+        the_str += format_item('function_name', self.function_name)
+        the_str += format_item_cond('dead_letter_config', self.odead_letter_config)
+        the_str += format_item('handler', self.handler)
+        the_str += format_item('role', self.role)
+        the_str += format_item_cond('description', self.odescription)
         if self.olayers:
             the_str += '\tlayers = {' + self.olayers + '"\n'
             for layer in self.olayers:
                 the_str += '\t\t"' + layer['Key'] + '" = "' + layer['Value'] + '"\n'
             the_str += '\t}\n'
-        if self.omemory_size:
-            the_str += '\tmemory_size = "' + str(self.omemory_size) + '"\n'
-        the_str += '\truntime = "' + self.runtime + '"\n'
-        if self.otimeout:
-            the_str += '\ttimeout = "' + str(self.otimeout) + '"\n'
-        if self.oreserved_concurrent_executions:
-            the_str += '\treserved_concurrent_executions = "' + \
-                       str(self.oreserved_concurrent_executions) + '"\n'
-        if self.opublish:
-            the_str += '\tpublish = "' + self.opublish + '"\n'
-        if self.ovpc_config:
-            the_str += '\tvpc_config = "' + self.ovpc_config + '"\n'
+        the_str += format_item_cond('memory_size', str(self.omemory_size))
+        the_str += format_item('runtime', self.runtime)
+        the_str += format_item_cond('timeout', str(self.otimeout))
+        the_str += format_item_cond('reserved_concurrent_executions',
+                                        self.oreserved_concurrent_executions)
+        the_str += format_item_cond('publish', self.opublish)
+        the_str += format_item_cond('vpc_config', self.ovpc_config)
         if self.oenvironment:
             the_str += '\tenvironment {\n'
             the_str += '\n\tvariables = {\n'
             for k, v in self.oenvironment.items():
                 the_str += '\t\t"' + k + '" = "' + v + '"\n'
             the_str += '\t}\n'
-        if self.okms_key_arn:
-            the_str += '\tkms_key_arn = "' + self.okms_key_arn + '"\n'
-        if self.osource_code_hash:
-            the_str += '\tsource_code_hash = "' + self.osource_code_hash + '"\n'
-        if self.tags:
-            the_str = self.add_str_tags(the_str)
-        if self.otarget_arn:
-            the_str += '\ttarget_arn = "' + self.otarget_arn + '"\n'
-        if self.osubnet_ids:
-            the_str += '\tsubnet_ids = "' + self.osubnet_ids + '"\n'
-        if self.osecurity_group_ids:
-            the_str += '\tsecurity_group_ids = "' + self.osecurity_group_ids + '"\n'
+        the_str += format_item_cond('kms_key_arn', self.okms_key_arn)
+        the_str += format_item_cond('source_code_hash', self.osource_code_hash)
+        the_str += self.add_str_tags()
+        the_str += format_item_cond('target_arn', self.otarget_arn)
+        the_str += format_item_cond('subnet_ids', self.osubnet_ids)
+        the_str += format_item_cond('security_group_ids', self.osecurity_group_ids)
         the_str += '}\n'
         return the_str
 
@@ -423,12 +459,11 @@ class S3Bucket(BlockTypeBase):
 
     def __str__(self):
         the_str = super(S3Bucket, self).__str__()
-        the_str += '\tbucket = "' + self.bucket + '"\n'
-        if self.acl:
-            the_str += '\tacl = "' + self.acl + '"\n'
+        the_str += format_item('bucket', self.bucket)
+        the_str += format_item_cond('acl', self.acl)
         if self.versioning:
             the_str += '\tversioning {\n\t\tenabled = ' + self.versioning + '\n\t}\n'
-        the_str += '}\n\n'
+        the_str += end_block()
         # todo
         return the_str
 
@@ -455,5 +490,6 @@ class ApiGatewayV2(BlockTypeBase):
 
     def __str__(self):
         the_str = super(ApiGatewayV2, self).__str__()
+        the_str += end_block()
         # todo
         return the_str
