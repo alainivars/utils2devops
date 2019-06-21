@@ -46,9 +46,9 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     install_requires=[
-        'boto3',  # AWS
-        # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-init.html
-        'aws-sam-cli',  # AWS
-        'pylxd',  # LXD
+        # 'boto3',  # AWS
+        # # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-init.html
+        # 'aws-sam-cli',  # AWS
+        # 'pylxd',  # LXD
     ]
 )
