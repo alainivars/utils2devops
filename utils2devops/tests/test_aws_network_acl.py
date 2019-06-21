@@ -37,6 +37,7 @@ expected_result = """resource "aws_network_acl" "acl-f1780b98-network-acl-name" 
 		"Name" = "network-acl-name"
 	}
 }
+
 """
 network_acls_elements_mock = {
     'NetworkAcls': [{
@@ -113,7 +114,7 @@ class AwsNetworkAclTestCase(TestCase):
         client = session.client(service_name='ec2', region_name=region_name)
         client.network_acls_elements = network_acls_elements_mock
         ls = list_network_acls(profile_name, region_name)
-        self.assertEqual(str(ls[0]), expected_result)
+        self.assertEqual(expected_result, str(ls[0]))
 
 
 if __name__ == '__main__':

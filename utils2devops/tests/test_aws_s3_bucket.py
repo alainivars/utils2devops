@@ -43,16 +43,16 @@ s3_list_expected = strip_space_tab("""resource "aws_s3_bucket" "hf-in" {
     versioning {
         enabled = false
     }
-TODO
 }
+
 resource "aws_s3_bucket" "hf-out" {
     bucket = "hf-out"
     acl = "private"
     versioning {
         enabled = false
     }
-TODO
 }
+
 """)
 
 
@@ -68,7 +68,7 @@ class AwsS3BucketTestCase(TestCase):
         client.s3_bucket_data = s3_bucket_data_mock
         ls = list_s3_bucket(profile_name, region_name)
         prepare = strip_space_tab(str(ls[0]) + str(ls[1]))
-        self.assertEqual(prepare, s3_list_expected)
+        self.assertEqual(s3_list_expected, prepare)
 
     # @mock.patch('boto3.Session', SingletonSession)
     # def test_list_lambda_bad_profile_name(self):

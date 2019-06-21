@@ -25,12 +25,54 @@ class BlockTypeBase:
         return self.type + ' "' + self.label + '" "' + self.name + '" {\n'
 
 
+class BlockTypeWithTagsBase(BlockTypeBase):
+    """
+    Described at: https://www.terraform.io/docs/configuration/index.html \n
+    Generate the base block type with tags with the format:
+
+    <BLOCK TYPE> "<BLOCK LABEL>" "<BLOCK NAME>" {
+      # Block body
+      <IDENTIFIER> = <EXPRESSION> # Argument
+    }
+
+    """
+    def __init__(self, btype, label, name=''):
+        """
+        Create new object, called automatically
+
+        :param name:
+        """
+        super(BlockTypeWithTagsBase, self).__init__(
+            btype='resource', label=label, name=name)
+        self.tags = []
+
+    def add_str_tags(self, the_str):
+        the_str += '\ttags {\n'
+        tags = self.tags
+        if type(tags) == list:
+            for tag in self.tags:
+                if 'Key' in tag:
+                    the_str += '\t\t"' + tag['Key'] + '" = "' + tag['Value'] + '"\n'
+                else:
+                    raise NotImplementedError()
+                    # the_str += '\t\t"' + tag[0] + '" = "' + tag[1] + '"\n'
+        else:
+            for tag in self.tags.items():
+                if 'Key' in tag:
+                    raise NotImplementedError()
+                    # the_str += '\t\t"' + tag['Key'] + '" = "' + tag['Value'] + '"\n'
+                else:
+                    the_str += '\t\t"' + tag[0] + '" = "' + tag[1] + '"\n'
+        the_str += '\t}\n'
+        return the_str
+
+
 """
 Virtual Private Cloud
 """
 
 
-class Vpc(BlockTypeBase):
+class Vpc(BlockTypeWithTagsBase):
     """
     Virtual Private Cloud
     """
@@ -46,7 +88,6 @@ class Vpc(BlockTypeBase):
         self.enable_dns_hostnames = 'true'
         self.enable_dns_support = 'true'
         self.instance_tenancy = 'default'
-        self.tags = []
 
     def __str__(self):
         the_str = super(Vpc, self).__str__()
@@ -56,14 +97,12 @@ class Vpc(BlockTypeBase):
         the_str += '\tenable_dns_support = '
         the_str += 'true\n' if self.enable_dns_support else 'false\n'
         the_str += '\tinstance_tenancy = "' + self.instance_tenancy + '"\n'
-        the_str += '\n\ttags {\n'
-        for tag in self.tags:
-            the_str += '\t\t"' + tag['Key'] + '" = "' + tag['Value'] + '"\n'
-        the_str += '\t}\n}\n\n'
+        the_str = self.add_str_tags(the_str)
+        the_str += '}\n\n'
         return the_str
 
 
-class Subnet(BlockTypeBase):
+class Subnet(BlockTypeWithTagsBase):
     """
     Subnet
     """
@@ -79,7 +118,6 @@ class Subnet(BlockTypeBase):
         self.cidr_block = ''
         self.availability_zone = ''
         self.map_public_ip_on_launch = True
-        self.tags = []
 
     def __str__(self):
         if any('Name' in d['Key'] for d in self.tags):
@@ -93,14 +131,12 @@ class Subnet(BlockTypeBase):
         the_str += '\tavailability_zone = "' + self.availability_zone + '"\n'
         the_str += '\tmap_public_ip_on_launch = '
         the_str += 'true\n' if self.map_public_ip_on_launch else 'false\n'
-        the_str += '\n\ttags {\n'
-        for tag in self.tags:
-            the_str += '\t\t"' + tag['Key'] + '" = "' + tag['Value'] + '"\n'
-        the_str += '\t}\n}\n'
+        the_str = self.add_str_tags(the_str)
+        the_str += '}\n\n'
         return the_str
 
 
-class InternetGateway(BlockTypeBase):
+class InternetGateway(BlockTypeWithTagsBase):
     """
     Internet Gateway
     """
@@ -113,19 +149,16 @@ class InternetGateway(BlockTypeBase):
         super(InternetGateway, self).__init__(
             btype='resource', label='aws_internet_gateway', name=name)
         self.vpc_id = ''
-        self.tags = []
 
     def __str__(self):
         the_str = super(InternetGateway, self).__str__()
         the_str += '\tvpc_id = "' + self.vpc_id + '"\n'
-        the_str += '\n\ttags {\n'
-        for tag in self.tags:
-            the_str += '\t\t"' + tag['Key'] + '" = "' + tag['Value'] + '"\n'
-        the_str += '\t}\n}\n\n'
+        the_str = self.add_str_tags(the_str)
+        the_str += '}\n\n'
         return the_str
 
 
-class RouteTable(BlockTypeBase):
+class RouteTable(BlockTypeWithTagsBase):
     """
     Route Table
     """
@@ -142,7 +175,6 @@ class RouteTable(BlockTypeBase):
             'cidr_block': '',
             'gateway_id': '',
         }
-        self.tags = []
 
     def __str__(self):
         the_str = super(RouteTable, self).__str__()
@@ -150,10 +182,8 @@ class RouteTable(BlockTypeBase):
         the_str += '\n\troute {\n'
         the_str += '\t\tcidr_block = "' + self.route['cidr_block'] + '"\n'
         the_str += '\t\tgateway_id = "' + self.route['gateway_id'] + '"\n\t}\n'
-        the_str += '\n\ttags {\n'
-        for tag in self.tags:
-            the_str += '\t\t"' + tag['Key'] + '" = "' + tag['Value'] + '"\n'
-        the_str += '\t}\n}\n'
+        the_str = self.add_str_tags(the_str)
+        the_str += '}\n\n'
         return the_str
 
 
@@ -195,7 +225,7 @@ class Gress:
         return the_str
 
 
-class NetworkAcl(BlockTypeBase):
+class NetworkAcl(BlockTypeWithTagsBase):
     """
     Network Acl
     """
@@ -211,7 +241,6 @@ class NetworkAcl(BlockTypeBase):
         self.subnet_ids = []
         self.ingress = []
         self.egress = []
-        self.tags = []
 
     def __str__(self):
         if any('Name' in d['Key'] for d in self.tags):
@@ -233,10 +262,8 @@ class NetworkAcl(BlockTypeBase):
             the_str += '\tegress {\n'
             the_str += str(e)
             the_str += '\t}\n\n'
-        the_str += '\ttags {\n'
-        for tag in self.tags:
-            the_str += '\t\t"' + tag['Key'] + '" = "' + tag['Value'] + '"\n'
-        the_str += '\t}\n}\n'
+        the_str = self.add_str_tags(the_str)
+        the_str += '}\n\n'
         return the_str
 
 
@@ -280,7 +307,7 @@ Lambda
 """
 
 
-class Lambda(BlockTypeBase):
+class Lambda(BlockTypeWithTagsBase):
     """
     Lambda
     https://www.terraform.io/docs/providers/aws/r/lambda_function.html
@@ -312,7 +339,6 @@ class Lambda(BlockTypeBase):
         self.oenvironment = None
         self.okms_key_arn = None
         self.osource_code_hash = None
-        self.otags = None
         self.otarget_arn = None
         self.osubnet_ids = None
         self.osecurity_group_ids = None
@@ -361,11 +387,8 @@ class Lambda(BlockTypeBase):
             the_str += '\tkms_key_arn = "' + self.okms_key_arn + '"\n'
         if self.osource_code_hash:
             the_str += '\tsource_code_hash = "' + self.osource_code_hash + '"\n'
-        if self.otags:
-            the_str += '\ttags {\n'
-            for k, v in self.otags.items():
-                the_str += '\t\t"' + k + '" = "' + v + '"\n'
-            the_str += '\t}\n'
+        if self.tags:
+            the_str = self.add_str_tags(the_str)
         if self.otarget_arn:
             the_str += '\ttarget_arn = "' + self.otarget_arn + '"\n'
         if self.osubnet_ids:
@@ -405,8 +428,8 @@ class S3Bucket(BlockTypeBase):
             the_str += '\tacl = "' + self.acl + '"\n'
         if self.versioning:
             the_str += '\tversioning {\n\t\tenabled = ' + self.versioning + '\n\t}\n'
-        the_str += 'TODO\n'
-        the_str += '}\n'
+        the_str += '}\n\n'
+        # todo
         return the_str
 
 
@@ -428,17 +451,9 @@ class ApiGatewayV2(BlockTypeBase):
         """
         super(ApiGatewayV2, self).__init__(
             btype='resource', label='aws_api_gateway_v2', name=name)
-        self.bucket = None
-        self.acl = None
-        self.versioning = None
+        # todo
 
     def __str__(self):
         the_str = super(ApiGatewayV2, self).__str__()
-        the_str += '\tbucket = "' + self.bucket + '"\n'
-        if self.acl:
-            the_str += '\tacl = "' + self.acl + '"\n'
-        if self.versioning:
-            the_str += '\tversioning {\n\t\tenabled = ' + self.versioning + '\n\t}\n'
-        the_str += 'TODO\n'
-        the_str += '}\n'
+        # todo
         return the_str

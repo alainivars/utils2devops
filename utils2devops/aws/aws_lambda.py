@@ -49,7 +49,7 @@ def list_lambda_function(profile_name: str = 'terraform',
         x.okms_key_arn = None
         x.osource_code_hash = func["CodeSha256"]
         if 'Tags' in conf:
-            x.otags = conf["Tags"]
+            x.tags = conf["Tags"]
         if 'VpcConfig' in func:
             if func['VpcConfig']['SubnetIds']:
                 x.osubnet_ids = func['VpcConfig']['SubnetIds']

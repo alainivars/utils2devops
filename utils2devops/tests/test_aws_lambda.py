@@ -132,7 +132,7 @@ class AwsLambdaTestCase(TestCase):
         client.lambda_functions = functions_mock
         client.lambda_conf = conf_mock
         ls = list_lambda_function(profile_name, region_name)
-        self.assertEqual(str(ls[0]), expected_result)
+        self.assertEqual(expected_result, str(ls[0]))
 
 
 if __name__ == '__main__':

@@ -35,7 +35,7 @@ def list_s3_bucket(profile_name: str = 'terraform',
         # TODO: just a first empty draft, to implement
         x.acl = 'private' \
             if acl['PublicAccessBlockConfiguration']['BlockPublicAcls'] \
-            else 'TODO'
+            else ''
         conf = resource.BucketVersioning(func["Name"])
         x.versioning = 'true' if conf.status == 'Enabled' else 'false'
 
