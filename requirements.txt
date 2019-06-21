@@ -38,7 +38,7 @@ juju==0.11.6
 jujubundlelib==0.5.6
 
 # TEST
-pygments>=2.4.2
+python-dateutil         # used in unittest
 #atomicwrites           # pytest dependency
 #attrs                  # pytest dependency
 #more-itertools         # pytest dependency
@@ -49,15 +49,15 @@ tox                     # alway the latest
 
 # Code quality
 pycodestyle
-pytest-pep8>=1.0.6
+pytest-pep8
 pytest-cov
-coverage>=4.5.3
+coverage
 
 # Static Documentation
-pygments-pytest==1.2.0
 recommonmark==0.5.0     # sphinx dependency to parse .md files
 #MarkupSafe             # Jinja2 dependency
 #Jinja2                 # sphinx dependency
+pygments                # sphinx dependency
 Sphinx==2.0.0
 readthedocs-sphinx-ext
 #certifi                # requests dependency
