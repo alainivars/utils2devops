@@ -57,9 +57,10 @@ This library is in development and the folder structure will change certainly
 
 We will use ::
 
-    - AWS CLI: https://aws.amazon.com/tools/
-    - GPC tools: https://cloud.google.com/sdk/docs/
-    - Docker: https://docs.docker.com/get-started/
+    - AWS CLI and API: https://aws.amazon.com/tools/
+    - GPC tools and API?: https://cloud.google.com/sdk/docs/
+    - Docker CLI and API: https://docs.docker.com/get-started/
+        - Docker, Docker-compose and Docker Swarm
     - Portainer: https://www.portainer.io/installation/
     - Traefik: https://traefik.io/
     - Terraform: https://www.terraform.io/downloads.html
@@ -67,30 +68,8 @@ We will use ::
 
 To develop or improve this library you can run it with the env DEBUG_OR_IMPROVE
 
-
-To use lxd_module
-#################
-require::
-
-    sudo apt-get install python-pylxd lxd
-
-
-To use terraform_import and aws
-###############################
-require::
-
-    sudo pip3 install --upgrade awscli
-    export PATH=/home/ec2-user/.local/bin:$PATH
-
-Create an AWS account (it's free)::
-
-    https://aws.amazon.com/
-
-
-Install Terraform::
-
-    https://learn.hashicorp.com/terraform/getting-started/install.html
-
+Online documentation is here on `Readthedoc`_
+Online source code available on `Github`_
 
 .. _`Utils2devops`: https://github.com/alainivars/utils2devops
 .. _`Issue Utils2devops`: https://github.com/alainivars/utils2devops/issues

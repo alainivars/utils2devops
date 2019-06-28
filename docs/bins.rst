@@ -1,8 +1,8 @@
 
 .. include:: links.inc
 
-To use docker-machine-cluster.sh
-################################
+Create your local cluster of docker-machine
+###########################################
 
 This script will create x nodes docker-machine named node-1 to name-n,
 the purpose of this script is for local debug or tests, you can after
@@ -36,8 +36,8 @@ Destroy it::
     docker-machine-cluster -d 5
 
 
-To use swarm.sh
-###############
+Create a Docker Swarm on nodes docker-machine
+#############################################
 
 This script will create a swarm on nodes docker-machine named node-1 to name-n,
 the purpose of this script is for local debug or tests, you can after
