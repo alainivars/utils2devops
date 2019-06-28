@@ -51,6 +51,7 @@ Contents
    :maxdepth: 2
    :caption: How to use it:
 
+   bins
    testing
    aws
    lxc_lxd
