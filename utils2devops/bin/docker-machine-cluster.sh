@@ -4,7 +4,6 @@
 # Just a quick script to create and destroy a local docker-machine-cluster
 #
 
-echo "started..."
 count=0
 actions=()
 
@@ -25,23 +24,40 @@ fi
 
 while [ "$1" != "" ]; do
     case $1 in
-        -c | --create )         shift
-                                count=$1
-                                actions=(create_nodes)
-                                ;;
-        -d | --destroy )        shift
-                                actions=(destroy_nodes)
-                                count=$1
-                                ;;
-        -h | --help )           actions=(usage)
-                                exit
-                                ;;
-        * )                     actions=(usage)
-                                exit 1
+        -c | --create )
+            shift
+            if [ -z "$1" ]
+            then
+                echo "You must give a number of node to create"
+                exit 1
+            else
+                count=$1
+            fi
+            actions=(create_nodes)
+            ;;
+        -d | --destroy )
+            shift
+            actions=(destroy_nodes)
+            if [ -z "$1" ]
+            then
+                echo "You must give a number of node to destroy"
+                exit 1
+            else
+                count=$1
+            fi
+            ;;
+        -h | --help )
+            actions=(usage)
+            exit
+            ;;
+        * )
+            actions=(usage)
+            exit 1
     esac
     shift
 done
 
+echo "started..."
 let nodes=manager_count+worker_count
 
 if [ -z "${DOCKER_MACHINE_DRIVER}" ]; then

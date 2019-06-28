@@ -4,7 +4,6 @@
 # Just a quick script to create and destroy a local swarm
 #
 
-echo "started..."
 manager_count=0
 worker_count=0
 worker=
@@ -34,28 +33,51 @@ fi
 
 while [ "$1" != "" ]; do
     case $1 in
-        -c | --create )         #shift
-                                actions=(create_swarm_nodes)
-                                ;;
-        -r | --remove )         #shift
-                                manager_count=$1
-                                actions=(remove_swarm_nodes)
-                                ;;
-        -m | --count_master )   shift
-                                manager_count=$1
-                                ;;
-        -w | --count_worker )   shift
-                                worker_count=$1
-                                ;;
-        -h | --help )           actions=(usage)
-                                exit
-                                ;;
-        * )                     actions=(usage)
-                                exit 1
+        -c | --create )
+            actions=(create_swarm_nodes)
+            ;;
+        -r | --remove )
+            if [ -z "$1" ]
+            then
+                echo "You must give a number of node to remove"
+                exit 1
+            else
+                manager_count=$1
+            fi
+            actions=(remove_swarm_nodes)
+            ;;
+        -m | --count_master )
+            shift
+            if [ -z "$1" ]
+            then
+                echo "You must give a number of manager to create"
+                exit 1
+            else
+                manager_count=$1
+            fi
+            ;;
+        -w | --count_worker )
+            shift
+            if [ -z "$1" ]
+            then
+                echo "You must give a number of worker to create"
+                exit 1
+            else
+                worker_count=$1
+            fi
+            ;;
+        -h | --help )
+            actions=(usage)
+            exit
+            ;;
+        * )
+            actions=(usage)
+            exit 1
     esac
     shift
 done
 
+echo "started..."
 let nodes=manager_count+worker_count
 
 if [ -z "${DOCKER_MACHINE_DRIVER}" ]; then
