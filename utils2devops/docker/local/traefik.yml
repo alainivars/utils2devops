@@ -1,0 +1,39 @@
+
+version: '3.7'
+
+x-default-opts:
+  &default-opts
+  logging:
+    options:
+      max-size: "1m"
+
+services:
+
+  traefik:
+    <<: *default-opts
+    image: traefik:1.7-alpine
+    command:
+      # Use your favourite settings here, but add:
+      - --docker
+      - --docker.swarmMode
+      - --docker.domain=traefik
+      - --docker.network=proxy
+      - --docker.watch
+      - --api
+      - --defaultentrypoints=http,https
+      - --entryPoints=Name:https Address::443 TLS
+      - --entryPoints=Name:http Address::80 # don't force HTTPS
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /dev/null:/traefik.toml
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    driver: overlay
+    name: proxy

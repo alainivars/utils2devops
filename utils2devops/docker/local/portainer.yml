@@ -1,0 +1,40 @@
+version: "3.7"
+
+x-default-opts:
+  &default-opts
+  logging:
+    options:
+      max-size: "1m"
+
+services:
+
+  portainer:
+    <<: *default-opts
+    image: portainer/portainer
+#    labels:
+#      - "traefik.docker.network=traefik"
+#      - "traefik.frontend.rule=Host:portainer.localhost"
+#      - "traefik.port=9000"
+#      - "traefik.backend=portainer"
+#      - "traefik.frontend.entryPoints=http"
+    deploy:
+      replicas: 1
+      # placement:
+        # constraints: [node.role == manager]
+        # place on managers when not using agent, place on workers if using agent
+      labels:
+        - traefik.port=9000
+        - traefik.frontend.rule=Host:portainer
+    networks:
+      - proxy
+      - portainer
+    volumes:
+      - web:/data
+
+networks:
+  proxy:
+    external: true
+  portainer: {}
+
+volumes:
+  web:  {}
