@@ -2,7 +2,6 @@
 from utils2devops.lxd_lxc.base import parser
 from utils2devops.lxd_lxc.container import Container
 
-
 if __name__ == '__main__':
     group2 = parser.add_mutually_exclusive_group(required=True)
     group2.add_argument('-statusAll', action='store_true', default=False,
