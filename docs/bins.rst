@@ -1,6 +1,7 @@
 
 .. include:: links.inc
 
+.. _ref-create-dm:
 Create your local cluster of docker-machine
 ###########################################
 
@@ -36,6 +37,7 @@ Destroy it::
     docker-machine-cluster -d 5
 
 
+.. _ref-create-sw:
 Create a Docker Swarm on nodes docker-machine
 #############################################
 

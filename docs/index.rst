@@ -80,14 +80,15 @@ already created a function, a class and sharing it, and if I like its implementa
 I will use this function / class and say a big thank you to this person in all respect of the Copyright and the Licence.
 This library is in development and the folder structure will change certainly
 
-We will use :
-- `AWS CLI`_
-- `GPC tools`_
-- `Docker`_
-- `Traefik`_
-- `Portainer`_
-- `Terraform`_
-- ...
+We will use ::
+
+    - `AWS Tools`_
+    - `GPC tools`_
+    - `Docker`_
+    - `Traefik`_
+    - `Portainer`_
+    - `Terraform`_
+    - ...
 
 To develop or improve this library you can run it with the env DEBUG_OR_IMPROVE
 
