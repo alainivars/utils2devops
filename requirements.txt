@@ -12,14 +12,20 @@
 #requests-unixsocket    # pylxd dependency
 #requests-toolbelt      # pylxd dependency
 #ws4py                  # pylxd dependency
-pylxd==2.2.10
+pylxd                   # alway the latest
+
+# Docker
+docker                  # alway the latest
 
 # AWS
 #jmespath               # boto3 botocore dependency
-boto3==1.9.173
+boto3                   # alway the latest
 #docutils               # botocore dependency
-botocore==1.12.173
-s3transfer==0.2.1
+botocore                # alway the latest
+s3transfer              # alway the latest
+
+# Ansible
+ansible                 # alway the latest
 
 # JUJU
 #PyNaCl                 # macaroonbakery dependency
@@ -35,7 +41,7 @@ s3transfer==0.2.1
 #websockets             # juju dependency
 juju==0.11.7
 #PyYAML                 # jujubundlelib dependency
-jujubundlelib==0.5.6
+jujubundlelib           # alway the latest
 
 # TEST
 python-dateutil         # used in unittest
@@ -54,14 +60,14 @@ pytest-cov
 coverage
 
 # Static Documentation
-recommonmark==0.5.0     # sphinx dependency to parse .md files
+recommonmark            # sphinx dependency to parse .md files
 #MarkupSafe             # Jinja2 dependency
 #Jinja2                 # sphinx dependency
 pygments                # sphinx dependency
-Sphinx==2.1.2
+Sphinx                  # alway the latest
 readthedocs-sphinx-ext
 #certifi                # requests dependency
 #chardet                # requests dependency
 #idna                   # requests dependency
 #urllib3                # request dependency
-requests>=2.22.0
+requests                # alway the latest
