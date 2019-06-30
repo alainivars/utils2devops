@@ -416,7 +416,7 @@ class Lambda(BlockTypeWithTagsBase):
         the_str += format_item('runtime', self.runtime)
         the_str += format_item_cond('timeout', str(self.otimeout))
         the_str += format_item_cond('reserved_concurrent_executions',
-                                        self.oreserved_concurrent_executions)
+                                    self.oreserved_concurrent_executions)
         the_str += format_item_cond('publish', self.opublish)
         the_str += format_item_cond('vpc_config', self.ovpc_config)
         if self.oenvironment:
