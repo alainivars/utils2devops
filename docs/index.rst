@@ -52,6 +52,7 @@ Contents
    :caption: How to use it:
 
    bins
+   docker_swarm
    testing
    aws
    lxc_lxd

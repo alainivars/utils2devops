@@ -11,10 +11,11 @@ Before using these make sure you had clone the repository by::
 Now let's go..
 
 (*) All Open Sources
+
 +--------------------+-----------------------------+
 | Services           | Software                    |
 +====================+=============================+
-| GUI Control        | `Portainer`_                   |
+| GUI Control        | `Portainer`_                |
 +--------------------+-----------------------------+
 | Central Monitoring | Promotheus + Grafana        |
 +--------------------+-----------------------------+
@@ -60,34 +61,37 @@ Now let's go..
     export PORTAINER_HOST=portainer.example.com
     docker stack deploy -c ./utils2devops/docker/local-simple/portainer.yml portainer
 
-| After these steps we will have a Portainer at:
-| http://<ip-node-1>:9000/#/dashboard
-| http://<ip-node-1>:9000/#/containers
-| http://<ip-node-1>:9000/#/swarm/visualizer
-| and so many other... have a look here https://www.portainer.io/overview/
+After these steps we will have a Portainer at::
+
+    http://<ip-node-1>:9000/#/dashboard
+    http://<ip-node-1>:9000/#/containers
+    http://<ip-node-1>:9000/#/swarm/visualizer
+    and so many other... have a look here https://www.portainer.io/overview/
 
 6/ Deploy Ops Stacks::
 
     docker stack deploy -c ./submodules/swarmprom/docker-compose.yml prom
     docker stack deploy -c ./utils2devops/docker/local-simple/elk.yml elk
 
-| After these steps we will have a Grafana Swarm nodes at:
-| http://<ip-node-1>:3000/d/BPlb-Sgik/docker-swarm-nodes?refresh=30s&orgId=1
-| After these steps we will have a Grafana Swarm Services at:
-| http://<ip-node-1>:3000/d/zr_baSRmk/docker-swarm-services?refresh=30s&orgId=1
-| After these steps we will have a Promotheus Stat at:
-| http://<ip-node-1>:3000/d/mGFfYSRiz/prometheus-2-0-stats?refresh=1m&orgId=1
-| After these steps we will have a Promotheus Query at:
-| http://<ip-node-1>::9090/graph
-| After these steps we will have a Alert manager at:
-| http://<ip-node-1>:9093/#/alerts
-| After these steps we will have a Alert Dashboard at:
-| http://<ip-node-1>:9094/?q=
-| After these steps we will have a Elasticsearch at:
-| http://<ip-node-1>:9200
-| After these steps we will have a kibana at:
-| http://<ip-node-1>:5601/app/kibana#/management/kibana/index?_g=()
-| and much more have a look at https://github.com/stefanprodan/swarmprom
+After these steps we will have ::
+
+    Grafana Swarm nodes at:
+        https://<ip-node-1>:3000/d/BPlb-Sgik/docker-swarm-nodes?refresh=30s&orgId=1
+    Grafana Swarm Services at:
+        https://<ip-node-1>:3000/d/zr_baSRmk/docker-swarm-services?refresh=30s&orgId=1
+    Promotheus Stat at:
+        http://<ip-node-1>:3000/d/mGFfYSRiz/prometheus-2-0-stats?refresh=1m&orgId=1
+    Promotheus Query at::
+        https://<ip-node-1>::9090/graph
+    Alert manager at:
+        https://<ip-node-1>:9093/#/alerts
+    Alert Dashboard at:
+        https://<ip-node-1>:9094/?q=
+    Elasticsearch at:
+        http://elasticsearch.example.com/
+    kibana at:
+        http://kibana.example.com/app/kibana#/home?_g=()
+    and much more have a look at https://github.com/stefanprodan/swarmprom
 
 Now it's ready to deploy your apps and test them::
 
@@ -108,21 +112,22 @@ Before using these make sure you had clone the repository by::
 That example of local deployment is nearly the same to the previews one
 except we will ad the reverse proxy Traefik to permit to us to have many
 more service even if they need the same port!
-| Even if in surface that llok like same, the deployment file are all
+| Even if in surface that look like same, the deployment file are all
 modified!
 | Now let's go..
 
 (*) All Open Sources
+
 +--------------------+-----------------------------+
 | Services           | Software                    |
 +====================+=============================+
-| GUI Control        | `Portainer`_                   |
+| GUI Control        | `Portainer`_                |
 +--------------------+-----------------------------+
 | Central Monitoring | Promotheus + Grafana        |
 +--------------------+-----------------------------+
 | Central Logging    | Elastic ELK                 |
 +--------------------+-----------------------------+
-| Layer 7 Proxy      | `Traefik`_                     |
+| Layer 7 Proxy      | `Traefik`_                  |
 +--------------------+-----------------------------+
 | Storage            | Local File System           |
 +--------------------+-----------------------------+
@@ -165,8 +170,9 @@ modified!
     default value: traefik-public
     docker stack deploy -c ./utils2devops/docker/local/traefik.yml traefik
 
-| After this step we will have a proxy Dashboard at:
-| http://traefik.example.com/dashboard/
+After this step we will have a proxy Dashboard at::
+
+    http://traefik.example.com/dashboard/
 
 7/ Deploy Ops Stacks Graphics UI (optional)::
 
@@ -174,11 +180,13 @@ modified!
     default value: portainer.example.com
     docker stack deploy -c ./utils2devops/docker/local-simple/portainer.yml portainer
 
-| After these steps we will have a Portainer at:
-| http://portainer.example.com:9000/#/dashboard
-| http://portainer.example.com:9000/#/containers
-| http://portainer.example.com:9000/#/swarm/visualizer
-| and so many other... have a look here https://www.portainer.io/overview/
+After these steps we will have::
+
+    Portainer at:
+        http://portainer.example.com:9000/#/dashboard
+        http://portainer.example.com:9000/#/containers
+        http://portainer.example.com:9000/#/swarm/visualizer
+    and so many other... have a look here https://www.portainer.io/overview/
 
 8/ Deploy Ops Stacks::
 
@@ -228,18 +236,20 @@ Then we continue to deploy with swarmprom::
     docker stack deploy -c ./utils2devops/docker/local/swarmprom.yml prom
 
 
-| After these steps we will have a Grafana Swarm nodes at:
-| https://grafana.example.com/d/BPlb-Sgik/docker-swarm-nodes?refresh=30s&orgId=1
-| After these steps we will have a Grafana Swarm Services at:
-| https://grafana.example.com/d/zr_baSRmk/docker-swarm-services?refresh=30s&orgId=1
-| After these steps we will have a Promotheus Stat at: TODO
-| http://<ip-node-1>:3000/d/mGFfYSRiz/prometheus-2-0-stats?refresh=1m&orgId=1
-| After these steps we will have a Promotheus Query at:
-| https://prometheus.example.com/graph
-| After these steps we will have a Alert manager at:
-| https://alertmanager.example.com/#/alerts
-| After these steps we will have a Alert Dashboard at:
-| https://unsee.example.com/?q=
+After these steps we will have ::
+
+    Grafana Swarm nodes at:
+        https://grafana.example.com/d/BPlb-Sgik/docker-swarm-nodes?refresh=30s&orgId=1
+    Grafana Swarm Services at:
+        https://grafana.example.com/d/zr_baSRmk/docker-swarm-services?refresh=30s&orgId=1
+    Promotheus Stat at:
+        http://<ip-node-1>:3000/d/mGFfYSRiz/prometheus-2-0-stats?refresh=1m&orgId=1
+    Promotheus Query at::
+        https://prometheus.example.com/graph
+    Alert manager at:
+        https://alertmanager.example.com/#/alerts
+    Alert Dashboard at:
+        https://unsee.example.com/?q=
 
 Then we finish to deploy with elk::
 
@@ -256,11 +266,13 @@ Then we finish to deploy with elk::
     docker stack deploy -c ./utils2devops/docker/local/elk.yml elk
 
 
-| After these steps we will have a Elasticsearch at:
-| http://elasticsearch.example.com/
-| After these steps we will have a kibana at:
-| http://kibana.example.com/app/kibana#/home?_g=()
-| and much more have a look at https://github.com/stefanprodan/swarmprom
+After these steps we will have::
+
+    Elasticsearch at:
+        http://elasticsearch.example.com/
+    kibana at:
+        http://kibana.example.com/app/kibana#/home?_g=()
+    and much more have a look at https://github.com/stefanprodan/swarmprom
 
 Now it's ready to deploy your apps and test them::
 
@@ -271,33 +283,36 @@ When you have finish to use it, Destroy it by::
     ./utils2devops/bin/docker-machine-cluster.sh -d 5
 
 
-Simple Swarm Stack AWS
-======================
+Simple Swarm Stack AWS (WORK IN PROGRESS)
+=========================================
 WORK IN PROGRESS
 Before using these make sure you had clone the repository by::
 
     git submodule update --init --recursive
 
-That example of local deployment is nearly the same to the previews one
-except we will ad the reverse proxy Traefik to permit to us to have many
-more service even if they need the same port!
-| Even if in surface that llok like same, the deployment file are all
-modified!
+For working in the cloud I strongly recommend to you to create a key for each
+provider, if you don't already have a key for Aws, you create it by::
+
+    ssh-keygen -t rsa -b 4096 -C your@email.address
+    At the prompt name it with aws in the name (but it's up to you)
+
+That example of AWS deployment is nearly the same to Swarm Stack local-simple!
 | Now let's go..
 
 (*) All Open Sources
+
 +--------------------+-----------------------------+
 | Services           | Software                    |
 +====================+=============================+
-| GUI Control        | `Portainer`_                   |
+| GUI Control        | `Portainer`_                |
 +--------------------+-----------------------------+
 | Central Monitoring | Promotheus + Grafana        |
 +--------------------+-----------------------------+
 | Central Logging    | Elastic ELK                 |
 +--------------------+-----------------------------+
-| Layer 7 Proxy      | `Traefik`_                     |
+| Layer 7 Proxy      | `Traefik`_                  |
 +--------------------+-----------------------------+
-| Storage            | Local File System           |
+| Storage            | AWS S3, RDS, Elasticsearch  |
 +--------------------+-----------------------------+
 | Networking         | Docker Swarm Overlay        |
 +--------------------+-----------------------------+
@@ -305,7 +320,7 @@ modified!
 +--------------------+-----------------------------+
 | Runtime            | Docker CE                   |
 +--------------------+-----------------------------+
-| Machine and OS     | Docker Machine + VirtualBox |
+| Machine and OS     | AWS EC2                     |
 +--------------------+-----------------------------+
 
 1/ Create the Machine::
@@ -338,8 +353,9 @@ modified!
     default value: traefik-public
     docker stack deploy -c ./utils2devops/docker/local/traefik.yml traefik
 
-| After this step we will have a proxy Dashboard at:
-| http://traefik.example.com/dashboard/
+After this step we will have a proxy Dashboard at::
+
+    http://traefik.example.com/dashboard/
 
 7/ Deploy Ops Stacks Graphics UI (optional)::
 
@@ -347,11 +363,12 @@ modified!
     default value: portainer.example.com
     docker stack deploy -c ./utils2devops/docker/local-simple/portainer.yml portainer
 
-| After these steps we will have a Portainer at:
-| http://portainer.example.com:9000/#/dashboard
-| http://portainer.example.com:9000/#/containers
-| http://portainer.example.com:9000/#/swarm/visualizer
-| and so many other... have a look here https://www.portainer.io/overview/
+After these steps we will have a Portainer at::
+
+    http://portainer.example.com:9000/#/dashboard
+    http://portainer.example.com:9000/#/containers
+    http://portainer.example.com:9000/#/swarm/visualizer
+    and so many other... have a look here https://www.portainer.io/overview/
 
 8/ Deploy Ops Stacks::
 
@@ -401,18 +418,20 @@ Then we continue to deploy with swarmprom::
     docker stack deploy -c ./utils2devops/docker/local/swarmprom.yml prom
 
 
-| After these steps we will have a Grafana Swarm nodes at:
-| https://grafana.example.com/d/BPlb-Sgik/docker-swarm-nodes?refresh=30s&orgId=1
-| After these steps we will have a Grafana Swarm Services at:
-| https://grafana.example.com/d/zr_baSRmk/docker-swarm-services?refresh=30s&orgId=1
-| After these steps we will have a Promotheus Stat at: TODO
-| http://<ip-node-1>:3000/d/mGFfYSRiz/prometheus-2-0-stats?refresh=1m&orgId=1
-| After these steps we will have a Promotheus Query at:
-| https://prometheus.example.com/graph
-| After these steps we will have a Alert manager at:
-| https://alertmanager.example.com/#/alerts
-| After these steps we will have a Alert Dashboard at:
-| https://unsee.example.com/?q=
+After these steps we will have ::
+
+    Grafana Swarm nodes at:
+        https://grafana.example.com/d/BPlb-Sgik/docker-swarm-nodes?refresh=30s&orgId=1
+    Grafana Swarm Services at:
+        https://grafana.example.com/d/zr_baSRmk/docker-swarm-services?refresh=30s&orgId=1
+    Promotheus Stat at:
+        http://<ip-node-1>:3000/d/mGFfYSRiz/prometheus-2-0-stats?refresh=1m&orgId=1
+    Promotheus Query at::
+        https://prometheus.example.com/graph
+    Alert manager at:
+        https://alertmanager.example.com/#/alerts
+    Alert Dashboard at:
+        https://unsee.example.com/?q=
 
 Then we finish to deploy with elk::
 
@@ -429,11 +448,13 @@ Then we finish to deploy with elk::
     docker stack deploy -c ./utils2devops/docker/local/elk.yml elk
 
 
-| After these steps we will have a Elasticsearch at:
-| http://elasticsearch.example.com/
-| After these steps we will have a kibana at:
-| http://kibana.example.com/app/kibana#/home?_g=()
-| and much more have a look at https://github.com/stefanprodan/swarmprom
+After these steps we will have::
+
+    Elasticsearch at:
+        http://elasticsearch.example.com/
+    kibana at:
+        http://kibana.example.com/app/kibana#/home?_g=()
+    and much more have a look at https://github.com/stefanprodan/swarmprom
 
 Now it's ready to deploy your apps and test them::
 
