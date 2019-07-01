@@ -19,7 +19,7 @@ required::
 
 run::
 
-    ./docker-machine-cluster.sh
+    ./utils2devops/bin/docker-machine-cluster.sh
     started...
     usage:
       docker-machine-cluster [-h | --help] To get this help
@@ -30,11 +30,11 @@ run::
 
 Create a cluster of 4 node::
 
-    docker-machine-cluster -c 5
+    ./utils2devops/bin/docker-machine-cluster.sh -c 5
 
 Destroy it::
 
-    docker-machine-cluster -d 5
+    ./utils2devops/bin/docker-machine-cluster.sh -d 5
 
 
 .. _ref-create-sw:
@@ -55,7 +55,7 @@ required::
 
 run::
 
-    ./swarm.sh
+    ./utils2devops/bin/swarm.sh
     started...
     usage:
       swarm [-h | --help] To get this help
@@ -68,8 +68,8 @@ run::
 
 Create a docker swarm of 3 manager and 2 worker::
 
-    ./swarm.sh -c -m 3 -w 2
+    ./utils2devops/bin/swarm.sh -c -m 3 -w 2
 
 Destroy it::
 
-    ./swarm.sh -r 5
+    ./utils2devops/bin/swarm.sh -r 5
