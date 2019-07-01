@@ -3,6 +3,7 @@
 
 Releases Notes
 ==============
+    - 0.1.4:    add deploy local stack swarm with Traefik
     - 0.1.3:    add deploy local stack swarm
                 add sub module docker-elk and swarmprom
     - 0.1.2:    refactor tests
