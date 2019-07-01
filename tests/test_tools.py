@@ -12,7 +12,7 @@ class BasicTestCase(TestCase):
         path = './docs/'
         filename = 'version.py'
         r = get_long_description_from_file(path, filename)
-        self.assertEqual(r, '__version__ = \'0.1.2\'')
+        self.assertEqual(r, '__version__ = \'0.1.4\'')
         # fault
         r = get_long_description_from_file(path, 'notExist')
         self.assertEqual(
@@ -23,7 +23,7 @@ class BasicTestCase(TestCase):
     def test_get_version(self):
         # nominal
         r = get_version('./docs/')
-        self.assertEqual(r, '0.1.2')
+        self.assertEqual(r, '0.1.4')
         # fault
         r = get_version('notExist')
         self.assertEqual(
