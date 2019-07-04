@@ -200,6 +200,67 @@ class InternetGateway(BlockTypeWithTagsBase):
         return the_str
 
 
+class Route(BlockTypeWithTagsBase):
+    """
+    Route
+        The following arguments are supported:
+            route_table_id - (Required) The ID of the routing table.
+
+        One of the following destination arguments must be supplied:
+            destination_cidr_block - (Optional) The destination CIDR block.
+            destination_ipv6_cidr_block - (Optional) The destination IPv6 CIDR block.
+
+        One of the following target arguments must be supplied:
+            egress_only_gateway_id - (Optional) Identifier of a VPC Egress Only Internet Gateway.
+            gateway_id - (Optional) Identifier of a VPC internet gateway or a virtual private gateway.
+            instance_id - (Optional) Identifier of an EC2 instance.
+            nat_gateway_id - (Optional) Identifier of a VPC NAT gateway.
+            network_interface_id - (Optional) Identifier of an EC2 network interface.
+            transit_gateway_id - (Optional) Identifier of an EC2 Transit Gateway.
+            vpc_peering_connection_id - (Optional) Identifier of a VPC peering connection.
+
+        Note that the default route, mapping the VPC's CIDR block to "local", is created implicitly and cannot be specified.
+    """
+    def __init__(self, name='', inserted=True):
+        """
+        Create new object, called automatically
+
+        :param name:
+        """
+        super(Route, self).__init__(
+            btype='resource', label='aws_route', name=name)
+        self.inserted = inserted
+        self.route_table_id = ''
+        self.destination_cidr_block = None
+        self.destination_ipv6_cidr_block = None
+
+        self.egress_only_gateway_id = None
+        self.gateway_id = None
+        self.instance_id = None
+        self.nat_gateway_id = None
+        self.network_interface_id = None
+        self.transit_gateway_id = None
+        self.vpc_peering_connection_id = None
+        # self.route = {
+        #     'cidr_block': '',
+        #     'gateway_id': '',
+        # }
+
+    def __str__(self):
+        the_str = ''
+        if not self.inserted:
+            the_str += super(Route, self).__str__()
+        the_str += '\n\troute {\n'
+        for attr in self.__dict__.items():
+            if attr[0] not in ('type', 'label', 'name', 'tags', 'inserted') and attr[1]:
+                if self.inserted and attr[0] != 'vpc_id':
+                    the_str += format_item(attr[0], attr[1], 2)
+        the_str += '\t}\n'
+        if not self.inserted:
+            the_str += end_block()
+        return the_str
+
+
 class RouteTable(BlockTypeWithTagsBase):
     """
     Route Table
@@ -212,20 +273,39 @@ class RouteTable(BlockTypeWithTagsBase):
         """
         super(RouteTable, self).__init__(
             btype='resource', label='aws_route_table', name=name)
-        self.vpc_id = ''
-        self.route = {
-            'cidr_block': '',
-            'gateway_id': '',
-        }
+        self.route_table_id = ''
+        self.routes = []
 
     def __str__(self):
         the_str = super(RouteTable, self).__str__()
         the_str += format_item('vpc_id', self.vpc_id)
-        the_str += '\n\troute {\n'
-        the_str += format_item('cidr_block', self.route['cidr_block'], 2)
-        the_str += format_item('gateway_id', self.route['gateway_id'], 2)
-        the_str += '\t}\n'
-        the_str += self.add_str_tags()
+        for route in self.routes:
+            the_str += str(route)
+        if self.tags:
+            the_str += self.add_str_tags()
+        the_str += end_block()
+        return the_str
+
+
+class RouteTableAssociation(BlockTypeWithTagsBase):
+    """
+    Route Table Association
+    """
+    def __init__(self, name=''):
+        """
+        Create new object, called automatically
+
+        :param name:
+        """
+        super(RouteTableAssociation, self).__init__(
+            btype='resource', label='aws_route_table_association', name=name)
+        self.subnet_id = ''
+        self.route_table_id = ''
+
+    def __str__(self):
+        the_str = super(RouteTableAssociation, self).__str__()
+        the_str += format_item('subnet_id', self.subnet_id)
+        the_str += format_item('route_table_id', self.route_table_id)
         the_str += end_block()
         return the_str
 
