@@ -9,8 +9,10 @@ Aws configuration files should be present:
 """
 
 
-def list_internet_gateways(profile_name: str = 'terraform',
-                           region_name: str = 'us-east-2') -> [str]:
+def list_internet_gateways(
+        profile_name: str = 'terraform',
+        region_name: str = 'us-east-1'
+) -> [str]:
     """This function list all AWS Internet Gateways how can access the profile
     profile_name in the AWS region region_name.
     TODO

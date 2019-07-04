@@ -9,9 +9,11 @@ Aws configuration iiles should be present:
 """
 
 
-def list_network_acls(profile_name: str = 'terraform',
-                      region_name: str = 'us-east-2') -> [str]:
-    """This function list all AWS API Gateways how can access the profile
+def list_network_acls(
+        profile_name: str = 'terraform',
+        region_name: str = 'us-east-1'
+) -> [str]:
+    """This function list all AWS network ACL how can access the profile
     profile_name in the AWS region region_name.
 
     :param profile_name: The AWS profile name to use.
