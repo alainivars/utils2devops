@@ -1,86 +1,18 @@
-#version: "3.7"
-#
-#x-default-opts:
-#  &default-opts
-#  logging:
-#    options:
-#      max-size: "1m"
-#
-#networks:
-#  proxy:
-#    external:
-#      name: proxy
-#  portainer: {}
-##  portainer:
-##    driver: overlay
-##    attachable: true
-#
-#volumes:
-#  portainer_data:
-#
-#services:
-#
-#  agent:
-#    <<: *default-opts
-#    image: portainer/agent
-#    environment:
-#      # REQUIRED: Should be equal to the service name prefixed by "tasks." when
-#      # deployed inside an overlay network
-#      AGENT_CLUSTER_ADDR: tasks.agent
-#      # AGENT_PORT: 9001
-#      # LOG_LEVEL: debug
-#    ports: # explicit is better than implicit
-#      - "9001:9001"
-#    volumes:
-#      - /var/run/docker.sock:/var/run/docker.sock
-#      - /var/lib/docker/volumes:/var/lib/docker/volumes
-#    networks:
-#      - portainer
-#    deploy:
-#      mode: global
-##      placement:
-##        constraints: [node.platform.os == linux]
-#
-#  portainer:
-#    <<: *default-opts
-#    image: portainer/portainer
-#    command: -H tcp://tasks.agent:9001 --tlsskipverify
-#    ports:
-#      - "9000:9000"
-#    volumes:
-#      - portainer_data:/data
-#    networks:
-#      - portainer
-#      - proxy
-#    deploy:
-#      mode: replicated
-#      replicas: 1
-#      placement:
-#        constraints: [node.role == manager]
-#      labels:
-#        - traefik.docker.network=proxy
-#        - traefik.backend=portainer_portainer
-#        - traefik.port=9000
-#        - traefik.frontend.rule=Host:portainer.cloud.my
-
-
-
-
-
 version: "3.7"
 
-#x-default-opts:
-#  &default-opts
-#  logging:
-#    options:
-#      max-size: "1m"
+x-default-opts:
+  &default-opts
+  logging:
+    options:
+      max-size: "10m"
 
 networks:
   agent_network:
     driver: overlay
     attachable: true
   proxy:
-    external: true
+    external:
+      name: proxy
 
 volumes:
   portainer_data:
@@ -88,7 +20,7 @@ volumes:
 services:
 
   agent:
-#    <<: *default-opts
+    <<: *default-opts
     image: portainer/agent
     environment:
       # REQUIRED: Should be equal to the service name prefixed by "tasks." when
@@ -107,11 +39,11 @@ services:
         constraints: [node.platform.os == linux]
 
   portainer:
-#    <<: *default-opts
+    <<: *default-opts
     image: portainer/portainer
     command: -H tcp://tasks.agent:9001 --tlsskipverify
-#    ports:
-#      - "9000:9000"
+    ports:
+      - "9000:9000"
     volumes:
       - portainer_data:/data
     networks:
@@ -124,8 +56,8 @@ services:
         constraints: [node.role == manager]
       labels:
         - traefik.docker.network=proxy
-        - traefik.backend=portainer_portainer
+        - traefik.backend={{ .Stack.Name }}_portainer
         - traefik.port=9000
-        - traefik.enable=true
-        - traefik.default.protocol=http
+#        - traefik.enable=true
+#        - traefik.default.protocol=http
         - traefik.frontend.rule=Host:${PORTAINER_HOST:-portainer.cloud.my}

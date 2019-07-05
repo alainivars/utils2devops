@@ -1,3 +1,5 @@
+# https://docs.traefik.io/configuration/backends/docker/#docker-swarm-mode
+# https://docs.traefik.io/user-guide/swarm/
 version: '3.7'
 
 x-default-opts:
