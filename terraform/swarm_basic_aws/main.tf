@@ -173,17 +173,38 @@ resource "aws_security_group" "swarm-security-group" {
   }
 }
 
-module "swarm_cluster" {
+module "swarm_cluster_manager" {
   source                 = "terraform-aws-modules/ec2-instance/aws"
   version                = "~> 2.0"
 
-  name                   = var.name
-  instance_count         = var.instance_count
+  name                   = var.name_manager
+  instance_count         = var.instance_count_manager
 
   associate_public_ip_address = true
 
   ami                    = data.aws_ami.ubuntu.id
-  instance_type          = var.instance_type
+  instance_type          = var.instance_type_manager
+  key_name               = var.key_name
+  monitoring             = false
+  vpc_security_group_ids = [aws_security_group.swarm-security-group.id]
+  subnet_id              = var.subnet_id
+
+  tags = {
+    Terraform   = "true"
+  }
+}
+
+module "swarm_cluster_worker" {
+  source                 = "terraform-aws-modules/ec2-instance/aws"
+  version                = "~> 2.0"
+
+  name                   = var.name_worker
+  instance_count         = var.instance_count_worker
+
+  associate_public_ip_address = true
+
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = var.instance_type_worker
   key_name               = var.key_name
   monitoring             = false
   vpc_security_group_ids = [aws_security_group.swarm-security-group.id]

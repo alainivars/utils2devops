@@ -19,25 +19,44 @@ variable "key_name" {
   default     = "terraform_key"  #OK "terraform_ec2_key"
 }
 
-# You could change these but they default values are good fot that test
-variable "instance_count" {
+# You could change all these but they default values are good fot that test
+variable "ssh_user" {
+  description = "ssh user, depent on the distrubution instaled"
+  default     = "ubuntu"
+}
+
+# master and manager settings
+variable "instance_count_manager" {
   description = "Number of instances to launch"
   type        = number
-  default     = 5
+  default     = 1
 }
 
-variable "name" {
+variable "instance_type_manager" {
+  description = "Instance type"
+  default     = "t2.large"
+}
+
+variable "name_manager" {
   description = "Name to be used on all resources as prefix"
   type        = string
-  default     = "swarm-node"
+  default     = "swarm-manager"
 }
 
-variable "instance_type" {
+# worker settings
+variable "instance_count_worker" {
+  description = "Number of instances to launch"
+  type        = number
+  default     = 1
+}
+
+variable "instance_type_worker" {
   description = "Instance type"
   default     = "t2.micro"
 }
 
-variable "ssh_user" {
-  description = "ssh user, depent on the distrubution instaled"
-  default     = "ubuntu"
+variable "name_worker" {
+  description = "Name to be used on all resources as prefix"
+  type        = string
+  default     = "swarm-worker"
 }
