@@ -53,10 +53,12 @@ Contents
 
    bins
    docker_swarm
+   docker_swarm_aws
    testing
    aws
    lxc_lxd
    releases_notes
+   terraform
    source/modules
 
 Indices and tables
@@ -81,20 +83,28 @@ already created a function, a class and sharing it, and if I like its implementa
 I will use this function / class and say a big thank you to this person in all respect of the Copyright and the Licence.
 This library is in development and the folder structure will change certainly
 
-We will use ::
+We already use ::
 
     - `AWS Tools`_
-    - `GPC tools`_
+    - `AWS Cloud`_
     - `Docker`_
+    - `Ansible`_
     - `Traefik`_
     - `Portainer`_
     - `Terraform`_
+
+We will add ::
+
+    - `GPC tools`_
+    - `GPC Cloud`_
+    - `OpenFaaS`_
+    - `Consul`_
+    - `Etcd`_
     - ...
 
 To develop or improve this library you can run it with the env DEBUG_OR_IMPROVE
 
 Something disturb you in the code? Don't hesitate to open a an issue and contribute.
 
-WORK IN PROGESS...
 Online documentation is here on `Readthedoc`_
 Online source code available on `Github`_

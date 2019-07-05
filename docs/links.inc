@@ -7,8 +7,14 @@
 .. _`Github`: https://github.com/alainivars/utils2devops
 .. _`Releases notes`: https://github.com/alainivars/utils2devops/blob/master/docs/releases_notes.rst
 .. _`AWS Tools`: https://aws.amazon.com/tools/
+.. _`AWS Cloud`: https://aws.amazon.com/
 .. _`GPC Tools`: https://cloud.google.com/sdk/docs/
+.. _`GPC Cloud`: https://cloud.google.com/
 .. _`Docker`: https://docs.docker.com/get-started/
 .. _`Traefik`: https://traefik.io/
+.. _`Ansible`: https://docs.ansible.com/ansible/latest
 .. _`Portainer`: https://www.portainer.io/installation/
 .. _`Terraform`: https://www.terraform.io/downloads.html
+.. _`OpenFaaS`: https://github.com/openfaas/faas
+.. _`Consul`: https://github.com/hashicorp/consul
+.. _`Etcd`: https://github.com/etcd-io/etcd

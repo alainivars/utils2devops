@@ -12,6 +12,11 @@ output "ids" {
   value       = module.swarm_cluster.id
 }
 
+output "name" {
+  description = "List of public Names assigned to the instances"
+  value       = module.swarm_cluster.tags[*]["Name"]
+}
+
 output "public_dns" {
   description = "List of public DNS names assigned to the instances"
   value       = module.swarm_cluster.public_dns

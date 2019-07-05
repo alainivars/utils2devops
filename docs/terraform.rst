@@ -53,4 +53,53 @@ then import them by::
 
 
 Then a terraform.tfstate will be generated or updated with your config.TODO the documentation of existing functionnalities
-TODO implementation WORK IN PROGESS
+
+Generate a Key pair for terraform user::
+
+    cd ~/.ssh
+    ssh-keygen -f terraform_key
+    Generating public/private rsa key pair.
+    Enter passphrase (empty for no passphrase):
+    Enter same passphrase again:
+    Your identification has been saved in terraform_key.
+    Your public key has been saved in terraform_key.pub.
+    The key fingerprint is:
+    SHA256:SX5+SVVbyUiaslXmpqFNJl8WrP/NMTzWMnsK5AwxMvI alain@Beowolf007
+    The key's randomart image is:
+    +---[RSA 2048]----+
+    |            o=o +|
+    |            *o.+o|
+    |      . +ooB.=.. |
+    |       = +@+*.   |
+    |        Eoo++ . .|
+    |         o * oo*.|
+    |          . * o==|
+    |           . ...+|
+    |              .o |
+    +----[SHA256]-----+
+
+We now have 2 more files::
+
+    terraform_key
+    terraform_key.pub
+
+Creating the terraform file to import it::
+See :ref:`ref-create-dm` for setting your profile
+
+    provider "aws" {
+      profile = "terraform"
+      region  = "eu-west-1"
+    }
+
+    resource "aws_instance" "ubuntu_zesty" {
+      ami           = "ami-6b7f610f"
+      instance_type = "t2.micro"
+      key_name      = "terraform_ec2_key"
+    }
+
+    resource "aws_key_pair" "terraform_ec2_key" {
+      key_name = "terraform_ec2_key"
+      public_key = "${file("terraform_key.pub")}"
+//      public_key = "ssh-rsa AZEB...jkasASDhaSjdh me@here"
+    }
+
