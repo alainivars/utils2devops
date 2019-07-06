@@ -1,10 +1,11 @@
+# Author Alain Ivars - All right reserved 2019
 ---
-  - name: Create the Machine
+  - name: Create the Machines
     hosts: 127.0.0.1
     connection: local
     any_errors_fatal: True
     tasks:
-      - name: Create the Machine task
+      - name: Create the Machines task
         shell: >
           {{ playbook_dir }}/../utils2devops/bin/docker-machine-cluster.sh -c 5
         register: stdout
