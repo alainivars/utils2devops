@@ -1,10 +1,11 @@
+# Author Alain Ivars - All right reserved 2019
 ---
-  - name: Create the Machine
+  - name: Create the Machines
     hosts: 127.0.0.1
     connection: local
     any_errors_fatal: True
     tasks:
-      - name: Create the Machine task
+      - name: Create the Machines task
         shell: >
           {{ playbook_dir }}/../utils2devops/bin/docker-machine-cluster.sh -c 5
         register: stdout
@@ -41,13 +42,20 @@
     any_errors_fatal: True
     tasks:
       - name: Deploy Traefik stack task
-        shell: |
-          export TRAEFIK_HOST=traefik.example.com
-          export TRAEFIK_PUBLIC_TAG=my-traefik-public
-          docker stack deploy -c ./utils2devops/docker/local/traefik.yml traefik
+        shell:
+          cmd: |
+            eval "$(docker-machine env node-1)"
+            export TRAEFIK_HOST=traefik.example.com
+            export TRAEFIK_PUBLIC_TAG=my-traefik-public
+            docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local/traefik.yml traefik
+             <<EOF
+            EOF
         register: stdout
       - name: debug output
         debug: msg={{ stdout }}
+      - name: sleep for 20 seconds to give the time to the swarm to set everything
+        wait_for: timeout=20
+        delegate_to: localhost
 
   - name: Deploy Ops Stacks Graphics UI (optional)
     hosts: 127.0.0.1
@@ -55,13 +63,19 @@
     any_errors_fatal: True
     tasks:
       - name: Deploy portainer stack task
-        shell: |
-          eval "$(docker-machine env node-1)"
-          export PORTAINER_HOST=portainer.example.com
-          docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local-simple/portainer.yml portainer
+        shell:
+          cmd: |
+            eval "$(docker-machine env node-1)"
+            export PORTAINER_HOST=portainer.example.com
+            docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local-simple/portainer.yml portainer
+             <<EOF
+            EOF
         register: stdout
       - name: debug output
         debug: msg={{ stdout }}
+      - name: sleep for 15 seconds to give the time to the swarm to set everything
+        wait_for: timeout=15
+        delegate_to: localhost
 
   - name: Deploy Ops Stacks
     hosts: 127.0.0.1
@@ -69,28 +83,40 @@
     any_errors_fatal: True
     tasks:
       - name: Deploy swarmprom stack task
-        shell: |
-          eval "$(docker-machine env node-1)"
-          export ADMIN_USER=admin
-          export ADMIN_PASSWORD=adminadmin
-          export HASHED_PASSWORD=$(openssl passwd -apr1 $ADMIN_PASSWORD)
-          export DOMAIN=example.com
-          export TRAEFIK_PUBLIC_TAG=traefik-public
-          docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local/swarmprom.yml prom
+        shell:
+          cmd: |
+            eval "$(docker-machine env node-1)"
+            export ADMIN_USER=admin
+            export ADMIN_PASSWORD=adminadmin
+            export HASHED_PASSWORD=$(openssl passwd -apr1 $ADMIN_PASSWORD)
+            export DOMAIN=example.com
+            export TRAEFIK_PUBLIC_TAG=traefik-public
+            export SLACK_URL=https://hooks.slack.com/services/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
+            export SLACK_CHANNEL=general
+            export SLACK_USER=alainivars@gmail.com
+            docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local/swarmprom.yml prom
+             <<EOF
+            EOF
         register: stdout
       - name: debug output
         debug: msg={{ stdout }}
+      - name: sleep for 60 seconds to give the time to the swarm to set everything
+        wait_for: timeout=60
+        delegate_to: localhost
 
       - name: Deploy elk stack task
-        shell: |
-          eval "$(docker-machine env node-1)"
-          export ELASTICSEARCH_USER=admin
-          export ELASTICSEARCH_PASSWORD=adminadmin
-          export ELASTICSEARCH_HASHED_PASSWORD=$(openssl passwd -apr1 $ELASTICSEARCH_PASSWORD)
-          export KIBANA_USER=admin
-          export KIBANA_PASSWORD=adminadmin
-          export KIBANA_HASHED_PASSWORD=$(openssl passwd -apr1 $KIBANA_PASSWORD)
-          docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local/elk.yml elk
+        shell:
+          cmd: |
+            eval "$(docker-machine env node-1)"
+            export ELASTICSEARCH_USER=admin
+            export ELASTICSEARCH_PASSWORD=adminadmin
+            export ELASTICSEARCH_HASHED_PASSWORD=$(openssl passwd -apr1 -salt pepper $ELASTICSEARCH_PASSWORD)
+            export KIBANA_USER=admin
+            export KIBANA_PASSWORD=adminadmin
+            export KIBANA_HASHED_PASSWORD=$(openssl passwd -apr1 $KIBANA_PASSWORD)
+            docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local/elk.yml elk
+             <<EOF
+            EOF
         register: stdout
       - name: debug output
         debug: msg={{ stdout }}
