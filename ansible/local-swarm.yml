@@ -1,0 +1,96 @@
+---
+  - name: Create the Machine
+    hosts: 127.0.0.1
+    connection: local
+    any_errors_fatal: True
+    tasks:
+      - name: Create the Machine task
+        shell: >
+          {{ playbook_dir }}/../utils2devops/bin/docker-machine-cluster.sh -c 5
+        register: stdout
+      - name: debug output
+        debug: msg={{ stdout }}
+
+  - name: Enable monitoring (optional)
+    hosts: 127.0.0.1
+    connection: local
+    any_errors_fatal: True
+    tasks:
+      - name: Enable monitoring task
+        shell: >
+          {{ playbook_dir }}/../utils2devops/bin/enable-monitoring.sh -p {{ playbook_dir }}/../utils2devops/docker/ -n 5
+        register: stdout
+      - name: debug output
+        debug: msg={{ stdout }}
+
+  - name: Create the Docker Swarm
+    hosts: 127.0.0.1
+    connection: local
+    any_errors_fatal: True
+    tasks:
+      - name: Create the Docker Swarm task
+        shell: >
+          {{ playbook_dir }}/../utils2devops/bin/swarm.sh -c -m 3 -w 2
+        register: stdout
+      - name: debug output
+        debug: msg={{ stdout }}
+
+  - name: Deploy Traefik
+    hosts: 127.0.0.1
+    connection: local
+    any_errors_fatal: True
+    tasks:
+      - name: Deploy Traefik stack task
+        shell: |
+          export TRAEFIK_HOST=traefik.example.com
+          export TRAEFIK_PUBLIC_TAG=my-traefik-public
+          docker stack deploy -c ./utils2devops/docker/local/traefik.yml traefik
+        register: stdout
+      - name: debug output
+        debug: msg={{ stdout }}
+
+  - name: Deploy Ops Stacks Graphics UI (optional)
+    hosts: 127.0.0.1
+    connection: local
+    any_errors_fatal: True
+    tasks:
+      - name: Deploy portainer stack task
+        shell: |
+          eval "$(docker-machine env node-1)"
+          export PORTAINER_HOST=portainer.example.com
+          docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local-simple/portainer.yml portainer
+        register: stdout
+      - name: debug output
+        debug: msg={{ stdout }}
+
+  - name: Deploy Ops Stacks
+    hosts: 127.0.0.1
+    connection: local
+    any_errors_fatal: True
+    tasks:
+      - name: Deploy swarmprom stack task
+        shell: |
+          eval "$(docker-machine env node-1)"
+          export ADMIN_USER=admin
+          export ADMIN_PASSWORD=adminadmin
+          export HASHED_PASSWORD=$(openssl passwd -apr1 $ADMIN_PASSWORD)
+          export DOMAIN=example.com
+          export TRAEFIK_PUBLIC_TAG=traefik-public
+          docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local/swarmprom.yml prom
+        register: stdout
+      - name: debug output
+        debug: msg={{ stdout }}
+
+      - name: Deploy elk stack task
+        shell: |
+          eval "$(docker-machine env node-1)"
+          export ELASTICSEARCH_USER=admin
+          export ELASTICSEARCH_PASSWORD=adminadmin
+          export ELASTICSEARCH_HASHED_PASSWORD=$(openssl passwd -apr1 $ELASTICSEARCH_PASSWORD)
+          export KIBANA_USER=admin
+          export KIBANA_PASSWORD=adminadmin
+          export KIBANA_HASHED_PASSWORD=$(openssl passwd -apr1 $KIBANA_PASSWORD)
+          docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local/elk.yml elk
+        register: stdout
+      - name: debug output
+        debug: msg={{ stdout }}
