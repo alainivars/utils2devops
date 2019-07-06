@@ -1,0 +1,71 @@
+---
+  - name: Create the Machine
+    hosts: 127.0.0.1
+    connection: local
+    any_errors_fatal: True
+    tasks:
+      - name: Create the Machine task
+        shell: >
+          {{ playbook_dir }}/../utils2devops/bin/docker-machine-cluster.sh -c 5
+        register: stdout
+      - name: debug output
+        debug: msg={{ stdout }}
+
+  - name: Enable monitoring (optional)
+    hosts: 127.0.0.1
+    connection: local
+    any_errors_fatal: True
+    tasks:
+      - name: Enable monitoring task
+        shell: >
+          {{ playbook_dir }}/../utils2devops/bin/enable-monitoring.sh -p {{ playbook_dir }}/../utils2devops/docker/ -n 5
+        register: stdout
+      - name: debug output
+        debug: msg={{ stdout }}
+
+  - name: Create the Docker Swarm
+    hosts: 127.0.0.1
+    connection: local
+    any_errors_fatal: True
+    tasks:
+      - name: Create the Docker Swarm task
+        shell: >
+          {{ playbook_dir }}/../utils2devops/bin/swarm.sh -c -m 3 -w 2
+        register: stdout
+      - name: debug output
+        debug: msg={{ stdout }}
+
+  - name: Deploy Ops Stacks Graphics UI (optional)
+    hosts: 127.0.0.1
+    connection: local
+    any_errors_fatal: True
+    tasks:
+      - name: Deploy portainer stack task
+        shell: |
+          eval "$(docker-machine env node-1)"
+          export PORTAINER_HOST=portainer.example.com
+          docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local-simple/portainer.yml portainer
+        register: stdout
+      - name: debug output
+        debug: msg={{ stdout }}
+
+  - name: Deploy Ops Stacks
+    hosts: 127.0.0.1
+    connection: local
+    any_errors_fatal: True
+    tasks:
+      - name: Deploy swarmprom stack task
+        shell: |
+          eval "$(docker-machine env node-1)"
+          docker stack deploy -c {{ playbook_dir }}/../submodules/swarmprom/docker-compose.yml prom
+        register: stdout
+      - name: debug output
+        debug: msg={{ stdout }}
+
+      - name: Deploy elk stack task
+        shell: |
+          eval "$(docker-machine env node-1)"
+          docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local-simple/elk.yml elk
+        register: stdout
+      - name: debug output
+        debug: msg={{ stdout }}

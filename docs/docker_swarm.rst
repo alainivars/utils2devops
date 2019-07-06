@@ -34,6 +34,17 @@ Now let's go..
 | Machine and OS     | Docker Machine + VirtualBox |
 +--------------------+-----------------------------+
 
+You have 2 way to deploy it::
+
+    - The fast way by launch the ansible workbook, just type:
+
+        ansible-playbook -i ansible/local-swarm-inventory ansible/local-simple-swarm.yml
+
+    - Or the long way but where you can learn every step ...
+
+Learn every step to deploy the local-simple swarm
+-------------------------------------------------
+
 1/ Create the Machine::
 
     ./utils2devops/bin/docker-machine-cluster.sh -c 5
@@ -52,7 +63,7 @@ Now let's go..
 | You can go to see the doc of this tools here :ref:`ref-create-sw`
 | Here we will create a swarm with 3 manager and 2 worker
 
-4/ To launch docker command in the Master with ssh it::
+4/ Launch docker command in the Master::
 
     eval "$(docker-machine env node-1)"
 
@@ -140,6 +151,17 @@ modified!
 | Machine and OS     | Docker Machine + VirtualBox |
 +--------------------+-----------------------------+
 
+You have 2 way to deploy it::
+
+    - The fast way by launch the ansible workbook, just type:
+
+        ansible-playbook -i ansible/local-swarm-inventory ansible/local-swarm.yml
+
+    - Or the long way but where you can learn every step ...
+
+Learn every step to deploy the local swarm
+------------------------------------------
+
 1/ Create the Machine::
 
     ./utils2devops/bin/docker-machine-cluster.sh -c 5
@@ -172,7 +194,7 @@ modified!
 
 After this step we will have a proxy Dashboard at::
 
-    http://traefik.example.com/dashboard/
+    http://traefik.example.com:8080/dashboard/
 
 7/ Deploy Ops Stacks Graphics UI (optional)::
 
@@ -250,6 +272,14 @@ After these steps we will have ::
         https://alertmanager.example.com/#/alerts
     Alert Dashboard at:
         https://unsee.example.com/?q=
+
+In promotheus try::
+
+    sum(irate(container_cpu_usage_seconds_total{image!=""}[1m])) without (cpu)
+    container_memory_usage_bytes{image!=""}
+    sum(rate(container_network_transmit_bytes_total{image!=""}[1m])) without (interface)
+    sum(rate(container_fs_reads_bytes_total{image!=""}[1m])) without (device)
+    sum(rate(container_fs_writes_bytes_total{image!=""}[1m])) without (device)
 
 Then we finish to deploy with elk::
 
