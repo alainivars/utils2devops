@@ -92,7 +92,7 @@ already created a function, a class and sharing it, and if I like its implementa
 I will use this function / class and say a big thank you to this person in all respect of the Copyright and the Licence.
 This library is in development and the folder structure will change certainly
 
-We already use ::
+We already use :
 
     - `AWS Tools`_
     - `AWS Cloud`_ Ami, Security group, Ec2
@@ -105,7 +105,7 @@ We already use ::
     - `Elk`_
     - `Icinga2`_ + `plugin logs`_ WORK IN PROGRESS
 
-We will add ::
+We will add :
 
     - `AWS Cloud`_ S3, RDS, Cloudwatch, ...
     - `GPC tools`_
