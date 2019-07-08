@@ -1,5 +1,5 @@
 
-.. include:: links.inc
+.. include:: ../links.inc
 
 Swarm Stack AWS
 ===============
@@ -174,7 +174,7 @@ Now the swarm is deployed and ready to use on all the swarm-node-x
     docker-machine create \
       --driver generic \
       --generic-ssh-user "ubuntu" \
-      --generic-ip-address=3.83.185.64 \
+      --generic-ip-address=35.170.64.155 \
       --generic-ssh-key ~/.ssh/terraform_key \
       swarm-node-1
 
@@ -201,9 +201,10 @@ After this step we will have a proxy Dashboard at::
 After these steps we will have::
 
     Portainer at:
+        http://portainer.example.com:9000/#/init/admin
         http://portainer.example.com:9000/#/dashboard
         http://portainer.example.com:9000/#/containers
-        http://portainer.example.com:9000/#/swarm/visualizer
+        http://portainer.example.com/#/swarm/visualizer
     and so many other... have a look here https://www.portainer.io/overview/
 
 8/ Deploy Ops Stacks::
@@ -251,7 +252,7 @@ If you are using Slack and want to integrate it, set the following environment v
 
 Then we continue to deploy with swarmprom::
 
-    docker stack deploy -c ./utils2devops/docker/local/swarmprom.yml prom
+    docker stack deploy -c ./utils2devops/docker/cloud/aws/swarmprom.yml prom
 
 
 After these steps we will have ::
@@ -264,6 +265,8 @@ After these steps we will have ::
         http://<ip-node-1>:3000/d/mGFfYSRiz/prometheus-2-0-stats?refresh=1m&orgId=1
     Promotheus Query at::
         https://prometheus.example.com/graph
+    Promotheus Status targets:
+        https://prometheus.example.com/targets
     Alert manager at:
         https://alertmanager.example.com/#/alerts
     Alert Dashboard at:
@@ -281,7 +284,7 @@ Then we finish to deploy with elk::
     export KIBANA_PASSWORD=adminadmin
     default value: admin
     export KIBANA_HASHED_PASSWORD=$(openssl passwd -apr1 $KIBANA_PASSWORD)
-    docker stack deploy -c ./utils2devops/docker/local/elk.yml elk
+    docker stack deploy -c ./utils2devops/docker/cloud/aws/elk.yml elk
 
 
 After these steps we will have::

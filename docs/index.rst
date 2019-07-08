@@ -52,8 +52,10 @@ Contents
    :caption: How to use it:
 
    bins
-   docker_swarm
-   docker_swarm_aws
+   swarm/local-with-out-proxy
+   swarm/local-proxy-prom-elk
+   swarm/local-proxy-prom-Icinga2
+   swarm/AWS
    testing
    aws
    lxc_lxd
@@ -71,9 +73,16 @@ Indices and tables
 Infrastructure As Code
 ======================
 
-Utils2devops is a package that contain python 3 functions and class that can be helpfull in the
+Utils2devops is a package that contain python 3 functions and class that can be helpful in the
 all working day. Any help for develop, test, validate, documentation are
 welcome!
+
+With utils2devops you will  learn if you don't already know::
+
+    How to create a Docker swarm locally and deploy it automatically
+    How to populate a Docker swarm locally and deploy it automatically
+    How to add an existing AWS Ec2 instance in Docker-machine
+    ...
 
 TAKE CARE THIS LIBRARY AND THE TOOLS will do what ever you ask to do, even for
 destroy image, network, container, ...
@@ -86,20 +95,25 @@ This library is in development and the folder structure will change certainly
 We already use ::
 
     - `AWS Tools`_
-    - `AWS Cloud`_
+    - `AWS Cloud`_ Ami, Security group, Ec2
     - `Docker`_
     - `Ansible`_
     - `Traefik`_
     - `Portainer`_
     - `Terraform`_
+    - `Swarmprom`_
+    - `Elk`_
+    - `Icinga2`_ + `plugin logs`_ WORK IN PROGRESS
 
 We will add ::
 
+    - `AWS Cloud`_ S3, RDS, Cloudwatch, ...
     - `GPC tools`_
     - `GPC Cloud`_
     - `OpenFaaS`_
     - `Consul`_
     - `Etcd`_
+    - Kubernetes
     - ...
 
 To develop or improve this library you can run it with the env DEBUG_OR_IMPROVE
