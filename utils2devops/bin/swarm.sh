@@ -95,6 +95,7 @@ function create_swarm_nodes() {
             if [ "$node" -eq "1" ];
             then
                 echo "Create manager swam nodes on node-1"
+                # TODO: case when a dead node with node-1 in the name exist
                 inet_ip=`docker-machine ls | grep node-1 | cut -d\/ -f3 | cut -d: -f1`
                 ret=`docker-machine ssh node-1 -- docker swarm init --advertise-addr ${inet_ip}`
                 worker=`echo ${ret} | grep ${inet_ip} | cut -d: -f3`":2377"

@@ -1,4 +1,5 @@
 #!/bin/bash
+#set -x
 
 #
 # Just a quick script to create and destroy a local docker-machine-cluster

@@ -9,7 +9,9 @@ x-default-opts:
 networks:
   proxy:
     driver: overlay
-    name: proxy
+    name: traefik_proxy
+#  default:
+#    driver: bridge
 
 services:
 
@@ -17,6 +19,7 @@ services:
     <<: *default-opts
     image: traefik:1.7-alpine
     networks:
+#      - default
       - proxy
     ports:
       - "80:80"
@@ -30,7 +33,7 @@ services:
       - --docker
       - --docker.swarmMode
       - --docker.domain=traefik
-      - --docker.network=proxy
+      - --docker.network=traefik_proxy
       - --docker.watch
       - --api
       - --defaultentrypoints=http,https
@@ -41,7 +44,8 @@ services:
         constraints: [node.role == manager]
       labels:
         - traefik.port=8080
-        - traefik.frontend.rule=Host:${TRAEFIK_HOST:-traefik.example.com}
+        - traefik.frontend.rule=Host:traefik.${DOMAIN:-example.com}
+#      - "traefik.frontend.rule=Host:${DOMAIN}; PathPrefixStrip: /traefik"
         - traefik.enable=true
         - traefik.tags=${TRAEFIK_PUBLIC_TAG:-traefik-public}
         - traefik.docker.network=traefik-public

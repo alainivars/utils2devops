@@ -19,7 +19,7 @@ configs:
 
 networks:
   elk:
-  proxy:
+  traefik_proxy:
     external: true
 
 volumes:
@@ -42,10 +42,25 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      resources:
+        limits:
+          cpus: '1'
+          memory: 256M
+        reservations:
+          cpus: '1'
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 10s
       labels:
         - traefik.port=9200
         - traefik.frontend.rule=Host:elasticsearch.${DOMAIN}
-        - traefik.frontend.auth.basic=${ELASTICSEARCH_USER:-admin}:${ELASTICSEARCH_HASHED_PASSWORD:-$2y$05$oZcj4FgdSFEYNCH0EH/3Vu7Hp72gkvEadHzMsDhGFkbvS/ZrKMKfK}
+#        - traefik.frontend.auth.basic=${ELASTICSEARCH_USER:-admin}:${HASHED_PASSWORD:-$apr1$QGOh2jEY$Y/yn79f/425CRsIFQSeEI/}
 
   logstash:
     <<: *default-opts
@@ -74,12 +89,12 @@ services:
         target: /usr/share/kibana/config/kibana.yml
     networks:
       - elk
-      - proxy
+      - traefik_proxy
     deploy:
       mode: replicated
       replicas: 1
       labels:
         - traefik.port=5601
         - traefik.frontend.rule=Host:kibana.${DOMAIN}
-        - traefik.frontend.auth.basic=${KIBANA_USER:-admin}:${KIBANA_PASSWORD:-$2y$05$oZcj4FgdSFEYNCH0EH/3Vu7Hp72gkvEadHzMsDhGFkbvS/ZrKMKfK}
+#        - traefik.frontend.auth.basic=${KIBANA_USER:-admin}:${KIBANA_PASSWORD:-admin}
       # TODO: make secrets secret
