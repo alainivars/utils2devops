@@ -7,7 +7,7 @@
     tasks:
       - name: Create the Machines task
         shell: >
-          {{ playbook_dir }}/../utils2devops/bin/docker-machine-cluster.sh -c 5
+          {{ playbook_dir }}/../../utils2devops/bin/docker-machine-cluster.sh -c 5
         register: stdout
       - name: debug output
         debug: msg={{ stdout }}
@@ -19,7 +19,7 @@
     tasks:
       - name: Enable monitoring task
         shell: >
-          {{ playbook_dir }}/../utils2devops/bin/enable-monitoring.sh -p {{ playbook_dir }}/../utils2devops/docker/ -n 5
+          {{ playbook_dir }}/../../utils2devops/bin/enable-monitoring.sh -p {{ playbook_dir }}/../../utils2devops/docker/ -n 5
         register: stdout
       - name: debug output
         debug: msg={{ stdout }}
@@ -31,7 +31,7 @@
     tasks:
       - name: Create the Docker Swarm task
         shell: >
-          {{ playbook_dir }}/../utils2devops/bin/swarm.sh -c -m 3 -w 2
+          {{ playbook_dir }}/../../utils2devops/bin/swarm.sh -c -m 3 -w 2
         register: stdout
       - name: debug output
         debug: msg={{ stdout }}
@@ -44,17 +44,18 @@
       - name: Deploy Traefik stack task
         shell:
           cmd: |
-            eval "$(docker-machine env node-1)"
-            export TRAEFIK_HOST=traefik.example.com
+            export DOMAIN=example.com
             export TRAEFIK_PUBLIC_TAG=my-traefik-public
-            docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local/traefik.yml traefik
+            eval "$(docker-machine env node-1)"
+            docker stack deploy -c {{ playbook_dir }}/../../utils2devops/docker/local-with-prom-elk/traefik.yml traefik
              <<EOF
             EOF
         register: stdout
+        tags: deploy_traefik
       - name: debug output
         debug: msg={{ stdout }}
-      - name: sleep for 20 seconds to give the time to the swarm to set everything
-        wait_for: timeout=20
+      - name: sleep for 10 seconds to give the time to the swarm to set everything
+        wait_for: timeout=10
         delegate_to: localhost
 
   - name: Deploy Ops Stacks Graphics UI (optional)
@@ -65,19 +66,20 @@
       - name: Deploy portainer stack task
         shell:
           cmd: |
+            export DOMAIN=example.com
             eval "$(docker-machine env node-1)"
-            export PORTAINER_HOST=portainer.example.com
-            docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local-simple/portainer.yml portainer
+            docker stack deploy -c {{ playbook_dir }}/../../utils2devops/docker/local-with-prom-elk/portainer.yml portainer
              <<EOF
             EOF
         register: stdout
+        tags: deploy_portainer
       - name: debug output
         debug: msg={{ stdout }}
       - name: sleep for 15 seconds to give the time to the swarm to set everything
         wait_for: timeout=15
         delegate_to: localhost
 
-  - name: Deploy Ops Stacks
+  - name: Deploy Ops Stacks part 1
     hosts: 127.0.0.1
     connection: local
     any_errors_fatal: True
@@ -85,38 +87,41 @@
       - name: Deploy swarmprom stack task
         shell:
           cmd: |
-            eval "$(docker-machine env node-1)"
-            export ADMIN_USER=admin
-            export ADMIN_PASSWORD=adminadmin
-            export HASHED_PASSWORD=$(openssl passwd -apr1 $ADMIN_PASSWORD)
+            export HASHED_PASSWORD="$apr1$QGOh2jEY$Y/yn79f/425CRsIFQSeEI/"
             export DOMAIN=example.com
+            export ADMIN_USER=admin
             export TRAEFIK_PUBLIC_TAG=traefik-public
             export SLACK_URL=https://hooks.slack.com/services/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
-            export SLACK_CHANNEL=general
-            export SLACK_USER=alainivars@gmail.com
-            docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local/swarmprom.yml prom
+            export SLACK_CHANNEL=utils2devops-tests
+            export SLACK_USER=alainivars
+            eval "$(docker-machine env node-1)"
+            docker stack deploy -c {{ playbook_dir }}/../../utils2devops/docker/local-with-prom-elk/swarmprom.yml prom
              <<EOF
             EOF
         register: stdout
+        tags: deploy_swarmprom
       - name: debug output
         debug: msg={{ stdout }}
-      - name: sleep for 60 seconds to give the time to the swarm to set everything
-        wait_for: timeout=60
+      - name: sleep for 90 seconds to give the time to the swarm to set everything
+        wait_for: timeout=90
         delegate_to: localhost
 
+  - name: Deploy Ops Stacks part 2
+    hosts: 127.0.0.1
+    connection: local
+    any_errors_fatal: True
+    tasks:
       - name: Deploy elk stack task
         shell:
           cmd: |
-            eval "$(docker-machine env node-1)"
-            export ELASTICSEARCH_USER=admin
-            export ELASTICSEARCH_PASSWORD=adminadmin
-            export ELASTICSEARCH_HASHED_PASSWORD=$(openssl passwd -apr1 -salt pepper $ELASTICSEARCH_PASSWORD)
+            export HASHED_PASSWORD="$apr1$QGOh2jEY$Y/yn79f/425CRsIFQSeEI/"
+            export DOMAIN=example.com
             export KIBANA_USER=admin
-            export KIBANA_PASSWORD=adminadmin
-            export KIBANA_HASHED_PASSWORD=$(openssl passwd -apr1 $KIBANA_PASSWORD)
-            docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local/elk.yml elk
+            eval "$(docker-machine env node-1)"
+            docker stack deploy -c {{ playbook_dir }}/../../utils2devops/docker/local-with-prom-elk/elk.yml elk
              <<EOF
             EOF
         register: stdout
+        tags: deploy_elk
       - name: debug output
         debug: msg={{ stdout }}

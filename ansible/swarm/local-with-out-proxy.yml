@@ -7,7 +7,7 @@
     tasks:
       - name: Create the Machines task
         shell: >
-          {{ playbook_dir }}/../utils2devops/bin/docker-machine-cluster.sh -c 5
+          {{ playbook_dir }}/../../utils2devops/bin/docker-machine-cluster.sh -c 5
         register: stdout
       - name: debug output
         debug: msg={{ stdout }}
@@ -19,7 +19,7 @@
     tasks:
       - name: Enable monitoring task
         shell: >
-          {{ playbook_dir }}/../utils2devops/bin/enable-monitoring.sh -p {{ playbook_dir }}/../utils2devops/docker/ -n 5
+          {{ playbook_dir }}/../../utils2devops/bin/enable-monitoring.sh -p {{ playbook_dir }}/../../utils2devops/docker/ -n 5
         register: stdout
       - name: debug output
         debug: msg={{ stdout }}
@@ -31,7 +31,7 @@
     tasks:
       - name: Create the Docker Swarm task
         shell: >
-          {{ playbook_dir }}/../utils2devops/bin/swarm.sh -c -m 3 -w 2
+          {{ playbook_dir }}/../../utils2devops/bin/swarm.sh -c -m 3 -w 2
         register: stdout
       - name: debug output
         debug: msg={{ stdout }}
@@ -45,7 +45,7 @@
         shell: |
           eval "$(docker-machine env node-1)"
           export PORTAINER_HOST=portainer.example.com
-          docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local-simple/portainer.yml portainer
+          docker stack deploy -c {{ playbook_dir }}/../../utils2devops/docker/local-with-out-proxy/portainer.yml portainer
         register: stdout
       - name: debug output
         debug: msg={{ stdout }}
@@ -66,7 +66,7 @@
       - name: Deploy elk stack task
         shell: |
           eval "$(docker-machine env node-1)"
-          docker stack deploy -c {{ playbook_dir }}/../utils2devops/docker/local-simple/elk.yml elk
+          docker stack deploy -c {{ playbook_dir }}/../../utils2devops/docker/local-with-out-proxy/elk.yml elk
         register: stdout
       - name: debug output
         debug: msg={{ stdout }}
