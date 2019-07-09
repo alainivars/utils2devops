@@ -52,7 +52,7 @@ Learn every step to deploy the local swarm
 
     ./utils2devops/bin/docker-machine-cluster.sh -c 5
 
-| You can go to see the doc of this tools here :ref:`ref-create-dm`
+| You can go to see the doc of this tools here :ref:`ref-create-docker_machine`
 | Here we will create a swarm with 3 machines
 
 2/ Enable monitoring (optional)::

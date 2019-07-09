@@ -84,7 +84,7 @@ We now have 2 more files::
     terraform_key.pub
 
 Creating the terraform file to import it::
-See :ref:`ref-create-dm` for setting your profile
+See :ref:`ref-create-docker_machine` for setting your profile
 
     provider "aws" {
       profile = "terraform"
