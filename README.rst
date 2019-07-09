@@ -12,7 +12,7 @@ Welcome to Utils2DevOps documentation!
     :target: https://requires.io/github/alainivars/utils2devops/requirements/?branch=master
     :alt: Requirements Status
 
-.. image:: https://img.shields.io/pypi/dm/utils2devops.svg
+.. image:: https://img.shields.io/pypi/docker_machine/utils2devops.svg
    :target: https://pypi.python.org/pypi/utils2devops/
    :alt: pypi download
 

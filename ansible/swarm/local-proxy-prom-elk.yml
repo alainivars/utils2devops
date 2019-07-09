@@ -91,7 +91,7 @@
             export DOMAIN=example.com
             export ADMIN_USER=admin
             export TRAEFIK_PUBLIC_TAG=traefik-public
-            export SLACK_URL=https://hooks.slack.com/services/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
+            export SLACK_URL=${SLACK_HOOK_URL}${SLACK_HOOK_KEY}
             export SLACK_CHANNEL=utils2devops-tests
             export SLACK_USER=alainivars
             eval "$(docker-machine env node-1)"
