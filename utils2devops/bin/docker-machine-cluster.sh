@@ -7,15 +7,18 @@
 
 count=0
 actions=()
+mask="node-"
 
 usage()
 {
     echo "usage:"
     echo "  docker-machine-cluster [-h | --help] To get this help"
-    echo "  docker-machine-cluster [-c | --create x]"
-    echo "      Where x is the number of manager node to create/add in the swarm."
-    echo "  docker-machine-cluster [-d | --destroy x]"
-    echo "      Where x is the number of manager node to create/add in the swarm."
+    echo "  docker-machine-cluster [-c | --create x] [-m | --mask y]"
+    echo "      Where x is the number of node to create/add."
+    echo "      Where y is the mask of the node: example: node. or server-, default is node-"
+    echo "  docker-machine-cluster [-d | --destroy x] [-m | --mask y]"
+    echo "      Where x is the number of node to destroy."
+    echo "      Where y is the mask of the node: example: node. or server., default is node."
 }
 
 
@@ -47,6 +50,15 @@ while [ "$1" != "" ]; do
                 count=$1
             fi
             ;;
+        -m | --mask )
+            shift
+            if [ -z "$1" ]
+            then
+                mask="node."
+            else
+                mask=$1
+            fi
+            ;;
         -h | --help )
             actions=(usage)
             exit
@@ -70,16 +82,16 @@ MACHINE_OPTS="--engine-storage-driver overlay2"
 function create_nodes() {
     for i in $(seq 1 ${count})
     do
-        echo "Create node-${i}"
-        docker-machine create -d ${DOCKER_MACHINE_DRIVER} ${MACHINE_OPTS} node-${i}
+        echo "Create ${mask}${i}"
+        docker-machine create -d ${DOCKER_MACHINE_DRIVER} ${MACHINE_OPTS} ${mask}${i}
     done
 }
 
 function destroy_nodes() {
     for i in $(seq 1 ${count})
     do
-        echo "Destroy node-${i}"
-        docker-machine rm -y node-${i}
+        echo "Destroy ${mask}${i}"
+        docker-machine rm -y ${mask}${i}
     done
 }
 
