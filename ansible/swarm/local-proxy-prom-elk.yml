@@ -87,7 +87,7 @@
       - name: Deploy swarmprom stack task
         shell:
           cmd: |
-            export HASHED_PASSWORD="$apr1$QGOh2jEY$Y/yn79f/425CRsIFQSeEI/"
+            export HASHED_PASSWORD="\$apr1\$QGOh2jEY\$Y/yn79f/425CRsIFQSeEI/"
             export DOMAIN=example.com
             export ADMIN_USER=admin
             export TRAEFIK_PUBLIC_TAG=traefik-public
@@ -114,7 +114,7 @@
       - name: Deploy elk stack task
         shell:
           cmd: |
-            export HASHED_PASSWORD="$apr1$QGOh2jEY$Y/yn79f/425CRsIFQSeEI/"
+            export HASHED_PASSWORD="\$apr1\$QGOh2jEY\$Y/yn79f/425CRsIFQSeEI/"
             export DOMAIN=example.com
             export KIBANA_USER=admin
             eval "$(docker-machine env node-1)"
