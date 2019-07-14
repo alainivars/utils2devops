@@ -3,43 +3,30 @@
 # Storages
 
 # LXC, LXD
-#pycparser              # cffi dependency
-#cffi                   # cryptography dependency
-#appdirs                # pyppeteer dependency
-#asn1crypto             # cryptography dependency
-#cryptography           # pylxd dependency
-#pbr                    # pylxd dependency
-#requests-unixsocket    # pylxd dependency
-#requests-toolbelt      # pylxd dependency
-#ws4py                  # pylxd dependency
-pylxd                   # alway the latest
+pylxd==2.2.10
 
 # Docker
-docker                  # alway the latest
+docker==4.0.2
 
 # AWS
-#jmespath               # boto3 botocore dependency
-boto3                   # alway the latest
-#docutils               # botocore dependency
-botocore                # alway the latest
-s3transfer              # alway the latest
+boto3
+botocore
+s3transfer
 
 # Ansible
-ansible                 # alway the latest
+ansible>=2.6.1,<2.7  # because testinfra AttributeError: 'PlaybookCLI' object has no attribute 'base_parser'
 
 # JUJU
-juju==0.11.7
-jujubundlelib           # alway the latest
+#juju==0.11.7
+#jujubundlelib
 
 # TEST
-python-dateutil         # used in unittest
-#pytest                  # alway the latest
-tox                     # alway the latest
+python-dateutil
+tox
 # Ansible tests
-molecule~=2.10          # for Ansible test
-docker-py~=1.0          # for Ansible test
-pytest~=4.0             # for Ansible test
-testinfra~=3.0          # for Ansible test
+molecule==2.20.1
+pytest==4.6.4
+testinfra==3.0.5
 
 
 # Code quality
@@ -49,14 +36,6 @@ pytest-cov
 coverage
 
 # Static Documentation
-recommonmark            # sphinx dependency to parse .md files
-#MarkupSafe             # Jinja2 dependency
-#Jinja2                 # sphinx dependency
-pygments                # sphinx dependency
-Sphinx                  # alway the latest
+Sphinx
 readthedocs-sphinx-ext
-#certifi                # requests dependency
-#chardet                # requests dependency
-#idna                   # requests dependency
-#urllib3                # request dependency
-requests                # alway the latest
+requests
