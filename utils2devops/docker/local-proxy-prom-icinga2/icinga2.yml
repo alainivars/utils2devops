@@ -1,0 +1,160 @@
+version: "3.7"
+
+#x-default-opts:
+#  &default-opts
+#  logging:
+#    options:
+#      max-size: "1m"
+
+networks:
+  mysqldb:
+    driver: overlay
+    attachable: true
+  traefik_proxy:
+    external: true
+
+volumes:
+#    mysql-data:
+#        driver: local
+    mariadb-data:
+        driver: local
+
+services:
+
+# Use root/example as user/password credentials
+#  mysql:
+#    db:
+#      image: mariadb
+#      networks:
+#        - icinga
+#      environment:
+#        MYSQL_ROOT_PASSWORD: example
+#      deploy:
+#        mode: replicated
+#        replicas: 1
+  mysql:
+#    image: mysql:5.7
+    image: mariadb
+    networks:
+      - mysqldb
+    labels:
+      - traefik.enable=false
+    environment:
+      - MYSQL_ROOT_PASSWORD=example
+      - MYSQL_DATABASE=wp_db
+      - MYSQL_USER=wp_db_u
+      - MYSQL_PASSWORD=example
+    volumes:
+      - mariadb-data:/var/lib/mysql
+#      - mysql-data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    networks:
+      - mysqldb
+      - traefik_proxy
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+#        - traefik.frontend.rule=Host:${DOMAIN}
+        - traefik.frontend.rule=Host:adminer.example.com
+#        - traefik.frontend.rule=Host:${DOMAIN}; PathPrefixStrip:/adminer
+        - traefik.docker.network=traefik_proxy
+        - traefik.enable=true
+        - traefik.port=8080
+    depends_on:
+      - mysql
+
+
+#  mysql:
+#    <<: *default-opts
+#    image: mysql
+#    networks:
+#      - icinga
+#    volumes:
+#      - ./data:/var/lib/mysql
+#    deploy:
+#      mode: replicated
+#      replicas: 1
+#      labels:
+#        - traefik.enable=true
+#    environment:
+#      MYSQL_ROOT_PASSWORD: mypassword
+#      MYSQL_USER: ghost
+#      MYSQL_PASSWORD: ghostdbpass
+#      MYSQL_DATABASE: ghostdb
+
+#  carbon:
+#    <<: *default-opts
+#    image: mwaeckerlin/carbon-cache
+#    networks:
+#      - icinga
+#      - traefik_proxy
+#    volumes:
+#      - type: bind
+#        source: /var/volumes/icinga/graphite
+#        target: /var/lib/graphite
+#
+#  icinga:
+#    <<: *default-opts
+#    image: mwaeckerlin/icinga2ido
+#    networks:
+#      - icinga
+#      - traefik_proxy
+#    volumes:
+#      - type: bind
+#        source: /var/volumes/icinga/cmd
+#        target: /var/run/icinga2/cmd
+#      - type: bind
+#        source: /var/volumes/icinga/lib
+#        target: /var/lib/icinga2
+#      - type: bind
+#        source: /var/volumes/icinga/etc/icinga
+#        target: /etc/icinga2
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=cu0thei6lahl6eel0Uxadu5eep1eXei5ceesh0gu
+#      - ICINGA_PW=sejae9peiph0mailahkuweshioDoo6sheewoow4E
+#      - WEB_PW=Eifei4echanoongooriiw4ooNgiong5iepur0vei
+#      - DIRECTOR_PW=xom9Ahlah0uth4ohv1ahxuichimieth8xohk8poh
+#
+#  icingaweb:
+#    <<: *default-opts
+#    image: mwaeckerlin/icingaweb2
+##    ports:
+##      - 8016:80
+#    networks:
+#      - icinga
+#      - traefik_proxy
+#    volumes:
+#      - type: bind
+#        source: /var/volumes/icinga/cmd
+#        target: /var/run/icinga2/cmd
+#      - type: bind
+#        source: /var/volumes/icinga/etc/web
+#        target: /etc/icingaweb2
+#      - type: bind
+#        source: /var/volumes/icinga/log
+#        target: /var/log/icingaweb2
+#    deploy:
+#      mode: replicated
+#      replicas: 1
+#      placement:
+#        constraints:
+#          - node.role == manager
+#      resources:
+#        limits:
+#          memory: 128M
+#        reservations:
+#          memory: 64M
+#      labels:
+#        - traefik.frontend.rule=Host:icingaweb.${DOMAIN}
+#        - traefik.enable=true
+#        - traefik.port=8016
+#        - traefik.tags=${TRAEFIK_PUBLIC_TAG:-traefik-public}
+#        - traefik.docker.network=traefik_proxy
+#        # Traefik service that listens to HTTP
+##        - traefik.redirectorservice.frontend.entryPoints=http
+##        - traefik.redirectorservice.frontend.redirect.entryPoint=https
+#        # Traefik service that listens to HTTPS
+##        - traefik.webservice.frontend.entryPoints=https

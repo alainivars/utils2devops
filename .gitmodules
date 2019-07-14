@@ -4,3 +4,6 @@
 [submodule "submodules/swarmprom"]
 	path = submodules/swarmprom
 	url = https://github.com/stefanprodan/swarmprom.git
+[submodule "ansible/roles"]
+	path = ansible/roles
+	url = https://github.com/alainivars/ansible-roles.git

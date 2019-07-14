@@ -28,30 +28,19 @@ s3transfer              # alway the latest
 ansible                 # alway the latest
 
 # JUJU
-#PyNaCl                 # macaroonbakery dependency
-#protobuf               # macaroonbakery dependency
-#pymacaroons            # macaroonbakery dependency
-#macaroonbakery         # juju dependency
-#pyasn1                 # juju dependency
-#pytz                   # pyRFC3339 dependency
-#pyRFC3339              # juju dependency
-#bcrypt                 # paramiko dependency
-#paramiko               # juju dependency
-#theblues               # juju dependency
-#websockets             # juju dependency
 juju==0.11.7
-#PyYAML                 # jujubundlelib dependency
 jujubundlelib           # alway the latest
 
 # TEST
 python-dateutil         # used in unittest
-#atomicwrites           # pytest dependency
-#attrs                  # pytest dependency
-#more-itertools         # pytest dependency
-#pluggy                 # pytest dependency
-#py                     # pytest dependency
-pytest                  # alway the latest
+#pytest                  # alway the latest
 tox                     # alway the latest
+# Ansible tests
+molecule~=2.10          # for Ansible test
+docker-py~=1.0          # for Ansible test
+pytest~=4.0             # for Ansible test
+testinfra~=3.0          # for Ansible test
+
 
 # Code quality
 pycodestyle
