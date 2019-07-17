@@ -1,0 +1,99 @@
+Vagrant.configure("2") do |config|
+
+# export VAGRANT_NODES_COUNT = 5
+#   the number of node to create
+# export VAGRANT_NODES_OS = "ubuntu/bionic64"
+#   the os image to use
+# export VAGRANT_NODES_MASK = "node"
+#   the mask for naming the VM
+# export WITH_SATA = 0
+#   the mask for naming the VM
+# export WITH_IP_ADDR = "192.168.60."
+#   the IP address for the VM
+# export WITH_NETMASK = "255.255.255.0"
+#   the IP address for the VM
+
+unless ENV['VAGRANT_NODES_COUNT']
+  # exit immediately if we enter here by accident!
+  raise "Please set `VAGRANT_NODES_COUNT` variable environment"
+end
+if ENV['VAGRANT_NODES_MASK']
+  nodemask = ENV['VAGRANT_NODES_MASK']
+else
+  #puts "No `VAGRANT_NODES_MASK` variable environment set we use \"node\""
+  nodemask = "node"
+end
+if ENV['WITH_IP_ADDR']
+  ip_addr = ENV['WITH_IP_ADDR']
+  ip_sed = ip_addr.sub(".", "\.")
+else
+  #puts "No `WITH_IP_ADDR` variable environment set we use \"192.168.60.\""
+  ip_addr = "192.168.60."
+  ip_sed = "192\.168\.60\."
+end
+if ENV['WITH_NETMASK']
+  netmask = ENV['WITH_NETMASK']
+else
+  #puts "No `WITH_NETMASK` variable environment set we use \"255.255.255.0\""
+  netmask = "255.255.255.0"
+end
+unless ENV['WITH_SATA']
+  #puts "No `WITH_SATA` variable environment set we use 0 (no SATA)"
+  with_sata = 0
+end
+if ENV['VAGRANT_NODES_OS']
+  node_os = ENV['VAGRANT_NODES_OS']
+else
+  #puts "No `VAGRANT_NODES_OS` variable environment set we use 'bento/centos-7.5'"
+  node_os = "bento/centos-7.5"
+  if node_os.include? 'centos'
+    os_name = 'centos'
+  elsif node_os.include? 'ubuntu'
+    os_name = 'ubuntu'
+  elsif node_os.include? 'debian'
+    os_name = 'debian'
+  else
+    os_name = 'unknown'
+  end
+end
+
+VAGRANT_ROOT = File.dirname(File.expand_path(__FILE__))
+NODES = ENV['VAGRANT_NODES_COUNT'].to_i
+DISKS = 1
+DISK_SIZE = 10
+
+  (1..NODES).each do |i|
+    config.vm.define "#{nodemask}#{i}" do |node|
+      node.ssh.forward_agent = true
+      node.vm.box = node_os
+      node.vm.hostname = "#{nodemask}#{i}"
+      node.vm.network "private_network", ip: "#{ip_addr}#{i}0", netmask: "#{netmask}"
+      node.vm.provision :shell, inline: "sed 's/127\.0\.0\.1.*node.*/#{ip_sed}#{i}0 #{nodemask}#{i}/' -i /etc/hosts"
+
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = "#{nodemask}#{i}"
+        vb.memory = 1024
+        vb.cpus = 1
+
+        unless with_sata
+          (1..DISKS).each do |k|
+            more_disk = File.join(VAGRANT_ROOT, "DATA/#{nodemask}#{i}_#{os_name}_disk#{k}.vdi")
+            unless File.exist?(more_disk)
+              vb.customize ['createhd', '--filename', more_disk, '--size', DISK_SIZE * 1024]
+            end
+            vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', k+1, '--device', 0 , '--type', 'hdd', '--medium', more_disk]
+          end
+        end
+      end
+
+    end
+  end
+
+  config.vm.provision "ansible" do |key|
+    key.playbook = "./ansible/addkey.yml"
+    key.extra_vars = {
+      hostsname: "all"
+    }
+  end
+
+end

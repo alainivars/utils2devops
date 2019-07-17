@@ -1,0 +1,5 @@
+---
+ - hosts: "{{ hostsname }}"
+   become: false
+   roles:
+     - hf_authorized_keys

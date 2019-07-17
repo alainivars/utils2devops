@@ -52,6 +52,7 @@ Contents
    :caption: How to use it:
 
    bins
+   vagrant
    swarm/local-with-out-proxy
    swarm/local-proxy-prom-elk
    swarm/local-proxy-prom-Icinga2
