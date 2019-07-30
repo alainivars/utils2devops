@@ -94,20 +94,20 @@ function create_swarm_nodes() {
         then
             if [ "$node" -eq "1" ];
             then
-                echo "Create manager swam nodes on node-1"
-                # TODO: case when a dead node with node-1 in the name exist
-                inet_ip=`docker-machine ls | grep node-1 | cut -d\/ -f3 | cut -d: -f1`
-                ret=`docker-machine ssh node-1 -- docker swarm init --advertise-addr ${inet_ip}`
+                echo "Create manager swam nodes on node.1"
+                # TODO: case when a dead node with node.1 in the name exist
+                inet_ip=`docker-machine ls | grep node.1 | cut -d\/ -f3 | cut -d: -f1`
+                ret=`docker-machine ssh node.1 -- docker swarm init --advertise-addr ${inet_ip}`
                 worker=`echo ${ret} | grep ${inet_ip} | cut -d: -f3`":2377"
-                ret=`docker-machine ssh node-1 -- docker swarm join-token manager`
+                ret=`docker-machine ssh node.1 -- docker swarm join-token manager`
                 manager=`echo ${ret} | grep ${inet_ip} | cut -d: -f2`":2377"
             else
-                echo "Create manager swam nodes on node-$node"
-                docker-machine ssh node-${node} -- ${manager}
+                echo "Create manager swam nodes on node.$node"
+                docker-machine ssh node.${node} -- ${manager}
             fi
         else
-            echo "Create worker swam nodes on node-$node"
-            docker-machine ssh node-${node} -- ${worker}
+            echo "Create worker swam nodes on node.$node"
+            docker-machine ssh node.${node} -- ${worker}
         fi
     done
 }
@@ -116,8 +116,8 @@ function remove_swarm_nodes() {
     echo "Remove swam nodes: "
     for i in $(seq 1 ${nodes})
     do
-        echo "Remove node-${i}"
-        eval "$(docker-machine env )node-${i}"
+        echo "Remove node.${i}"
+        eval "$(docker-machine env )node.${i}"
         docker swarm leave --force
     done
 }
