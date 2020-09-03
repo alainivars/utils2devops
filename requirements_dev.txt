@@ -10,6 +10,8 @@ docker>=4.3.1, < 4.4
 
 # AWS
 boto3>=1.14.54, < 1.15
+#boto3-stubs==1.14.47.0
+boto3>=1.14.54, < 1.15
 botocore>=1.17.54, < 1.18
 s3transfer>=0.3.3, < 0.4
 
@@ -25,18 +27,18 @@ ansible>=2.9.12, < 2.10
 python-dateutil
 tox
 # Ansible tests
-molecule>=3.0.8, < 3.1
-pytest>=6.0.1, < 6.1
-testinfra>=5.2.2, < 5.3
+molecule
+pytest
+testinfra
 
 
-# Code quality (alway last version)
+# Code quality
 pycodestyle
 pytest-pep8
 pytest-cov
 coverage
 
-# Static Documentation (alway last version)
+# Static Documentation
 Sphinx
 readthedocs-sphinx-ext
 requests
