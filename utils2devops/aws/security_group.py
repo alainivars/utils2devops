@@ -9,6 +9,19 @@ Aws configuration iiles should be present:
 """
 
 
+def _make_gress(ports):
+    gress = Gress()
+    gress.protocol = ports['IpProtocol']
+    if 'PortRange' in ports:
+        gress.from_port = ports['FromPort']
+        gress.to_port = ports['ToPort']
+    else:
+        gress.from_port = 0
+        gress.to_port = 0
+    gress.cidr_block = ports['IpRanges'][0]['CidrIp'] if len(ports['IpRanges']) else ''
+    return gress
+
+
 def list_security_groups(name, state=None):
     """This function does something in aws security_groups. TODO DOC
 
@@ -29,26 +42,10 @@ def list_security_groups(name, state=None):
         x.name = element['GroupName']
         x.description = element['Description']
         x.vpc_id = element['VpcId']
-        for p in element['IpPermissions']:
-            gress = Gress()
-            gress.protocol = p['IpProtocol']
-            if 'PortRange' in p:
-                gress.from_port = p['FromPort']
-                gress.to_port = p['ToPort']
-            else:
-                gress.from_port = 0
-                gress.to_port = 0
-            gress.cidr_block = p['IpRanges'][0]['CidrIp'] if len(p['IpRanges']) else ''
+        for ports in element['IpPermissions']:
+            gress = _make_gress(ports)
             x.ingress.append(gress)
-        for p in element['IpPermissionsEgress']:
-            gress = Gress()
-            gress.protocol = p['IpProtocol']
-            if 'PortRange' in p:
-                gress.from_port = p['FromPort']
-                gress.to_port = p['ToPort']
-            else:
-                gress.from_port = 0
-                gress.to_port = 0
-            gress.cidr_block = p['IpRanges'][0]['CidrIp'] if len(p['IpRanges']) else ''
+        for ports in element['IpPermissionsEgress']:
+            gress = _make_gress(ports)
             x.egress.append(gress)
         print(x)

@@ -61,29 +61,29 @@ def list_lambda_function(
         if 'DEBUG_OR_IMPROVE' in os.environ:
             print('list_aliases')
             alias = client.list_aliases(FunctionName=func["FunctionArn"])
-            for l in alias['Aliases']:
-                print(l)
+            for al in alias['Aliases']:
+                print(al)
             print('list_event_source_mappings')
             event_source_mappings = client.list_event_source_mappings()
-            for e in event_source_mappings['EventSourceMappings']:
-                print(json.dumps(e, indent=4, sort_keys=True))
+            for event_source_mapping in event_source_mappings['EventSourceMappings']:
+                print(json.dumps(event_source_mapping, indent=4, sort_keys=True))
             print('list_layers')
             layers = client.list_layers()
-            for l in layers['Layers']:
-                print(json.dumps(l, indent=4, sort_keys=True))
+            for layer in layers['Layers']:
+                print(json.dumps(layer, indent=4, sort_keys=True))
                 print('list_layer_versions')
-                layer = client.list_layer_versions(LayerName=l['LayerName'])
-                for v in layer['LayerVersions']:
-                    print(json.dumps(v, indent=4, sort_keys=True))
+                layer_versions = client.list_layer_versions(LayerName=layer['LayerName'])
+                for version in layer_versions['LayerVersions']:
+                    print(json.dumps(version, indent=4, sort_keys=True))
             print('list_tags')
             tags = client.list_tags(Resource=func["FunctionArn"])
-            for t in tags['Tags']:
-                print(json.dumps(t, indent=4, sort_keys=True))
+            for tag in tags['Tags']:
+                print(json.dumps(tag, indent=4, sort_keys=True))
             print('list_versions_by_function')
             versions_by_function = client.list_versions_by_function(
                 FunctionName=func["FunctionArn"])
-            for v in versions_by_function['Versions']:
-                print(json.dumps(v, indent=4, sort_keys=True))
+            for version in versions_by_function['Versions']:
+                print(json.dumps(version, indent=4, sort_keys=True))
 
         _lines.append(x)
 
