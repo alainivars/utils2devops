@@ -1,4 +1,6 @@
 import boto3
+import deprecation
+from docs.version import __version__
 
 from utils2devops.aws import InternetGateway
 
@@ -9,6 +11,9 @@ Aws configuration files should be present:
 """
 
 
+@deprecation.deprecated(deprecated_in='0.1.4', removed_in='0.2.0',
+                        current_version=__version__,
+                        details="Use $ aws apigateway get-rest-apis")
 def list_internet_gateways(
         profile_name: str = 'terraform',
         region_name: str = 'us-east-1'

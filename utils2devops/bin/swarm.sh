@@ -79,7 +79,9 @@ done
 echo "started..."
 let nodes=manager_count+worker_count
 
+# Docker-machine (DEPRECATED)
 if [ -z "${DOCKER_MACHINE_DRIVER}" ]; then
+  # Boot2Docker (DEPRECATED)
     DOCKER_MACHINE_DRIVER=virtualbox
 fi
 

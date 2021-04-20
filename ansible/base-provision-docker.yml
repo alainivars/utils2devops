@@ -1,0 +1,9 @@
+---
+
+- hosts : docker
+  tasks:
+    - name: Include os-specific variables. base_provision_system
+      include_vars: "../group_vars/all.yml"
+
+- import_playbook: roles/base-provision-docker.yml
+  tags: [provision-docker]

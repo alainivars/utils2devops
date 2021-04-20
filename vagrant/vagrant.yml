@@ -1,0 +1,31 @@
+---
+
+# the deployment name
+deploy_name: 'production'
+
+# Subnet to use for the VMs
+# Each machine's eth1 interface will be connected to this subnet
+subnet: "192.168.60"
+netmask: "255.255.255.0"
+
+# Mean the first node will be at subnet.node_after_addr (192.168.78.6)
+node_after_addr: 5
+
+# Number of Docker Swarm nodes
+nb_swarm_nodes: 3
+
+# Number of Docker manager Swarm nodes
+nb_manager_nodes: 3
+
+node_os: 'generic/ubuntu2004'
+
+nodes_prefix: "node"
+
+# Memory per Swarm node (in Mb) (you should decrease this value if you suffer memory issues)
+memory_per_node: 1024
+
+# CPUs per node (you should decrease this value if you suffer performance issues)
+cpus_per_node: 1
+
+# folder to mount in node1 '/workspaces/app'
+folder_to_mount: '/home/a/repositories/devops/utils2devops'

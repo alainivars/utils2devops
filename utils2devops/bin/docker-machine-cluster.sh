@@ -4,6 +4,7 @@
 #
 # Just a quick script to create and destroy a local docker-machine-cluster
 #
+# Docker-machine (DEPRECATED)
 
 count=0
 actions=()
@@ -73,9 +74,15 @@ done
 echo "started..."
 let nodes=manager_count+worker_count
 
+# Docker-machine (DEPRECATED)
 if [ -z "${DOCKER_MACHINE_DRIVER}" ]; then
-    DOCKER_MACHINE_DRIVER=virtualbox
+  DOCKER_MACHINE_DRIVER=virtualbox
 fi
+#if [ -z "${DOCKER_MACHINE_OS}" ]; then
+#  # Boot2Docker (DEPRECATED)
+#  #  DOCKER_MACHINE_OS="/media/a/disk4/ISOs/photon-minimal-4.0.iso"
+#  DOCKER_MACHINE_OS="https://releases.rancher.com/os/latest/rancheros.iso"
+#fi
 
 MACHINE_OPTS="--engine-storage-driver overlay2"
 
@@ -83,6 +90,9 @@ function create_nodes() {
     for i in $(seq 1 ${count})
     do
         echo "Create ${mask}${i}"
+#        docker-machine create -d ${DOCKER_MACHINE_DRIVER} \
+#          --virtualbox-boot2docker-url ${DOCKER_MACHINE_OS} \
+#          ${MACHINE_OPTS} ${mask}${i}
         docker-machine create -d ${DOCKER_MACHINE_DRIVER} ${MACHINE_OPTS} ${mask}${i}
     done
 }

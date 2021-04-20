@@ -106,6 +106,22 @@ resource "aws_security_group" "swarm-security-group" {
   }
 
   ingress {
+    from_port   = 9000
+    to_port     = 9000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "TCP container Portainer Web"
+  }
+
+  ingress {
+    from_port   = 9001
+    to_port     = 9001
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "TCP container Portainer Agent"
+  }
+
+  ingress {
     from_port   = 9090
     to_port     = 9090
     protocol    = "tcp"
@@ -130,19 +146,11 @@ resource "aws_security_group" "swarm-security-group" {
   }
 
   ingress {
-    from_port   = 9000
-    to_port     = 9000
+    from_port   = 9323
+    to_port     = 9323
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-    description = "TCP container Portainer Web"
-  }
-
-  ingress {
-    from_port   = 9001
-    to_port     = 9001
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    description = "TCP container Portainer Agent"
+    description = "prom dockerd-exporter"
   }
 
   ingress {

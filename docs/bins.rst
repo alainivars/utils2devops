@@ -13,12 +13,12 @@ access to these by::
     docker-machine ssh node.n
 
 
-required::
+Required::
 
     install Docker-machine:
     https://docs.docker.com/machine/install-machine/
 
-run::
+Run::
 
     ./utils2devops/bin/docker-machine-cluster.sh
     started...
@@ -40,7 +40,7 @@ Destroy it::
     ./utils2devops/bin/docker-machine-cluster.sh -m node. -d 5
 
 
-.. _ref-create-sw:
+.. _ref-create-sw_machine:
 
 Create a Docker Swarm on nodes docker-machine
 #############################################
@@ -52,12 +52,12 @@ access to these by::
     docker-machine ssh node.n
 
 
-required::
+Required::
 
     install Docker Swarm:
     https://docs.docker.com/engine/swarm/
 
-run::
+Run::
 
     ./utils2devops/bin/swarm.sh
     started...

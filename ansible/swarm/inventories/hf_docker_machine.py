@@ -18,6 +18,7 @@ try:
 except ImportError:
     import simplejson as json
 
+# Docker-machine (DEPRECATED)
 
 DOCUMENTATION = '''
     name: hf_docker_machine
@@ -77,7 +78,7 @@ class HfDockerMachineInventory(object):
                 group_name = machines_desc['Driver']['MachineName'].replace('-', '').replace('_', '')
                 self.inventory[group_name] = {
                     'hosts': [machines_desc['Driver']['IPAddress']],
-                    'vars': {
+                    'group_vars': {
                         'ansible_ssh_user': machines_desc['Driver']['SSHUser'],
                         'ansible_ssh_port': '22',
                         'ansible_ssh_private_key_file': machines_desc['Driver']['SSHKeyPath']
@@ -86,7 +87,7 @@ class HfDockerMachineInventory(object):
             # inventory = {
         #     'machines': {
         #         'hosts': ['192.168.99.100', '192.168.99.101', '192.168.99.102'],
-        #         'vars': {
+        #         'group_vars': {
         #             'ansible_ssh_user': 'docker',
         #             'ansible_ssh_port': '39193',
         #             'ansible_ssh_private_key_file': '/home/alain/.docker/machine/machines/server.1/id_rsa'
@@ -94,7 +95,7 @@ class HfDockerMachineInventory(object):
         #     },
         #     # 'master': {
         #     #         'hosts': ['192.168.99.100'],
-        #     #         'vars': {
+        #     #         'group_vars': {
         #     #             'ansible_ssh_user': 'docker',
         #     #             'ansible_ssh_port': '39193',
         #     #             'ansible_ssh_private_key_file': '/home/alain/.docker/machine/machines/server.1/id_rsa'
@@ -102,7 +103,7 @@ class HfDockerMachineInventory(object):
         #     # },
         #     # 'managers': {
         #     #         'hosts': ['192.168.99.100'],
-        #     #         'vars': {
+        #     #         'group_vars': {
         #     #             'ansible_ssh_user': 'docker',
         #     #             'ansible_ssh_port': '39193',
         #     #             'ansible_ssh_private_key_file': '/home/alain/.docker/machine/machines/server.1/id_rsa'
@@ -110,7 +111,7 @@ class HfDockerMachineInventory(object):
         #     # },
         #     # 'workers': {
         #     #         'hosts': ['192.168.99.101', '192.168.99.102'],
-        #     #         'vars': {
+        #     #         'group_vars': {
         #     #             'ansible_ssh_user': 'docker',
         #     #             'ansible_ssh_port': '39193',
         #     #             'ansible_ssh_private_key_file': '/home/alain/.docker/machine/machines/server.1/id_rsa'
@@ -168,7 +169,8 @@ def hf_docker_machine(*args):
 #         'ansible_ssh_port': dminspect('{{.Driver.SSHPort}}', m),
 #         'ansible_ssh_private_key_file': dminspect('{{.Driver.SSHKeyPath}}', m)
 #     }
-#     data = {'hosts': hosts, 'vars': ssh_vars}
+#     data = {'hosts': hosts, 'group_vars': ssh_vars}
 #     return data
 
-HfDockerMachineInventory()
+if __name__ == '__main__':
+    HfDockerMachineInventory()

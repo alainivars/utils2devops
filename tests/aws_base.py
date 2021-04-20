@@ -3,13 +3,10 @@ from weakref import WeakValueDictionary
 
 class Singleton(type):
     """
-    from https://stackoverflow.com/questions/43619748/destroying-a-singleton-object-in-python
-    A Sigleton
-
-    Instead of defining a custom method for deleting the instance reference
-    use a WeakValueDictionary.
-    Now when there are no more references of MockObject anywhere it will be
-    cleaned up from Singleton._instances automatically.
+    Author: Ashwini Chaudhary (https://stackoverflow.com/users/846892/ashwini-chaudhary)
+    Description: Instead of defining a custom method for deleting the instance reference
+    use a WeakValueDictionary. Now when there are no more references of MockObject anywhere
+    it will be cleaned up from Singleton._instances automatically.
     """
     _instances = WeakValueDictionary()
 
@@ -20,6 +17,14 @@ class Singleton(type):
             instance = super(Singleton, cls).__call__(*args, **kwargs)
             cls._instances[cls] = instance
         return cls._instances[cls]
+
+
+class SingletonClientExceptionServiceName(Exception):
+    pass
+
+
+class SingletonClientExceptionRegionName(Exception):
+    pass
 
 
 class SingletonClient(metaclass=Singleton):
@@ -41,12 +46,12 @@ class SingletonClient(metaclass=Singleton):
         if service_name not in ['ec2', 'lambda', 's3']:
             message = 'the service name is not implemented or do not exist'
             self.error = message
-            raise Exception(message)
+            raise SingletonClientExceptionServiceName(message)
         self.service_name = service_name
         if region_name not in ['us-east-1', 'us-east-2']:
             message = 'the region name is not implemented or do not exist'
             self.error = message
-            raise Exception(message)
+            raise SingletonClientExceptionRegionName(message)
         self.region_name = region_name
         self.lambda_functions = {}
         self.lambda_conf = {}
@@ -82,7 +87,7 @@ class SingletonClient(metaclass=Singleton):
 
 class SingletonResource(metaclass=Singleton):
     """
-    Singleton Client, maybe that is a wrong way and we will need more to one
+    Singleton Resource, maybe that is a wrong way and we will need more to one
     but we will see, but it's for unit test and that should be enough.
     """
 
@@ -125,7 +130,7 @@ class SingletonResource(metaclass=Singleton):
 
 class SingletonSession(metaclass=Singleton):
     """
-    Singleton Client, maybe that is a wrong way and we will need more to one
+    Singleton Session, maybe that is a wrong way and we will need more to one
     but we will see, but it's for unit test and that should be enough.
     """
 
@@ -167,3 +172,11 @@ if __name__ == '__main__':
     print(dict(Singleton._instances))
     del n
     print(dict(Singleton._instances))
+    try:
+        SingletonClient(service_name='monopole', region_name='us-east-1')
+    except SingletonClientExceptionServiceName as e:
+        pass
+    try:
+        SingletonClient(service_name='ec2', region_name='the-moon')
+    except SingletonClientExceptionRegionName as e:
+        pass

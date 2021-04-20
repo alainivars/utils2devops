@@ -51,12 +51,18 @@ Contents
    :maxdepth: 2
    :caption: How to use it:
 
+    We will use:
+    **Terraform** will create your cloud infrastructure
+    **Vagrant** will reproduce a production-like environment locally
+    **Ansible** will provision Virtual Machines and set up the Docker Swarm cluster
+    **Ansible** again to deploy your stacks
+
    bins
    vagrant
-   swarm/local-with-out-proxy
+   swarm/SwarmStackBase
    swarm/local-proxy-prom-elk
    swarm/local-proxy-prom-Icinga2
-   swarm/AWS
+   swarm/aws
    testing
    aws
    lxc_lxd
@@ -116,6 +122,10 @@ We will add :
     - `Etcd`_
     - Kubernetes
     - ...
+
+We will remove :
+
+    - The use of docker-machine everywhere we use it in version 0.2.0
 
 To develop or improve this library you can run it with the env DEBUG_OR_IMPROVE
 

@@ -1,42 +1,42 @@
 # Core
+deprecation>=2.1.0, < 3.0
 
 # Storages
 
 # LXC, LXD
-pylxd>=2.2.11, < 2.3
+pylxd>=2.3.0, < 2.4
 
 # Docker
-docker>=4.3.1, < 4.4
+docker>=4.4.4, < 4.5
 
 # AWS
-boto3>=1.14.54, < 1.15
-botocore>=1.17.54, < 1.18
-s3transfer>=0.3.3, < 0.4
+boto3>=1.17.43, < 1.18
+botocore>=1.20.43, < 1.21
+s3transfer>=0.3.6, < 0.4
 
 # Ansible
-#ansible>=2.6.1, <2.7  # because testinfra AttributeError: 'PlaybookCLI' object has no attribute 'base_parser'
-ansible>=2.9.12, < 2.10
+#ansible>=2.9.12, < 2.10
+ansible>=2.10, < 3.0
+#ansible>=3.2.0, < 4.0
+#ansible==2.9
+#ansible-lint==4.2.0
 
-# JUJU
-#juju==0.11.7
-#jujubundlelib
-
-# TEST
+# TEST (always last version)
 python-dateutil
 tox
+pytest
 # Ansible tests
-molecule>=3.0.8, < 3.1
-pytest>=6.0.1, < 6.1
-testinfra>=5.2.2, < 5.3
+#molecule>=3.3.0, < 3.4
+testinfra>=6.0.0, < 7.0
 
 
-# Code quality (alway last version)
+# Code quality (always last version)
 pycodestyle
 pytest-pep8
 pytest-cov
 coverage
 
-# Static Documentation (alway last version)
+# Static Documentation (always last version)
 Sphinx
 readthedocs-sphinx-ext
 requests

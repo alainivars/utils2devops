@@ -18,3 +18,11 @@ resource "aws_network_acl" "main" {
 resource "aws_lambda_layer_version" "test_layer" {
   # (resource arguments)
 }
+
+resource "aws_instance" "test_instance" {
+  # (resource arguments)
+}
+
+resource "aws_subnet" "public_subnet" {
+  # (resource arguments)
+}

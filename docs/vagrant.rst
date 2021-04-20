@@ -12,26 +12,28 @@ access to these by::
 
     vagrant ssh nodeN
 
-required::
+Required::
 
     install Vagrant:
     https://www.vagrantup.com/docs/installation/
 
-run::
+Setup::
 
-    export VAGRANT_NODES_COUNT=5
     cd vagrant
+    your-favorite-editor vagrant.yml
+
+Run::
+
     vagrant up
 
 Destroy it::
 
-    export VAGRANT_NODES_COUNT=5
     vagrant destroy -f
 
 
 .. _ref-create-sw:
 
-Add local nodes in docker-machine
+Add local nodes in docker-machine (DEPRECATED in version >= 0.2)
 #################################
 
 This script will create a swarm on nodes machine named node1 to nameN,
@@ -40,12 +42,12 @@ access to these by::
 
     docker-machine ssh nodeN
 
-required::
+Required::
 
     install Docker machine:
     https://docs.docker.com/engine/swarm/
 
-run::
+Run::
 
     WORK IN PROGRESS
     docker-machine create \

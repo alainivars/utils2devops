@@ -2,6 +2,7 @@
 #set -x
 
 #
+# TODO: delete if useless
 # Inspired by: https://github.com/BretFisher/dogvscat
 # Just a quick script to a local swarm enable-monitoring
 #

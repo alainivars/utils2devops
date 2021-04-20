@@ -45,8 +45,8 @@ You have 2 way to deploy it::
 
     - Or the long way but where you can learn every step ...
 
-Learn every step to deploy the local swarm
-------------------------------------------
+Deployment step by step
+-----------------------
 
 1/ Create the Machine::
 

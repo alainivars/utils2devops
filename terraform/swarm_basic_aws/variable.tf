@@ -34,7 +34,7 @@ variable "instance_count_manager" {
 
 variable "instance_type_manager" {
   description = "Instance type"
-  default     = "t2.large"
+  default     = "t3.large"
 }
 
 variable "name_manager" {

@@ -84,6 +84,7 @@ We now have 2 more files::
     terraform_key.pub
 
 Creating the terraform file to import it::
+
 See :ref:`ref-create-docker_machine` for setting your profile
 
     provider "aws" {
@@ -100,6 +101,6 @@ See :ref:`ref-create-docker_machine` for setting your profile
     resource "aws_key_pair" "terraform_ec2_key" {
       key_name = "terraform_ec2_key"
       public_key = "${file("terraform_key.pub")}"
-//      public_key = "ssh-rsa AZEB...jkasASDhaSjdh me@here"
+// TODO: check public_key = "ssh-rsa AZEB...jkasASDhaSjdh me@here"
     }
 

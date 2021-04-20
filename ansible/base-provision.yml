@@ -1,0 +1,23 @@
+---
+###
+# Base provision playbook
+##
+
+- hosts : docker
+  tasks:
+    - name: Include os-specific variables. base_provision_system
+      include_vars: "../group_vars/all.yml"
+
+- import_playbook: roles/base-provision-system-addkey.yml
+  tags: [provision-addkey]
+
+- import_playbook: roles/base-provision-system-timezone.yml
+  tags: [provision-timezone]
+
+- import_playbook: roles/base-provision-system.yml
+  tags: [provision-system]
+
+- import_playbook: roles/base-provision-docker.yml
+  tags: [provision-docker]
+
+# ADD YOUR CUSTOM PROVISIONING PLAYBOOKS HERE
