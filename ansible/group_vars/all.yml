@@ -1,6 +1,8 @@
 ---
 
+# just a help to know where come from the vars
 _the_vars: "ansible group_vars all.yml"
+_the_vars_ansible_group_vars_all_yml: 1
 
 ###
 # Variables default values
