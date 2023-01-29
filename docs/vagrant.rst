@@ -34,7 +34,7 @@ Destroy it::
 .. _ref-create-sw:
 
 Add local nodes in docker-machine (DEPRECATED in version >= 0.2)
-#################################
+################################################################
 
 This script will create a swarm on nodes machine named node1 to nameN,
 the purpose of this script is for local debug or tests, you can after

@@ -51,7 +51,8 @@ Contents
    :maxdepth: 2
    :caption: How to use it:
 
-    We will use:
+    We will use::
+
     **Terraform** will create your cloud infrastructure
     **Vagrant** will reproduce a production-like environment locally
     **Ansible** will provision Virtual Machines and set up the Docker Swarm cluster

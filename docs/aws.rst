@@ -30,18 +30,19 @@ Aws Env required, create a ~/.aws/config file and add::
 
 
 WARNING: Deprecated in version 0.2.0, now provided by AWS directly :)
-==================================================================
+=====================================================================
 https://docs.aws.amazon.com/cli/latest/index.html
 
-    EXEMPLE:
-    $ PYTHONPATH=. python utils2devops/aws/internet_gateway.py
+EXEMPLE::
+
+    PYTHONPATH=. python utils2devops/aws/internet_gateway.py
     resource "aws_internet_gateway" "igw-8bc0adef" {
         vpc_id = "vpc-4a50ae2d"
         tags {
         }
     }
 
-    $ aws apigateway get-rest-apis
+    aws apigateway get-rest-apis
     {
         "items": [
             {
@@ -58,7 +59,6 @@ https://docs.aws.amazon.com/cli/latest/index.html
             }
         ]
     }
-    $
 
 
 
