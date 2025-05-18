@@ -16,9 +16,9 @@ Welcome to Utils2devops documentation!
     :target: https://requires.io/github/alainivars/utils2devops/requirements/?branch=master
     :alt: Requirements Status
 
-.. image:: https://img.shields.io/pypi/docker_machine/utils2devops.svg
+.. image:: https://img.shields.io/badge/Proxmox-E57000?style=plastic&logo=Proxmox&logoColor=white
    :target: https://pypi.python.org/pypi/utils2devops/
-   :alt: pypi download
+   :alt: Proxmox VE
 
 .. image:: https://img.shields.io/pypi/pyversions/utils2devops.svg
    :target: https://pypi.python.org/pypi/utils2devops/
@@ -51,14 +51,18 @@ Contents
    :maxdepth: 2
    :caption: How to use it:
 
+    All the Docker Machines and Swarm is now deprecated (I switched full on kubernetes).
+
     We will use::
 
-    **Terraform** will create your cloud infrastructure
+    **Terraform** will create your local/cloud infrastructure
     **Vagrant** will reproduce a production-like environment locally
-    **Ansible** will provision Virtual Machines and set up the Docker Swarm cluster
+    **Ansible** will provision Virtual Machines and set up the Docker Swarm cluster (deprecated)
     **Ansible** again to deploy your stacks
 
    bins
+   ansible
+   proxmox
    vagrant
    swarm/SwarmStackBase
    swarm/local-proxy-prom-elk
@@ -85,7 +89,7 @@ Utils2devops is a package that contain python 3 functions and class that can be 
 all working day. Any help for develop, test, validate, documentation are
 welcome!
 
-With utils2devops you will  learn if you don't already know::
+With utils2devops you will learn if you don't already know::
 
     How to create a Docker swarm locally and deploy it automatically
     How to populate a Docker swarm locally and deploy it automatically
@@ -134,3 +138,9 @@ Something disturb you in the code? Don't hesitate to open a an issue and contrib
 
 Online documentation is here on `Readthedoc`_
 Online source code available on `Github`_
+
+Ansible roles
+
+* :ref:../ansible/roles/hf_authorized_keys/README.rst
+* :ref:../ansible/roles/hf_proxmox/README.rst
+* :ref:../ansible/roles/hf_system_create_user_key/README.rst

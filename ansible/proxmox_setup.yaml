@@ -11,8 +11,14 @@
     - name: Include os-specific variables. base_provision_system
       include_vars: "../group_vars/all.yml"
 
-- import_playbook: roles/bp-create-user-key.yaml
-  tags: [provision-create-user-key]
+- import_playbook: roles/bp-proxmox-community.yaml
+  tags: [provision-proxmox-community]
+
+- import_playbook: roles/bp-proxmox-add-group-user.yaml
+  tags: [
+    provision-proxmox-group-list,
+    provision-proxmox-group-add
+  ]
 
 
 #- import_playbook: roles/bp-addkey.yml
@@ -26,5 +32,14 @@
 #
 #- import_playbook: roles/docker.yml
 #  tags: [provision-docker]
+
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Create the private key file to the Proxmox user
+      copy:
+        content: '{{ lookup("env", "NEW_USER_TOKEN_SECRET") }}'
+        dest: '{{ lookup("env", "HOME") }}/.ssh/ansible_{{ lookup("env", "NEW_USER_NAME_LINUX") }}'
 
 # ADD YOUR CUSTOM PROVISIONING PLAYBOOKS HERE

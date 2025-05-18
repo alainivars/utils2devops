@@ -1,21 +1,22 @@
 # Core
-deprecation>=2.1.0, < 3.0
+deprecation #>=2.1.0, < 3.0
 
 # Storages
 
 # LXC, LXD
-pylxd>=2.3.0, < 2.4
+pylxd #>=2.3.0, < 2.4
 
 # Docker
-docker>=4.4.4, < 4.5
+docker #>=4.4.4, < 4.5
 
 # AWS
-boto3>=1.17.43, < 1.18
-botocore>=1.20.43, < 1.21
-s3transfer>=0.3.6, < 0.4
+boto3 #>=1.17.43, < 1.18
+botocore #>=1.20.43, < 1.21
+s3transfer #>=0.3.6, < 0.4
 
 # Ansible
-ansible>=2.9.12, < 3.0
+ansible #>=2.9.12, < 3.0
+proxmoxer
 #ansible>=3.2.0, < 4.0
 #ansible==2.9
 #ansible-lint==4.2.0
@@ -25,8 +26,8 @@ python-dateutil
 tox
 pytest
 # Ansible tests
-#molecule>=3.3.0, < 3.4
-testinfra>=6.0.0, < 7.0
+molecule #>=3.3.0, < 3.4
+testinfra #>=6.0.0, < 7.0
 
 
 # Code quality (always last version)

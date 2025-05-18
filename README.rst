@@ -8,13 +8,9 @@ Welcome to Utils2DevOps documentation!
     :target: https://coveralls.io/github/alainivars/utils2devops?branch=master
     :alt: Test coverage status
 
-.. image:: https://requires.io/github/alainivars/utils2devops/requirements.svg?branch=master
-    :target: https://requires.io/github/alainivars/utils2devops/requirements/?branch=master
-    :alt: Requirements Status
-
-.. image:: https://img.shields.io/pypi/docker_machine/utils2devops.svg
+.. image:: https://img.shields.io/badge/Proxmox-E57000?style=plastic&logo=Proxmox&logoColor=white
    :target: https://pypi.python.org/pypi/utils2devops/
-   :alt: pypi download
+   :alt: Proxmox VE
 
 .. image:: https://img.shields.io/pypi/pyversions/utils2devops.svg
    :target: https://pypi.python.org/pypi/utils2devops/
@@ -60,7 +56,7 @@ We will use ::
     - AWS CLI and API: https://aws.amazon.com/tools/
     - GPC tools and API?: https://cloud.google.com/sdk/docs/
     - Docker CLI and API: https://docs.docker.com/get-started/
-        - Docker, Docker-compose and Docker Swarm
+        - Docker, Lxc
     - Portainer: https://www.portainer.io/installation/
     - Traefik: https://traefik.io/
     - Terraform: https://www.terraform.io/downloads.html
