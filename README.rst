@@ -12,7 +12,8 @@ Welcome to Utils2DevOps documentation!
    :target: https://pypi.python.org/pypi/utils2devops/
    :alt: Proxmox VE
 
-![Python Version from PEP 621 TOML](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Falainivars%2Futils2devops%2Frefs%2Fheads%2Fmaster%2Fpyproject.toml)
+.. image:: https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Falainivars%2Futils2devops%2Frefs%2Fheads%2Fmaster%2Fpyproject.toml
+   :alt: Python Version from PEP 621 TOML
 
 .. image:: https://img.shields.io/pypi/l/utils2devops.svg
    :target: https://pypi.python.org/pypi/utils2devops/
