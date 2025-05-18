@@ -21,29 +21,29 @@ setup(
     author_email='alainivars@gmail.com',
     license='Apache License 2.0',
     description='''
-    contain python 3 functions and class that can be helpfull in the all 
+    contain python 3 functions and class that can be helpful in the all 
     working day
     ''',
     packages=find_packages(),
     long_description=long_description,
     long_description_content_type='text/x-rst',
     keywords='''
-    Devops Docker Kubernete Terraform Lxd Lxc Aws
+    Devops Docker Kubernetes Terraform Lxd Lxc Aws
     ''',
     zip_safe=False,
     include_package_data=True,
-    python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*",
+    python_requires=">=3.10",
     # https://pypi.org/classifiers/
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
         'Operating System :: OS Independent',
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.12',
     ],
     install_requires=[
         # 'boto3',  # AWS

@@ -1,0 +1,57 @@
+---
+- hosts: clients
+  become: true
+  roles:
+    - role: hf_nfs_client
+      vars:
+        nfsmounts:
+          - src: 192.168.0.26:/mnt/b026_02/nfs_backup
+            path: /mnt/nfsc
+            folder: backup
+            owner: a
+            group: a
+          - src: 192.168.0.26:/mnt/b026_02/nfs_document
+            path: /mnt/nfsc
+            folder: document
+            owner: a
+            group: a
+          - src: 192.168.0.26:/mnt/b026_02/nfs_photos
+            path: /mnt/nfsc
+            folder: photos
+            owner: a
+            group: a
+          - src: 192.168.0.26:/mnt/b026_02/nfs_videos
+            path: /mnt/nfsc
+            folder: videos
+            owner: a
+            group: a
+          - src: 192.168.0.26:/mnt/b026_02/nfs_musics
+            path: /mnt/nfsc
+            folder: musics
+            owner: a
+            group: a
+          - src: 192.168.0.26:/mnt/b026_02/nfs_highfeature
+            path: /mnt/nfsc
+            folder: highfeature
+            owner: a
+            group: a
+          - src: 192.168.0.26:/mnt/b026_02/nfs_hf_kubernetes
+            path: /mnt/nfsc
+            folder: hf_kubernetes
+            owner: a
+            group: a
+          - src: 192.168.0.26:/mnt/b026_02/nfs_hf_images
+            path: /mnt/nfsc
+            folder: hf_images
+            owner: a
+            group: a
+          - src: 192.168.0.26:/mnt/b026_02/nfs_hf_vms
+            path: /mnt/nfsc
+            folder: hf_vms
+            owner: a
+            group: a
+          - src: 192.168.0.26:/mnt/b026_02/nfs_hf_repositories
+            path: /mnt/nfsc
+            folder: hf_repositories
+            owner: a
+            group: a

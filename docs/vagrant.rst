@@ -6,6 +6,9 @@
 Create your local cluster of machine
 ####################################
 
+If you want use QEMU run
+vagrant plugin install vagrant-qemu
+
 This playbook will create x nodes machine named name1 to nameN::
 the purpose of this script is for local debug or tests, you can after
 access to these by::
@@ -25,6 +28,8 @@ Setup::
 Run::
 
     vagrant up
+    or
+    vagrant up --provider qemu
 
 Destroy it::
 
@@ -32,29 +37,3 @@ Destroy it::
 
 
 .. _ref-create-sw:
-
-Add local nodes in docker-machine (DEPRECATED in version >= 0.2)
-################################################################
-
-This script will create a swarm on nodes machine named node1 to nameN,
-the purpose of this script is for local debug or tests, you can after
-access to these by::
-
-    docker-machine ssh nodeN
-
-Required::
-
-    install Docker machine:
-    https://docs.docker.com/engine/swarm/
-
-Run::
-
-    WORK IN PROGRESS
-    docker-machine create \
-        --driver generic \
-        --generic-ssh-user "ubuntu" \
-        --generic-ip-address=35.170.64.155 \
-        --generic-ssh-key ~/.ssh/terraform_key \
-        node1
-
-

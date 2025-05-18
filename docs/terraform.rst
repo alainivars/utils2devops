@@ -1,6 +1,15 @@
 
 .. include:: links.inc
 
+Terraform
+=========
+
+    Install
+    =======
+    Go to .. Terraform: https://developer.hashicorp.com/terraform/install
+    and follow the process.
+
+
 To use terraform_import and aws
 ###############################
 

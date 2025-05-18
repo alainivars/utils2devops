@@ -15,7 +15,6 @@
 .. _`Ansible`: https://docs.ansible.com/ansible/latest
 .. _`Portainer`: https://www.portainer.io/installation/
 .. _`Terraform`: https://www.terraform.io/downloads.html
-.. _`Swarmprom`: https://github.com/stefanprodan/swarmprom
 .. _`Elk`: https://www.elastic.co/elk-stack
 .. _`OpenFaaS`: https://github.com/openfaas/faas
 .. _`Consul`: https://github.com/hashicorp/consul

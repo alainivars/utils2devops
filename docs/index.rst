@@ -53,21 +53,9 @@ Contents
 
     All the Docker Machines and Swarm is now deprecated (I switched full on kubernetes).
 
-    We will use::
-
-    **Terraform** will create your local/cloud infrastructure
-    **Vagrant** will reproduce a production-like environment locally
-    **Ansible** will provision Virtual Machines and set up the Docker Swarm cluster (deprecated)
-    **Ansible** again to deploy your stacks
-
-   bins
    ansible
    proxmox
    vagrant
-   swarm/SwarmStackBase
-   swarm/local-proxy-prom-elk
-   swarm/local-proxy-prom-Icinga2
-   swarm/aws
    testing
    aws
    lxc_lxd
@@ -89,13 +77,6 @@ Utils2devops is a package that contain python 3 functions and class that can be 
 all working day. Any help for develop, test, validate, documentation are
 welcome!
 
-With utils2devops you will learn if you don't already know::
-
-    How to create a Docker swarm locally and deploy it automatically
-    How to populate a Docker swarm locally and deploy it automatically
-    How to add an existing AWS Ec2 instance in Docker-machine
-    ...
-
 TAKE CARE THIS LIBRARY AND THE TOOLS will do what ever you ask to do, even for
 destroy image, network, container, ...
 
@@ -113,7 +94,6 @@ We already use :
     - `Traefik`_
     - `Portainer`_
     - `Terraform`_
-    - `Swarmprom`_
     - `Elk`_
     - `Icinga2`_ + `plugin logs`_ WORK IN PROGRESS
 
@@ -127,10 +107,6 @@ We will add :
     - `Etcd`_
     - Kubernetes
     - ...
-
-We will remove :
-
-    - The use of docker-machine everywhere we use it in version 0.2.0
 
 To develop or improve this library you can run it with the env DEBUG_OR_IMPROVE
 

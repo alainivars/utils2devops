@@ -3,6 +3,8 @@
 
 Releases Notes
 ==============
+    - 0.7.0:    Add xxx support
+    - 0.5.0:    Remove Swarm support, we don't use it sadly
     - 0.1.4:    add deploy local stack swarm with Traefik
     - 0.1.3:    add deploy local stack swarm
                 add sub module docker-elk and swarmprom

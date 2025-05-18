@@ -17,7 +17,9 @@ nb_swarm_nodes: 3
 # Number of Docker manager Swarm nodes
 nb_manager_nodes: 3
 
-node_os: 'generic/ubuntu2004'
+node_os: 'generic/ubuntu2204'
+
+# qemu_dir: '/usr/share/qemu'
 
 nodes_prefix: "node"
 
