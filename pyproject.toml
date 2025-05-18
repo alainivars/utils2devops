@@ -1,0 +1,57 @@
+[project]
+name = "utils2devops"
+version = "0.7.0"
+authors = [
+    { name = "Alain Ivars", email = "alainivars@gmail.com" },
+]
+license = {file = "LICENSE"}
+description = "python 3 functions and class that can be helpful in the all working day"
+readme = "README.rst"
+keywords = ["Devops Docker Kubernetes Terraform Lxd Lxc Aws"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.12"
+]
+requires-python = ">=3.10"
+dependencies = [
+    # Core
+    "deprecation",
+    # LXC, LXD
+    "pylxd",
+    # Docker
+    "docker",
+    # AWS
+    "boto3",
+    "botocore",
+    "s3transfer",
+    # Ansible
+    "ansible",
+    "proxmoxer",
+    # TEST (always last version)
+    "python-dateutil",
+    "tox",
+    "pytest",
+    # Ansible tests
+    "molecule",
+    "testinfra",
+    # Code quality (always last version)
+    "pycodestyle",
+    "pytest-cov",
+    "coverage",
+    # Static Documentation (always last version)
+    "Sphinx",
+    "readthedocs-sphinx-ext",
+    "requests",
+    "cookiecutter",
+    "urllib3",
+    "pygments",
+    "twine>=6.1.0",
+    "setuptools>=80.7.1",
+]

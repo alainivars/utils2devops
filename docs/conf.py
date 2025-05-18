@@ -18,9 +18,9 @@ import os
 
 sys.path.insert(0, os.path.abspath('..'))
 
-from utils2devops.tools.single_sourcing_package_version import get_version
+# from utils2devops.tools.single_sourcing_package_version import get_version
 
-version = get_version('.')
+version = "0.7.0" #get_version('.')
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the

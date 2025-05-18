@@ -14,13 +14,14 @@ def get_version(path: str, filename: Optional[str] = 'version.py') -> str:
     :param filename: the name of the file
     :return: string package version
     """
-    with opened_w_error(os.path.join(path, filename)) as (f, err):
-        # https://www.python.org/dev/peps/pep-0343/
-        if err:
-            return "get_version: " + err.strerror
-        else:
-            init_py = f.read().strip()
-            return re.search(
-                "__version__ = ['\"]([^'\"]+)['\"]",
-                init_py
-            ).group(1)
+    # with opened_w_error(os.path.join(path, filename)) as (f, err):
+    #     # https://www.python.org/dev/peps/pep-0343/
+    #     if err:
+    #         return "get_version: " + err.strerror
+    #     else:
+    #         init_py = f.read().strip()
+    #         return re.search(
+    #             "__version__ = ['\"]([^'\"]+)['\"]",
+    #             init_py
+    #         ).group(1)
+    return "0.7.0"
