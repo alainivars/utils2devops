@@ -1,9 +1,5 @@
 Welcome to Utils2DevOps documentation!
 ======================================
-.. image:: https://api.travis-ci.org/alainivars/utils2devops.svg?branch=master
-    :target: http://travis-ci.org/alainivars/utils2devops
-    :alt: Build status
-
 .. image:: https://coveralls.io/repos/github/alainivars/utils2devops/badge.svg?branch=master
     :target: https://coveralls.io/github/alainivars/utils2devops?branch=master
     :alt: Test coverage status

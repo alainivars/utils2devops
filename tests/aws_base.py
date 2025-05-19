@@ -66,7 +66,7 @@ class SingletonClient(metaclass=Singleton):
             return []
 
     @staticmethod
-    def get_public_access_block(Bucket):
+    def get_public_access_block(bucket):
         return {'PublicAccessBlockConfiguration': {'BlockPublicAcls': 'private'}}
 
     def list_buckets(self):
@@ -79,10 +79,18 @@ class SingletonClient(metaclass=Singleton):
             return self.lambda_functions
         return []
 
-    def get_function(self, FunctionName):
+    def get_function(self, function_name):
         if self.service_name == 'lambda':
             return self.lambda_conf
         return []
+
+
+class SingletonResourceExceptionServiceName(Exception):
+    pass
+
+
+class SingletonResourceExceptionRegionName(Exception):
+    pass
 
 
 class SingletonResource(metaclass=Singleton):
@@ -107,25 +115,18 @@ class SingletonResource(metaclass=Singleton):
         if service_name not in ['lambda', 's3']:
             message = 'the service name is not implemented or do not exist'
             self.error = message
-            raise Exception(message)
+            raise SingletonResourceExceptionServiceName(message)
         self.service_name = service_name
         if region_name not in ['us-east-1', 'us-east-2']:
             message = 'the region name is not implemented or do not exist'
             self.error = message
-            raise Exception(message)
+            raise SingletonResourceExceptionRegionName(message)
         self.region_name = region_name
         self.profile_exist = True
         self.conf = SingletonResource._Conf
 
-    def BucketVersioning(self, bucket_name):
+    def bucket_versioning(self, bucket_name):
         return self.conf
-
-    # def Bucket(self, bucket_name):
-    #     return self
-    #
-    # def put_object(self, Key=None, Body=None, ACL='', Expires='', ContentType=''):
-    #     # We do nothing here, but return the same data type without data
-    #     return {}
 
 
 class SingletonSession(metaclass=Singleton):
@@ -147,21 +148,11 @@ class SingletonSession(metaclass=Singleton):
         self.profile_exist = True
         self.singletonClient = None
 
-    # def __init__(self, profile_name: str):
-    #     self.profile_name = profile_name
-    #     # self.service_name = None
-    #     # self.region_name = None
-    #     self.client = None
-    #     self.s3_bucket_data = None
-
     def client(self, service_name: str, region_name: str):
         # self.service_name = service_name
         # self.region_name = region_name
         self.singletonClient = SingletonClient(service_name, region_name)
         return self.singletonClient
-
-    # def resource(self, name):
-    #     return FakeResource()
 
 
 if __name__ == '__main__':

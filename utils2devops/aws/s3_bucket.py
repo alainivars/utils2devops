@@ -38,7 +38,7 @@ def list_s3_bucket(
         x.acl = 'private' \
             if acl['PublicAccessBlockConfiguration']['BlockPublicAcls'] \
             else ''
-        conf = resource.BucketVersioning(func["Name"])
+        conf = resource.bucket_versioning(func["Name"])
         x.versioning = 'true' if conf.status == 'Enabled' else 'false'
 
         _lines.append(x)

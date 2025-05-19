@@ -1,8 +1,14 @@
 ; Sample demo inventory, replace here with your ip servers and clients
 
+[local]
+127.0.0.1
+
 [servers]
 192.168.0.26
 
 [clients]
 192.168.0.16
+
+[all:vars]
+ansible_python_interpreter=/home/a/repositories/system/devops/utils2devops/.venv/bin/python
 
