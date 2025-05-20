@@ -5,8 +5,6 @@
 
 - hosts : all
   gather_facts: false
-#  vars_files:
-#    - roles/hf-proxmox/vars/main.yml
   tasks:
     - name: Include os-specific variables. base_provision_system
       include_vars: "../group_vars/all.yml"
