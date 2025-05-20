@@ -5,8 +5,8 @@
 
 - hosts : all
   gather_facts: false
-  vars_files:
-    - roles/hf-proxmox/vars/main.yml
+#  vars_files:
+#    - roles/hf-proxmox/vars/main.yml
   tasks:
     - name: Include os-specific variables. base_provision_system
       include_vars: "../group_vars/all.yml"
@@ -21,16 +21,16 @@
     - provision-proxmox-group-add
 
 - import_playbook: roles/bp-addkey.yml
-  tags: [provision-addkey]
+  tags:
+    - provision-addkey
 
-- import_playbook: roles/bp-timezone.yml
-  tags: [provision-timezone]
+- import_playbook: roles/bp-timezone.yaml
+  tags:
+    - provision-timezone
 
-#- import_playbook: roles/bp-system.yml
-#  tags: [provision-system]
-
-- import_playbook: roles/docker.yml
-  tags: [provision-docker]
+- import_playbook: roles/bp-docker.yml
+  tags:
+    - provision-docker
 
 - hosts: localhost
   connection: local

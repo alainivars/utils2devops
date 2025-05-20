@@ -17,7 +17,7 @@ setup(
     name='utils2devops',
     version=get_version('docs'),
     author='Alain IVARS',
-    url='http://github.com/alainivars/utils2devops',
+    url='https://github.com/alainivars/utils2devops',
     author_email='alainivars@gmail.com',
     license='Apache License 2.0',
     description='''
