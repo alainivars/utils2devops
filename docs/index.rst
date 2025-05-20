@@ -117,6 +117,12 @@ Online source code available on `Github`_
 
 Ansible roles
 
-* :ref:../ansible/roles/hf_authorized_keys/README.rst
-* :ref:../ansible/roles/hf_proxmox/README.rst
-* :ref:../ansible/roles/hf_system_create_user_key/README.rst
+* :ref:../ansible/roles/hf/system/user_key/add/README.rst
+* :ref:../ansible/roles/hf/system/user_key/authorized_keys/README.rst
+* :ref:../ansible/roles/hf/system/user_key/create/README.rst
+* :ref:../ansible/roles/hf/system/nfs/client/README.rst
+* :ref:../ansible/roles/hf/system/nfs/server/README.rst
+* :ref:../ansible/roles/hf/system/proxmox/community/README.rst
+* :ref:../ansible/roles/hf/system/proxmox/group/README.rst
+* :ref:../ansible/roles/hf/system/proxmox/token/README.rst
+* :ref:../ansible/roles/hf/system/proxmox/user/README.rst
