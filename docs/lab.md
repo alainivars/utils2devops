@@ -1,6 +1,12 @@
 # lab
 Here we will provision/update the lab
 
+## Requirements
+```shell
+ansible-galaxy install --force geerlingguy.docker
+ansible-galaxy install --force geerlingguy.pip
+```
+
 ## Examples deployment commands
 
 Deploy on every "pvenodes" defined in local-inventory.

@@ -12,26 +12,25 @@
       include_vars: "../group_vars/all.yml"
 
 - import_playbook: roles/bp-proxmox-community.yaml
-  tags: [provision-proxmox-community]
+  tags:
+    - provision-proxmox-community
 
 - import_playbook: roles/bp-proxmox-add-group-user.yaml
-  tags: [
-    provision-proxmox-group-list,
-    provision-proxmox-group-add
-  ]
+  tags:
+    - provision-proxmox-group-list
+    - provision-proxmox-group-add
 
+- import_playbook: roles/bp-addkey.yml
+  tags: [provision-addkey]
 
-#- import_playbook: roles/bp-addkey.yml
-#  tags: [provision-addkey]
-#
-#- import_playbook: roles/bp-timezone.yml
-#  tags: [provision-timezone]
-#
+- import_playbook: roles/bp-timezone.yml
+  tags: [provision-timezone]
+
 #- import_playbook: roles/bp-system.yml
 #  tags: [provision-system]
-#
-#- import_playbook: roles/docker.yml
-#  tags: [provision-docker]
+
+- import_playbook: roles/docker.yml
+  tags: [provision-docker]
 
 - hosts: localhost
   connection: local

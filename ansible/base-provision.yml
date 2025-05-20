@@ -6,21 +6,17 @@
 - hosts : all
   gather_facts: false
   vars_files:
-    - roles/hf-proxmox/vars/main.yml
+    - roles/hf/system/user_key/authorized_keys/vars/main.yml
   tasks:
     - name: Include os-specific variables. base_provision_system
       include_vars: "../group_vars/all.yml"
 
-- import_playbook: roles/bp-create-user-key.yaml
-  tags: [provision-create-user-key]
+- import_playbook: roles/bp-addkey.yml
+  tags: [provision-addkey]
 
+- import_playbook: roles/bp-timezone.yml
+  tags: [provision-timezone]
 
-#- import_playbook: roles/bp-addkey.yml
-#  tags: [provision-addkey]
-#
-#- import_playbook: roles/bp-timezone.yml
-#  tags: [provision-timezone]
-#
 #- import_playbook: roles/bp-system.yml
 #  tags: [provision-system]
 #

@@ -117,6 +117,7 @@ Online source code available on `Github`_
 
 Ansible roles
 
+* :ref:../ansible/roles/hf/system/base_local/README.rst
 * :ref:../ansible/roles/hf/system/user_key/add/README.rst
 * :ref:../ansible/roles/hf/system/user_key/authorized_keys/README.rst
 * :ref:../ansible/roles/hf/system/user_key/create/README.rst

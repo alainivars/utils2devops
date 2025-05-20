@@ -5,5 +5,5 @@
     - name: Include os-specific variables. base_provision_system
       include_vars: "../group_vars/all.yml"
 
-- import_playbook: roles/docker.yml
+- import_playbook: roles/bp-docker.yml
   tags: [provision-docker]
