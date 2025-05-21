@@ -57,17 +57,17 @@ Contents
 
 Ansible roles
 -------------
-Test hyperlink:
-`hf/system/base_local <https://github.com/alainivars/ansible-roles/blob/master/hf/system/base_local/README.rst/>`_.
-`hf/system/user_key/add <https://github.com/alainivars/ansible-roles/blob/master/hf/system/user_key/add/README.rst/>`_.
-`hf/system/ser_key/authorized_keys <https://github.com/alainivars/ansible-roles/blob/master/hf/system/user_key/authorized_keys/README.rst/>`_.
-`hf/system/user_key/create <https://github.com/alainivars/ansible-roles/blob/master/hf/system/user_key/create/README.rst/>`_.
-`hf/system/nfs/client <https://github.com/alainivars/ansible-roles/blob/master/hf/system/nfs/client/README.rst/>`_.
-`hf/system/nfs/server <https://github.com/alainivars/ansible-roles/blob/master/hf/system/nfs/server/README.rst/>`_.
-`hf/system/proxmox/community <https://github.com/alainivars/ansible-roles/blob/master/hf/system/proxmox/community/README.rst/>`_.
-`hf/system/proxmox/group <https://github.com/alainivars/ansible-roles/blob/master/hf/system/proxmox/group/README.rst/>`_.
-`hf/system/proxmox/token <https://github.com/alainivars/ansible-roles/blob/master/hf/system/proxmox/token/README.rst/>`_.
-`hf/system/proxmox/user <https://github.com/alainivars/ansible-roles/blob/master/hf/system/proxmox/user/README.rst/>`_.
+Roles:
+    - `hf/system/base_local <https://github.com/alainivars/ansible-roles/blob/master/hf/system/base_local/README.rst/>`_.
+    - `hf/system/user_key/add <https://github.com/alainivars/ansible-roles/blob/master/hf/system/user_key/add/README.rst/>`_.
+    - `hf/system/ser_key/authorized_keys <https://github.com/alainivars/ansible-roles/blob/master/hf/system/user_key/authorized_keys/README.rst/>`_.
+    - `hf/system/user_key/create <https://github.com/alainivars/ansible-roles/blob/master/hf/system/user_key/create/README.rst/>`_.
+    - `hf/system/nfs/client <https://github.com/alainivars/ansible-roles/blob/master/hf/system/nfs/client/README.rst/>`_.
+    - `hf/system/nfs/server <https://github.com/alainivars/ansible-roles/blob/master/hf/system/nfs/server/README.rst/>`_.
+    - `hf/system/proxmox/community <https://github.com/alainivars/ansible-roles/blob/master/hf/system/proxmox/community/README.rst/>`_.
+    - `hf/system/proxmox/group <https://github.com/alainivars/ansible-roles/blob/master/hf/system/proxmox/group/README.rst/>`_.
+    - `hf/system/proxmox/token <https://github.com/alainivars/ansible-roles/blob/master/hf/system/proxmox/token/README.rst/>`_.
+    - `hf/system/proxmox/user <https://github.com/alainivars/ansible-roles/blob/master/hf/system/proxmox/user/README.rst/>`_.
 
 Indices and tables
 ------------------
