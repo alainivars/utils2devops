@@ -55,22 +55,19 @@ Contents
    terraform
    source/modules
 
-.. autosummary::
-   :toctree: _autosummary
-
 Ansible roles
 -------------
 
-.. include:: ../ansible/roles/hf/system/base_local/README.rst
-.. include:: ../ansible/roles/hf/system/user_key/add/README.rst
-.. include:: ../ansible/roles/hf/system/user_key/authorized_keys/README.rst
-.. include:: ../ansible/roles/hf/system/user_key/create/README.rst
-.. include:: ../ansible/roles/hf/system/nfs/client/README.rst
-.. include:: ../ansible/roles/hf/system/nfs/server/README.rst
-.. include:: ../ansible/roles/hf/system/proxmox/community/README.rst
-.. include:: ../ansible/roles/hf/system/proxmox/group/README.rst
-.. include:: ../ansible/roles/hf/system/proxmox/token/README.rst
-.. include:: ../ansible/roles/hf/system/proxmox/user/README.rst
+.. _SO https://github.com/alainivars/ansible-roles/blob/master/hf/system/base_local/README.rst
+.. _SO https://github.com/alainivars/ansible-roles/blob/master/hf/system/user_key/add/README.rst
+.. _SO https://github.com/alainivars/ansible-roles/blob/master/hf/system/user_key/authorized_keys/README.rst
+.. _SO https://github.com/alainivars/ansible-roles/blob/master/hf/system/user_key/create/README.rst
+.. _SO https://github.com/alainivars/ansible-roles/blob/master/hf/system/nfs/client/README.rst
+.. _SO https://github.com/alainivars/ansible-roles/blob/master/hf/system/nfs/server/README.rst
+.. _SO https://github.com/alainivars/ansible-roles/blob/master/hf/system/proxmox/community/README.rst
+.. _SO https://github.com/alainivars/ansible-roles/blob/master/hf/system/proxmox/group/README.rst
+.. _SO https://github.com/alainivars/ansible-roles/blob/master/hf/system/proxmox/token/README.rst
+.. _SO https://github.com/alainivars/ansible-roles/blob/master/hf/system/proxmox/user/README.rst
 
 Indices and tables
 ------------------
