@@ -4,17 +4,9 @@
 Welcome to Utils2devops documentation!
 ======================================
 
-.. image:: https://api.travis-ci.org/alainivars/utils2devops.svg?branch=master
-    :target: http://travis-ci.org/alainivars/utils2devops
-    :alt: Build status
-
 .. image:: https://coveralls.io/repos/github/alainivars/utils2devops/badge.svg?branch=master
     :target: https://coveralls.io/github/alainivars/utils2devops?branch=master
     :alt: Test coverage status
-
-.. image:: https://requires.io/github/alainivars/utils2devops/requirements.svg?branch=master
-    :target: https://requires.io/github/alainivars/utils2devops/requirements/?branch=master
-    :alt: Requirements Status
 
 .. image:: https://img.shields.io/badge/Proxmox-E57000?style=plastic&logo=Proxmox&logoColor=white
    :target: https://pypi.python.org/pypi/utils2devops/
@@ -116,14 +108,15 @@ Online documentation is here on `Readthedoc`_
 Online source code available on `Github`_
 
 Ansible roles
+-------------
 
-* :ref:../ansible/roles/hf/system/base_local/README.rst
-* :ref:../ansible/roles/hf/system/user_key/add/README.rst
-* :ref:../ansible/roles/hf/system/user_key/authorized_keys/README.rst
-* :ref:../ansible/roles/hf/system/user_key/create/README.rst
-* :ref:../ansible/roles/hf/system/nfs/client/README.rst
-* :ref:../ansible/roles/hf/system/nfs/server/README.rst
-* :ref:../ansible/roles/hf/system/proxmox/community/README.rst
-* :ref:../ansible/roles/hf/system/proxmox/group/README.rst
-* :ref:../ansible/roles/hf/system/proxmox/token/README.rst
-* :ref:../ansible/roles/hf/system/proxmox/user/README.rst
+.. include:: ../ansible/roles/hf/system/base_local/README.rst
+.. include:: ../ansible/roles/hf/system/user_key/add/README.rst
+.. include:: ../ansible/roles/hf/system/user_key/authorized_keys/README.rst
+.. include:: ../ansible/roles/hf/system/user_key/create/README.rst
+.. include:: ../ansible/roles/hf/system/nfs/client/README.rst
+.. include:: ../ansible/roles/hf/system/nfs/server/README.rst
+.. include:: ../ansible/roles/hf/system/proxmox/community/README.rst
+.. include:: ../ansible/roles/hf/system/proxmox/group/README.rst
+.. include:: ../ansible/roles/hf/system/proxmox/token/README.rst
+.. include:: ../ansible/roles/hf/system/proxmox/user/README.rst
