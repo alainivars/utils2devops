@@ -57,6 +57,7 @@ Contents
 
 Ansible roles
 -------------
+Test hyperlink: SO_.
 
 .. _SO https://github.com/alainivars/ansible-roles/blob/master/hf/system/base_local/README.rst
 .. _SO https://github.com/alainivars/ansible-roles/blob/master/hf/system/user_key/add/README.rst
